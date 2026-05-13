@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BOK Labs — Software that ships.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="description" content="BOK Labs — custom software for teams that need real engineering, not templates. Web, mobile, automation.">
+<meta property="og:title" content="BOK Labs — Software that ships">
+<meta property="og:description" content="Custom software for SMBs and mid-market teams. Real engineering, real deadlines.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --surface: #111111;
+    --elevated: #171717;
+    --border: #262626;
+    --border-strong: #303030;
+    --text: #F4F4F5;
+    --text-2: #A1A1AA;
+    --text-3: #52525B;
+    --text-4: #3F3F46;
+    --green: #1F5C3F;
+    --green-active: #3DBA7E;
+    --green-dim: #14361F;
+    --green-soft: #7DD3A8;
+    --danger: #E5484D;
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--sans); scroll-behavior: smooth; }
+  body {
+    background-image:
+      radial-gradient(900px 600px at 90% 0%, rgba(31,92,63,0.18), transparent 60%),
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 100% 100%, 56px 56px, 56px 56px;
+    background-attachment: fixed, fixed, fixed;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+  input, textarea, select { font-family: inherit; }
+  ::selection { background: var(--green); color: var(--text); }
+
+  /* Reusable button styles */
+  .btn-primary {
+    background: var(--green); color: var(--text); border: none;
+    padding: 14px 22px; border-radius: 6;
+    font-family: var(--sans); font-weight: 600; font-size: 14px;
+    letter-spacing: -0.005em;
+    display: inline-flex; align-items: center; gap: 10px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 1px 0 rgba(0,0,0,0.4);
+    transition: background 150ms;
+  }
+  .btn-primary:hover { background: #2A7350; }
+  .btn-ghost {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border-strong);
+    padding: 14px 22px; border-radius: 6;
+    font-family: var(--sans); font-weight: 500; font-size: 14px;
+    transition: border-color 150ms, background 150ms;
+  }
+  .btn-ghost:hover { border-color: var(--text-2); background: rgba(255,255,255,0.02); }
+
+  /* Section eyebrow */
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px; color: var(--green-active);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before {
+    content: ''; width: 16px; height: 1px; background: var(--green-active);
+  }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="landing-shared.jsx"></script>
+<script type="text/babel" src="motion.jsx"></script>
+<script type="text/babel" src="hero-bg.jsx"></script>
+<script type="text/babel" src="landing-sections.jsx"></script>
+<script type="text/babel" src="landing-contact.jsx"></script>
+<script type="text/babel" src="landing-app.jsx"></script>
+</body>
+</html>
