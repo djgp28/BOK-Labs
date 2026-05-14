@@ -3,6 +3,7 @@
 // ─── Nav ────────────────────────────────────────────────────────────────
 function Nav() {
   const [scrolled, setScrolled] = React.useState(false);
+  const isMobile = useIsMobile();
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
@@ -19,14 +20,14 @@ function Nav() {
       transition: 'all 200ms',
     }}>
       <Container style={{
-        padding: '18px 56px', display: 'flex',
+        padding: isMobile ? '14px 20px' : '18px 56px', display: 'flex',
         alignItems: 'center', justifyContent: 'space-between',
       }}>
         <a href="#top" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <Wordmark size={24} />
+          <Wordmark size={isMobile ? 22 : 24} />
         </a>
         <div style={{
-          display: 'flex', gap: 28, fontSize: 14, color: C.text2, fontWeight: 500,
+          display: isMobile ? 'none' : 'flex', gap: 28, fontSize: 14, color: C.text2, fontWeight: 500,
         }}>
           {['Services', 'Process', 'Contact'].map((l) => (
             <a key={l} href={`#${l.toLowerCase()}`} style={{ transition: 'color 150ms' }}
@@ -39,12 +40,12 @@ function Nav() {
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <span style={{
             fontFamily: 'var(--mono)', fontSize: 11, color: C.text3,
-            letterSpacing: '0.06em',
+            letterSpacing: '0.06em', display: isMobile ? 'none' : 'inline',
           }}>v2.4</span>
           <a href="#contact" style={{
             background: C.text, color: C.bg,
-            padding: '9px 14px', borderRadius: 5,
-            fontWeight: 600, fontSize: 13,
+            padding: isMobile ? '8px 11px' : '9px 14px', borderRadius: 5,
+            fontWeight: 600, fontSize: isMobile ? 12 : 13,
           }}>Start a project</a>
         </div>
       </Container>
@@ -54,21 +55,24 @@ function Nav() {
 
 // ─── Hero ───────────────────────────────────────────────────────────────
 function Hero() {
+  const isMobile = useIsMobile();
+  const isNarrow = useIsNarrowMobile();
   return (
-    <section id="top" style={{ position: 'relative', padding: '100px 0 120px', overflow: 'hidden' }}>
+    <section id="top" style={{ position: 'relative', padding: isMobile ? '56px 0 76px' : '100px 0 120px', overflow: 'hidden' }}>
       <HeroCanvas />
       <Container style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.25fr 1fr', gap: 64, alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.25fr 1fr', gap: isMobile ? 32 : 64, alignItems: 'start' }}>
           <div>
             <MountReveal delay={50} y={12}>
               <div style={{
                 display: 'inline-flex', alignItems: 'center', gap: 10,
                 padding: '6px 12px',
                 border: `1px solid ${C.borderStrong}`, borderRadius: 999,
-                fontFamily: 'var(--mono)', fontSize: 11, color: C.text2,
+                fontFamily: 'var(--mono)', fontSize: isNarrow ? 10 : 11, color: C.text2,
                 background: 'rgba(20,54,31,0.18)', marginBottom: 28,
                 backdropFilter: 'blur(6px)',
                 WebkitBackdropFilter: 'blur(6px)',
+                lineHeight: 1.4, maxWidth: '100%',
               }}>
                 <span style={{
                   width: 7, height: 7, borderRadius: 4,
@@ -80,8 +84,8 @@ function Hero() {
             </MountReveal>
             <MountReveal delay={180} y={20}>
               <h1 style={{
-                fontSize: 88, fontWeight: 700, letterSpacing: '-0.045em',
-                lineHeight: 0.96, margin: 0,
+                fontSize: isNarrow ? 46 : isMobile ? 54 : 88, fontWeight: 700, letterSpacing: '-0.045em',
+                lineHeight: isMobile ? 0.98 : 0.96, margin: 0,
               }}>
                 Software<br/>
                 <span style={{ color: C.text2 }}>that actually</span><br/>
@@ -97,7 +101,7 @@ function Hero() {
               </h1>
             </MountReveal>
             <MountReveal delay={360} y={16}>
-              <div style={{ fontSize: 19, color: C.text2, lineHeight: 1.55, maxWidth: 520, marginTop: 32 }}>
+              <div style={{ fontSize: isMobile ? 16 : 19, color: C.text2, lineHeight: 1.55, maxWidth: 520, marginTop: isMobile ? 24 : 32 }}>
                 We design and build custom web, mobile, and automation systems for SMBs and mid-market teams. Real engineering, real deadlines.
               </div>
             </MountReveal>
@@ -121,6 +125,8 @@ function Hero() {
 }
 
 function HeroTerminal() {
+  const isMobile = useIsMobile();
+  const isNarrow = useIsNarrowMobile();
   // Each line is an array of {t, c} segments; null = blank spacer row.
   // c keys: p=prompt, k=command, a=accent, o=output, s=success-soft
   const COL = { p: C.text3, k: C.text, a: C.greenActive, o: C.text2, s: C.greenSoft };
@@ -199,10 +205,13 @@ function HeroTerminal() {
     }} />
   );
 
+  const lineStyle = { whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' };
+
   return (
     <div style={{
       background: C.surface, border: `1px solid ${C.border}`, borderRadius: 10,
-      overflow: 'hidden', boxShadow: '0 30px 80px -20px rgba(0,0,0,0.6)', marginTop: 16,
+      overflow: 'hidden', boxShadow: '0 30px 80px -20px rgba(0,0,0,0.6)', marginTop: isMobile ? 4 : 16,
+      maxWidth: '100%',
     }}>
       <div style={{
         display: 'flex', alignItems: 'center', gap: 8,
@@ -213,24 +222,25 @@ function HeroTerminal() {
         <span style={{ width: 10, height: 10, borderRadius: 5, background: '#FFBD2E' }} />
         <span style={{ width: 10, height: 10, borderRadius: 5, background: '#28CA41' }} />
         <div style={{ flex: 1 }} />
-        <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: C.text3 }}>~/client/platform — zsh</span>
+        <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: C.text3, display: isNarrow ? 'none' : 'inline' }}>~/client/platform — zsh</span>
       </div>
       <div style={{
-        padding: '20px 22px 24px', fontFamily: 'var(--mono)', fontSize: 12.5,
-        lineHeight: 1.75, minHeight: 340,
+        padding: isMobile ? '14px 14px 18px' : '20px 22px 24px', fontFamily: 'var(--mono)', fontSize: isNarrow ? 10.5 : isMobile ? 11.5 : 12.5,
+        lineHeight: isMobile ? 1.65 : 1.75, minHeight: isMobile ? 260 : 340,
+        overflowX: 'hidden',
       }}>
         {LINES.map((line, i) => {
           if (i > s.li) return null;
           if (line === null) return i < s.li ? <div key={i} style={{ height: 6 }} /> : null;
           if (i < s.li) {
             return (
-              <div key={i}>
+              <div key={i} style={lineStyle}>
                 {line.map((seg, j) => <span key={j} style={{ color: COL[seg.c] }}>{seg.t}</span>)}
               </div>
             );
           }
           // current line being typed
-          return <div key={i}>{renderPartial(line, s.ci)}{!s.done && cursor}</div>;
+          return <div key={i} style={lineStyle}>{renderPartial(line, s.ci)}{!s.done && cursor}</div>;
         })}
         {s.done && <div><span style={{ color: C.text3 }}>$ </span>{cursor}</div>}
       </div>
@@ -297,8 +307,9 @@ const SERVICES = [
 ];
 
 function ServicesSection() {
+  const isMobile = useIsMobile();
   return (
-    <section id="services" style={{ padding: '120px 0' }}>
+    <section id="services" style={{ padding: isMobile ? '76px 0' : '120px 0' }}>
       <Container>
         <Reveal>
           <SectionHead
@@ -308,7 +319,7 @@ function ServicesSection() {
           />
         </Reveal>
         <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20,
+          display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: 20,
         }}>
           {SERVICES.map((s, i) => (
             <Reveal key={s.n} delay={i * 100} y={28}>
@@ -323,6 +334,7 @@ function ServicesSection() {
 
 function ServiceCard({ n, title, desc, tags, time }) {
   const [hovered, setHovered] = React.useState(false);
+  const isMobile = useIsMobile();
   return (
     <article
       onMouseEnter={() => setHovered(true)}
@@ -330,7 +342,7 @@ function ServiceCard({ n, title, desc, tags, time }) {
       style={{
         background: hovered ? '#161616' : C.surface,
         border: `1px solid ${hovered ? C.borderStrong : C.border}`,
-        borderRadius: 10, padding: '32px 32px 28px',
+        borderRadius: 10, padding: isMobile ? '24px 22px 22px' : '32px 32px 28px',
         position: 'relative', overflow: 'hidden',
         transition: 'all 220ms',
         boxShadow: hovered ? `0 20px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px ${C.greenDim}` : 'none',
@@ -342,7 +354,7 @@ function ServiceCard({ n, title, desc, tags, time }) {
           background: `linear-gradient(90deg, transparent, ${C.greenActive}, transparent)`,
         }} />
       )}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 32 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: isMobile ? 24 : 32 }}>
         <ServiceIcon active={hovered} n={n} />
         <span style={{
           fontFamily: 'var(--mono)', fontSize: 11, color: C.text3,
@@ -350,7 +362,7 @@ function ServiceCard({ n, title, desc, tags, time }) {
         }}>{n} / 04</span>
       </div>
       <h3 style={{
-        fontFamily: '"Space Grotesk", sans-serif', fontWeight: 600, fontSize: 26,
+        fontFamily: '"Space Grotesk", sans-serif', fontWeight: 600, fontSize: isMobile ? 22 : 26,
         margin: 0, letterSpacing: '-0.02em',
       }}>{title}</h3>
       <p style={{ fontSize: 15, color: C.text2, lineHeight: 1.6, margin: '12px 0 22px' }}>
@@ -367,7 +379,9 @@ function ServiceCard({ n, title, desc, tags, time }) {
       </div>
       <div style={{
         marginTop: 26, paddingTop: 20, borderTop: `1px solid ${C.border}`,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        display: 'flex', flexDirection: isMobile ? 'column' : 'row',
+        alignItems: isMobile ? 'flex-start' : 'center', justifyContent: 'space-between',
+        gap: isMobile ? 12 : 0,
       }}>
         <span style={{
           fontFamily: 'var(--mono)', fontSize: 11, color: C.text3,
@@ -443,9 +457,10 @@ const STEPS = [
 ];
 
 function ProcessSection() {
+  const isMobile = useIsMobile();
   return (
     <section id="process" style={{
-      padding: '120px 0',
+      padding: isMobile ? '76px 0' : '120px 0',
       borderTop: `1px solid ${C.border}`,
       background: 'rgba(0,0,0,0.18)',
     }}>
@@ -460,7 +475,7 @@ function ProcessSection() {
         <div style={{ position: 'relative' }}>
           {/* connector line */}
           <div style={{
-            position: 'absolute', left: 24, top: 24, bottom: 24, width: 1,
+            position: 'absolute', left: isMobile ? 20 : 24, top: 24, bottom: 24, width: 1,
             background: `linear-gradient(180deg, ${C.green}, transparent)`,
           }} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
@@ -477,19 +492,20 @@ function ProcessSection() {
 }
 
 function StepRow({ n, title, desc, dur }) {
+  const isMobile = useIsMobile();
   return (
-    <div style={{ display: 'flex', gap: 28, alignItems: 'flex-start' }}>
+    <div style={{ display: 'flex', gap: isMobile ? 16 : 28, alignItems: 'flex-start' }}>
       <div style={{
-        width: 48, height: 48, borderRadius: 24, flexShrink: 0,
+        width: isMobile ? 40 : 48, height: isMobile ? 40 : 48, borderRadius: 24, flexShrink: 0,
         background: C.bg, border: `1px solid ${C.green}`,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontFamily: 'var(--mono)', fontSize: 13, color: C.greenActive, fontWeight: 500,
+        fontFamily: 'var(--mono)', fontSize: isMobile ? 12 : 13, color: C.greenActive, fontWeight: 500,
         boxShadow: `0 0 0 4px ${C.bg}`,
       }}>{n}</div>
       <div style={{
         flex: 1, background: C.surface, border: `1px solid ${C.border}`,
-        borderRadius: 8, padding: '20px 24px',
-        display: 'grid', gridTemplateColumns: '1fr auto', gap: 24, alignItems: 'center',
+        borderRadius: 8, padding: isMobile ? '18px 18px' : '20px 24px',
+        display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr auto', gap: isMobile ? 12 : 24, alignItems: 'center',
       }}>
         <div>
           <h3 style={{
@@ -694,12 +710,13 @@ function StatsSection() {
 
 // ─── Footer ─────────────────────────────────────────────────────────────
 function Footer() {
+  const isMobile = useIsMobile();
   return (
-    <footer style={{ padding: '64px 0 32px', borderTop: `1px solid ${C.border}` }}>
+    <footer style={{ padding: isMobile ? '48px 0 28px' : '64px 0 32px', borderTop: `1px solid ${C.border}` }}>
       <Container>
         <div style={{
-          display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', gap: 32,
-          paddingBottom: 48,
+          display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.4fr 1fr 1fr 1fr', gap: isMobile ? 28 : 32,
+          paddingBottom: isMobile ? 36 : 48,
         }}>
           <div>
             <Wordmark size={28} />
@@ -719,8 +736,11 @@ function Footer() {
         </div>
         <div style={{
           borderTop: `1px solid ${C.border}`, paddingTop: 24,
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          display: 'flex', flexDirection: isMobile ? 'column' : 'row',
+          justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center',
+          gap: isMobile ? 10 : 0,
           fontFamily: 'var(--mono)', fontSize: 11, color: C.text3, letterSpacing: '0.06em',
+          lineHeight: 1.6,
         }}>
           <span>© 2026 BOK Labs, Inc · v2.4 · build 1a3f9c</span>
           <span>// built in-house</span>

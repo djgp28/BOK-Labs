@@ -1,16 +1,17 @@
 // landing-contact.jsx — Contact section with working form (mailto submit).
 
 function ContactSection() {
+  const isMobile = useIsMobile();
   return (
     <section id="contact" style={{
-      padding: '120px 0',
+      padding: isMobile ? '76px 0' : '120px 0',
       borderTop: `1px solid ${C.border}`,
       background: `linear-gradient(180deg, rgba(20,54,31,0.08), transparent 60%)`,
       position: 'relative',
     }}>
       <Container>
         <div style={{
-          display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 80, alignItems: 'start',
+          display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1.2fr', gap: isMobile ? 40 : 80, alignItems: 'start',
         }}>
           <Reveal y={20}><ContactLeft /></Reveal>
           <Reveal y={20} delay={120}><ContactForm /></Reveal>
@@ -21,23 +22,24 @@ function ContactSection() {
 }
 
 function ContactLeft() {
+  const isMobile = useIsMobile();
   return (
-    <div style={{ position: 'sticky', top: 100 }}>
+    <div style={{ position: isMobile ? 'relative' : 'sticky', top: isMobile ? 'auto' : 100 }}>
       <div className="eyebrow" style={{ marginBottom: 18 }}>// start a project</div>
       <h2 style={{
         fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700,
-        fontSize: 56, letterSpacing: '-0.035em', lineHeight: 1.02, margin: 0,
+        fontSize: isMobile ? 42 : 56, letterSpacing: '-0.035em', lineHeight: isMobile ? 1.06 : 1.02, margin: 0,
       }}>
         Tell us<br/>
         <span style={{ color: C.text2 }}>what you're</span><br/>
         building<span style={{ color: C.greenActive }}>.</span>
       </h2>
-      <p style={{ fontSize: 17, color: C.text2, lineHeight: 1.6, marginTop: 24, maxWidth: 420 }}>
+      <p style={{ fontSize: isMobile ? 16 : 17, color: C.text2, lineHeight: 1.6, marginTop: 24, maxWidth: 420 }}>
         Send us the rough shape. We'll come back within one business day with questions, a timeline, and a budget range — no slides, no pitch deck.
       </p>
 
       <div style={{
-        marginTop: 36, padding: '20px 22px',
+        marginTop: isMobile ? 28 : 36, padding: isMobile ? '18px 18px' : '20px 22px',
         background: C.surface, border: `1px solid ${C.border}`, borderRadius: 8,
         display: 'flex', flexDirection: 'column', gap: 12,
       }}>
@@ -61,6 +63,7 @@ function ContactRow({ k, v, href, highlight }) {
   const body = (
     <div style={{
       display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+      gap: 12, flexWrap: 'wrap',
       paddingBottom: 12, borderBottom: `1px solid ${C.border}`,
     }}>
       <span style={{
@@ -86,6 +89,7 @@ const BUDGETS = [
 ];
 
 function ContactForm() {
+  const isMobile = useIsMobile();
   const [form, setForm] = React.useState({
     name: '', email: '', company: '', type: '', budget: '', message: '',
   });
@@ -137,11 +141,13 @@ function ContactForm() {
   return (
     <form onSubmit={submit} noValidate style={{
       background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12,
-      padding: '32px 36px 28px',
-      display: 'flex', flexDirection: 'column', gap: 22,
+      padding: isMobile ? '22px 20px 22px' : '32px 36px 28px',
+      display: 'flex', flexDirection: 'column', gap: isMobile ? 18 : 22,
     }}>
       <div style={{
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        display: 'flex', flexDirection: isMobile ? 'column' : 'row',
+        justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center',
+        gap: isMobile ? 10 : 0,
         paddingBottom: 18, borderBottom: `1px solid ${C.border}`,
       }}>
         <div style={{
@@ -158,14 +164,14 @@ function ContactForm() {
         }}>POST → info@bok-labs.com</div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 18 }}>
         <Field label="Name" req k="name" v={form.name} onChange={set('name')} err={errors.name} placeholder="Alex Okafor" />
         <Field label="Email" req k="email" v={form.email} onChange={set('email')} err={errors.email} placeholder="alex@company.com" type="email" />
       </div>
 
       <Field label="Company" k="company" v={form.company} onChange={set('company')} placeholder="Acme Co. — optional" />
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 18 }}>
         <SelectField label="Project type" k="type" v={form.type} onChange={set('type')} options={PROJECT_TYPES} />
         <SelectField label="Budget range" k="budget" v={form.budget} onChange={set('budget')} options={BUDGETS} />
       </div>
@@ -178,7 +184,8 @@ function ContactForm() {
       />
 
       <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16,
+        display: 'flex', flexDirection: isMobile ? 'column' : 'row',
+        alignItems: isMobile ? 'stretch' : 'center', justifyContent: 'space-between', gap: 16,
         marginTop: 4,
       }}>
         <div style={{
@@ -188,7 +195,7 @@ function ContactForm() {
           // we'll reply within <span style={{ color: C.greenActive }}>1 business day</span>
         </div>
         <button type="submit" disabled={submitting} className="btn-primary"
-          style={{ opacity: submitting ? 0.7 : 1, whiteSpace: 'nowrap' }}>
+          style={{ opacity: submitting ? 0.7 : 1, whiteSpace: 'nowrap', justifyContent: 'center', width: isMobile ? '100%' : 'auto' }}>
           {submitting ? 'Sending…' : 'Send inquiry'}
           <span style={{ fontFamily: 'var(--mono)' }}>{submitting ? '…' : '→'}</span>
         </button>
@@ -198,11 +205,12 @@ function ContactForm() {
 }
 
 function Field({ label, req, k, v, onChange, placeholder, err, type = 'text', multiline = false, rows = 4 }) {
+  const isMobile = useIsMobile();
   const baseStyle = {
     width: '100%', background: C.bg, color: C.text,
     border: `1px solid ${err ? C.danger : C.border}`,
     borderRadius: 6, padding: '12px 14px',
-    fontSize: 14, lineHeight: 1.5,
+    fontSize: isMobile ? 16 : 14, lineHeight: 1.5,
     outline: 'none', transition: 'border-color 150ms',
     fontFamily: 'inherit',
     resize: multiline ? 'vertical' : 'none',
@@ -231,6 +239,7 @@ function Field({ label, req, k, v, onChange, placeholder, err, type = 'text', mu
 }
 
 function SelectField({ label, k, v, onChange, options }) {
+  const isMobile = useIsMobile();
   return (
     <label style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
       <span style={{
@@ -241,7 +250,7 @@ function SelectField({ label, k, v, onChange, options }) {
         <select name={k} value={v} onChange={onChange} style={{
           width: '100%', background: C.bg, color: v ? C.text : C.text3,
           border: `1px solid ${C.border}`, borderRadius: 6,
-          padding: '12px 36px 12px 14px', fontSize: 14,
+          padding: '12px 36px 12px 14px', fontSize: isMobile ? 16 : 14,
           appearance: 'none', WebkitAppearance: 'none', MozAppearance: 'none',
           outline: 'none', fontFamily: 'inherit', cursor: 'pointer',
         }}>
@@ -258,10 +267,11 @@ function SelectField({ label, k, v, onChange, options }) {
 }
 
 function SentState({ onReset }) {
+  const isMobile = useIsMobile();
   return (
     <div style={{
       background: C.surface, border: `1px solid ${C.green}`, borderRadius: 12,
-      padding: '60px 36px', textAlign: 'center',
+      padding: isMobile ? '42px 22px' : '60px 36px', textAlign: 'center',
       display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18,
       position: 'relative', overflow: 'hidden',
     }}>
