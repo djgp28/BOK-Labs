@@ -290,11 +290,11 @@
   .nodes { list-style: none; margin: 0; padding: 0; }
   .node {
     position: absolute; left: calc(8vw + 22px); top: calc(10vh + var(--r) * 1vh); width: 26vw; max-width: 26rem;
-    /* each step appears on its own, as its first artifact lands */
-    --on: clamp(0, calc((var(--sc-p, 0) - var(--n)) / 0.06), 1);
-    opacity: var(--on);
-    transform: translateY(calc((1 - var(--on)) * 12px));
+    /* each step appears once, by class, as its first artifact lands (site.js); never removed */
+    opacity: 0; transform: translateY(12px);
+    transition: opacity .5s var(--sc-ease-out), transform .5s var(--sc-ease-out);
   }
+  .node.is-latched, .is-built .node { opacity: 1; transform: none; }
   .node::before {
     content: ""; position: absolute; left: -28px; top: .38em; width: 10px; height: 10px; border-radius: 50%;
     background: var(--sc-canvas); border: 2px solid var(--sc-accent); box-sizing: border-box;
@@ -377,12 +377,10 @@
      site.js adds .is-latched the first time an element reaches full opacity; !important beats the
      engine's per-frame inline writes without touching the engine. */
   .is-latched, .is-latched .sc-split__i { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
-  .node.is-latched, .offer.is-latched { opacity: 1 !important; }
   /* once the pipeline has run, the peak stays built: site.js adds .is-built to the stage */
   .is-built .chip { --k: 1; }
   .is-built .tangle path { stroke-dashoffset: 1; }
   .is-built .spine .draw { stroke-dashoffset: 0; }
-  .is-built .node { --on: 1; }
   .is-built .offer { opacity: 1; }
 
   /* =========================================================== reduced motion */
@@ -391,7 +389,7 @@
     .tangle path { stroke-dashoffset: clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1); }
     .spine .draw { stroke-dashoffset: calc(1 - clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1)); }
     .is-running .spine .flow, .is-running .runner { animation: none; }
-    .node { --on: clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1); transform: none; }
+    .node { transition: none; }
     .offer { opacity: clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1); }
     .divider, .half--system { transition: none; }
   }
@@ -526,12 +524,12 @@
     <div class="g g--chaos"></div>
     <div class="g g--system"></div>
     <div class="cols cols--tension">
-      <div class="tension__l" data-sc-in data-sc-stagger="160">
+      <div class="tension__l">
         <p class="cost" data-i18n="t1.l">The price is in someone's head.</p>
         <p class="cost" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
         <p class="cost" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
       </div>
-      <div class="tension__r" data-sc-in data-sc-stagger="220">
+      <div class="tension__r">
         <div class="notif" role="status">
           <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
           <b data-i18n="t1.t">Price list updated</b>
@@ -556,8 +554,8 @@
     <div class="g g--chaos"></div>
     <div class="g g--system"></div>
     <div class="cols">
-      <p class="stamp" data-sc-in data-i18n="turn.stamp">Tuesday, 11:40 pm. Still at the desk.</p>
-      <p class="sc-display turn__line" data-sc-in data-i18n="turn.line">Then someone builds the system.</p>
+      <p class="stamp" data-i18n="turn.stamp">Tuesday, 11:40 pm. Still at the desk.</p>
+      <p class="sc-display turn__line" data-i18n="turn.line">Then someone builds the system.</p>
     </div>
   </section>
 
@@ -609,8 +607,8 @@
     <div class="g g--chaos"></div>
     <div class="g g--system"></div>
     <div class="cols">
-      <p class="peak__quiet" data-sc-in data-i18n="peak.l">Nothing left to hold together.</p>
-      <div class="after__r" data-sc-in data-sc-stagger="140">
+      <p class="peak__quiet" data-i18n="peak.l">Nothing left to hold together.</p>
+      <div class="after__r">
         <p class="sc-display peak__line" data-i18n="peak.r">One pipeline. It runs on its own.</p>
         <p class="offer" data-i18n="offer">Workflows, automations and AI systems that run the operation. A web or mobile app when the system needs a screen.</p>
       </div>
@@ -621,39 +619,24 @@
   <section id="a5" data-sc-act="flow" class="proof two">
     <div class="g g--chaos"></div>
     <div class="g g--system"></div>
-    <h2 class="sc-display proof__h" data-sc-in data-i18n="gain.h">Big-company tools, in everyone's hands.</h2>
-    <p class="proof__lede" data-sc-in data-i18n="gain.lede">Automate the work. Build the system. This is what changes for a small business.</p>
+    <h2 class="sc-display proof__h" data-i18n="gain.h">Big-company tools, in everyone's hands.</h2>
+    <p class="proof__lede" data-i18n="gain.lede">Automate the work. Build the system. This is what changes for a small business.</p>
     <div class="rows rows--gain">
       <article class="row row--gain">
-        <div class="had" data-sc-in><p data-i18n="g1.had">Growing means one more person holding it all together.</p></div>
-        <div class="runs" data-sc-in><h3 data-i18n="g1.h">Scale</h3><p data-i18n="g1.p">The system absorbs the extra volume. You take the extra business, not the extra nights.</p></div>
+        <div class="had"><p data-i18n="g1.had">Growing means one more person holding it all together.</p></div>
+        <div class="runs"><h3 data-i18n="g1.h">Scale</h3><p data-i18n="g1.p">The system absorbs the extra volume. You take the extra business, not the extra nights.</p></div>
       </article>
       <article class="row row--gain">
-        <div class="had" data-sc-in><p data-i18n="g2.had">Enquiries wait in a chat until someone gets to them.</p></div>
-        <div class="runs" data-sc-in><h3 data-i18n="g2.h">More sales</h3><p data-i18n="g2.p">Every enquiry answered, followed up and closed on time. Nothing falls between messages.</p></div>
+        <div class="had"><p data-i18n="g2.had">Enquiries wait in a chat until someone gets to them.</p></div>
+        <div class="runs"><h3 data-i18n="g2.h">More sales</h3><p data-i18n="g2.p">Every enquiry answered, followed up and closed on time. Nothing falls between messages.</p></div>
       </article>
       <article class="row row--gain">
-        <div class="had" data-sc-in><p data-i18n="g3.had">You hear about a problem when a customer calls about it.</p></div>
-        <div class="runs" data-sc-in><h3 data-i18n="g3.h">More control</h3><p data-i18n="g3.p">Stock, orders, payments and cash visible at a glance, with an alert before it hurts.</p></div>
+        <div class="had"><p data-i18n="g3.had">You hear about a problem when a customer calls about it.</p></div>
+        <div class="runs"><h3 data-i18n="g3.h">More control</h3><p data-i18n="g3.p">Stock, orders, payments and cash visible at a glance, with an alert before it hurts.</p></div>
       </article>
       <article class="row row--gain">
-        <div class="had" data-sc-in><p data-i18n="g4.had">Decisions come from memory and gut feeling.</p></div>
-        <div class="runs" data-sc-in><h3 data-i18n="g4.h">Better decisions</h3><p data-i18n="g4.p">Real numbers every week, without anyone building a spreadsheet first.</p></div>
-      </article>
-    </div>
-    <h2 class="sc-display proof__h proof__h--2" data-sc-in data-i18n="proof.h">Built, shipped, running.</h2>
-    <div class="rows">
-      <article class="row">
-        <div class="had" data-sc-in><span class="sc-label" data-i18n="proof.had">They had</span><p data-i18n="p1.had">Years of daily farm records in notebooks and spreadsheets, and one person who knew where everything was.</p></div>
-        <div class="runs" data-sc-in><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://ager-pro.com" rel="noopener">AgerPRO</a></h3><p data-i18n="p1.runs">Production, rainfall, finances, fuel and staff in one platform, on the web and on Android, for several farms at once.</p><p class="out" data-i18n="p1.out">1,280 days of history imported. In production.</p></div>
-      </article>
-      <article class="row">
-        <div class="had" data-sc-in><span class="sc-label" data-i18n="proof.had">They had</span><p data-i18n="p2.had">Orders arriving over chat, payments confirmed by hand, stock counted from memory.</p></div>
-        <div class="runs" data-sc-in><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://pharmatechus.com" rel="noopener">PharmaTech US</a></h3><p data-i18n="p2.runs">An online store that hands each order to WhatsApp with a confirmation link, and an owner panel for orders, payments, inventory and sales.</p><p class="out" data-i18n="p2.out">Orders arrive structured. The owner works from one panel.</p></div>
-      </article>
-      <article class="row">
-        <div class="had" data-sc-in><span class="sc-label" data-i18n="proof.had">They had</span><p data-i18n="p3.had">A practice with no online presence and enquiries scattered across messages.</p></div>
-        <div class="runs" data-sc-in><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://www.drdoulapoppins.com/" rel="noopener">DrDoulaPoppins</a></h3><p data-i18n="p3.runs">A single-page site with services, pricing and a lead capture that lands in WhatsApp.</p><p class="out" data-i18n="p3.out">Live at drdoulapoppins.com.</p></div>
+        <div class="had"><p data-i18n="g4.had">Decisions come from memory and gut feeling.</p></div>
+        <div class="runs"><h3 data-i18n="g4.h">Better decisions</h3><p data-i18n="g4.p">Real numbers every week, without anyone building a spreadsheet first.</p></div>
       </article>
     </div>
   </section>
