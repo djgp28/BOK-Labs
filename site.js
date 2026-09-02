@@ -27,7 +27,7 @@
     't3.l': 'El informe está en una hoja de cálculo que solo una persona sabe usar.',
     't3.t': 'Informe mensual enviado', 't3.b': 'Generado a las 07:00, entregado a tres personas.',
     'turn.stamp': 'Martes, 11:40 pm. Todavía en el escritorio.',
-    'turn.line': 'Entonces alguien construye el sistema.',
+    'turn.line': 'Entonces tomas una decisión, y nosotros construimos el resto.',
     'c.wa.k': 'WhatsApp · 11:42 PM',
     'c.wa': '¿Todavía tienes el de 500 ml? Necesito 40 para el viernes.',
     'c.voice': 'Nota de voz · 0:47',
