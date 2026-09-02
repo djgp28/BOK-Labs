@@ -138,9 +138,10 @@
   .centre > * { grid-area: 1 / 1; }
 
   /* ============================================================= 1 · hero */
+  /* a band under the copy only: the papers on the desk are the brightest thing in the frame */
   .hero-scrim {
-    position: absolute; inset: auto 0 0 0; height: 62%; z-index: 1; pointer-events: none;
-    background: linear-gradient(to top, rgba(21,19,17,.96) 0%, rgba(21,19,17,.78) 34%, rgba(21,19,17,.3) 66%, transparent 100%);
+    position: absolute; inset: auto 0 0 0; height: 76%; z-index: 1; pointer-events: none;
+    background: linear-gradient(to top, rgba(21,19,17,.99) 0%, rgba(21,19,17,.97) 32%, rgba(21,19,17,.9) 56%, rgba(21,19,17,.55) 78%, transparent 100%);
   }
   .copy { position: absolute; z-index: var(--sc-z-copy); left: var(--sc-gutter); }
   .copy--hero { bottom: clamp(3rem, 12vh, 8rem); right: var(--sc-gutter); }
