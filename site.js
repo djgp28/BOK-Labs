@@ -137,6 +137,17 @@
     Object.keys(spans).forEach(function (id) { var el = document.getElementById(id); if (el) el.setAttribute("data-sc-span", spans[id]); });
   }
   ScrollCraft.mount(document.body);
+  /* eager reveal: the entry animation starts the instant a block touches the viewport, and a block already on
+     screen is shown right away. Same class the engine uses, so nothing is driven twice. */
+  (function () {
+    var blocks = Array.prototype.slice.call(document.querySelectorAll("[data-sc-in]"));
+    function show(el) { el.classList.add("sc-in"); var st = parseFloat(el.getAttribute("data-sc-stagger"));
+      Array.prototype.forEach.call(el.children, function (k, i) { if (!isNaN(st)) k.style.transitionDelay = (i * st) + "ms"; k.classList.add("sc-in"); }); }
+    if (!("IntersectionObserver" in window)) { blocks.forEach(show); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } }); }, { threshold: 0 });
+    blocks.forEach(function (el) { io.observe(el); });
+    setTimeout(function () { blocks.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.bottom > 0 && r.top < innerHeight) show(el); }); }, 400);
+  })();
   /* poster stays until the clip has painted a frame; some browsers never decode it */
   (function () { var v = document.querySelector(".stage--hero video[data-sc-scrub]"), st = document.querySelector(".stage--hero"); if (!v || !st) return;
     function ok() { if (v.readyState >= 2 && v.videoWidth > 0) { st.classList.add("clip-ok"); return true; } return false; }
