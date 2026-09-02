@@ -21,3 +21,12 @@ Desktop.ini
 
 # Claude Code
 CLAUDE.md
+
+# scrollcraft build artefacts (raw generations, screenshots, keys)
+node_modules/
+scrollcraft/lab/
+scrollcraft/builds/*/out/
+scrollcraft/builds/*/lab/
+.env
+*.log
+.DS_Store
