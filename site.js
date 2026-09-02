@@ -173,7 +173,7 @@
 
     var col = split < 0.08;
     if (col !== collapsed) { collapsed = col; document.body.classList.toggle('is-collapsed', col); }
-    document.body.classList.toggle('is-collapsing', split < 0.398);
+    document.body.classList.toggle('is-collapsing', split < 0.398 || p6 > 0.15);
 
     /* the peak: what actually paints, for the harness */
     var run = built || p4 >= 0.70;
