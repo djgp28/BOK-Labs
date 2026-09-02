@@ -28,9 +28,8 @@ changes only grammar and world will fail it.
 
 | Build | Grammar | Nav treatment | Hero device | Act-sequence shape | Close pattern | Signature move | World | Port |
 |---|---|---|---|---|---|---|---|---|
+| bok-labs (2026-09-02) | Split stage | No bar: fixed divider as chrome (labels for both sides, page progress, wordmark, EN/ES toggle) | 50/50 split: half-frame scrub clip left, CSS surface right, two greet headlines, one kinetic | scrub 2.0 · pin 1.8 · flow · pin 3.2 (peak) · flow+reveal · pin 1.6, 6 acts, 10.6vh | The collapse: divider travels to the left edge, the form lives in the winning column, footer inside the stage, hold | Chaos becomes a system: artifacts fly across the divider and file themselves beside pipeline nodes while the scribbles un-draw and the pipeline starts running | Dark brand canvas, one warm chaos ground + one gridded system ground, photoreal desk clip | Shares with nobody yet (first build here). Differs from the AgerPRO build on all six. |
 
-*(empty: your first build has nothing to clear, so build whatever the interview
-points at. From the second onwards, this table is the constraint.)*
 
 ---
 
@@ -41,7 +40,10 @@ reusing: a grammar, a nav treatment, a close pattern, a signature move, an
 act-count-and-length band. The shared columns are what the next build inherits
 as a constraint, so writing them down is the whole point.
 
-Nothing is taken yet.
+- Split stage, with the divider as the whole chrome (labels, progress, wordmark, language toggle). Taken by bok-labs.
+- The collapse close with the form in the winning column. Taken by bok-labs.
+- 6 acts at 10.6vh with one scrub, one 3.2 peak pin. Taken by bok-labs.
+- Artifacts flying across a divider into nodes (the chaos-to-system move). Taken by bok-labs.
 
 ---
 
@@ -64,4 +66,3 @@ collide, read `EXAMPLES.md` in the scrollcraft repository. Treat it as
 illustration only: those rows are somebody else's builds and they do **not**
 constrain yours.
 
-| bok-labs (2026-09-02) | Split stage | No bar: fixed divider as chrome (labels for both sides, page progress, wordmark, EN/ES toggle) | 50/50 split: half-frame scrub clip left, CSS surface right, two greet headlines, one kinetic | scrub 2.0 · pin 1.8 · flow · pin 3.2 (peak) · flow+reveal · pin 1.6, 6 acts, 10.6vh | The collapse: divider travels to the left edge, the form lives in the winning column, footer inside the stage, hold | Chaos becomes a system: artifacts fly across the divider and file themselves beside pipeline nodes while the scribbles un-draw and the pipeline starts running | Dark brand canvas, one warm chaos ground + one gridded system ground, photoreal desk clip | Shares with nobody yet (first build here). Differs from the AgerPRO build on all six. |
