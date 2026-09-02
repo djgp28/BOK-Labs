@@ -133,10 +133,14 @@
   if (coarse) {
     document.body.setAttribute("data-sc-lerp", "0.6");   // keep the clip under the thumb
     /* a phone viewport is short: more scroll travel per text state so nothing is gone before it is read */
-    var spans = { a1: "1.6", a4: "3", contact: "1.3" };
+    var spans = { a1: "1.2", a4: "3", contact: "1.3" };
     Object.keys(spans).forEach(function (id) { var el = document.getElementById(id); if (el) el.setAttribute("data-sc-span", spans[id]); });
   }
   ScrollCraft.mount(document.body);
+  /* poster stays until the clip has painted a frame; some browsers never decode it */
+  (function () { var v = document.querySelector(".stage--hero video[data-sc-scrub]"), st = document.querySelector(".stage--hero"); if (!v || !st) return;
+    function ok() { if (v.readyState >= 2 && v.videoWidth > 0) { st.classList.add("clip-ok"); return true; } return false; }
+    ["loadeddata", "canplay", "seeked", "timeupdate"].forEach(function (e) { v.addEventListener(e, ok); }); var n = 0, id = setInterval(function () { if (ok() || ++n > 120) clearInterval(id); }, 250); })();
   var reduce = ScrollCraft.reduce;
 
   /* ---------------------------------------------------------- the divider */
