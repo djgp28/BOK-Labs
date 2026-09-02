@@ -16,11 +16,12 @@
     'hero.sub': 'BOK Labs construye los flujos de trabajo, las automatizaciones y los sistemas con IA que hacen funcionar la operación de un negocio pequeño.',
     'hero.status': 'en marcha · nada pendiente de ti',
     't1.l': 'El precio está en la cabeza de alguien.',
-    't1.r': '<b>lista de precios</b> · v12 · todos ven la misma',
+    'notif.app': 'BOK Labs', 'notif.now': 'ahora',
+    't1.t': 'Lista de precios actualizada', 't1.b': 'La v12 ya está en línea. Todos ven la misma.',
     't2.l': 'El pedido está en un chat del martes.',
-    't2.r': '<b>pedido 1042</b> · confirmado · en el registro',
+    't2.t': 'Pedido 1042 confirmado', 't2.b': 'Desde WhatsApp. Guardado en el registro, factura enviada.',
     't3.l': 'El informe es una hoja de cálculo que solo una persona sabe abrir.',
-    't3.r': '<b>informe mensual</b> · generado · enviado a tres personas',
+    't3.t': 'Informe mensual enviado', 't3.b': 'Generado a las 07:00, entregado a tres personas.',
     'turn.stamp': 'Martes, 11:40 pm. Todavía en el escritorio.',
     'turn.line': 'Entonces alguien construye el sistema.',
     'c.wa.k': 'WhatsApp · 11:42 PM',
@@ -76,7 +77,7 @@
     'f.ok': 'Recibido. Te escribimos pronto.',
     'f.okmail': 'Tu app de correo debería abrirse con el mensaje listo. Si no, escribe a <a href="mailto:info@bok-labs.com">info@bok-labs.com</a>.'
   };
-  var HTML_KEYS = { 't1.r': 1, 't2.r': 1, 't3.r': 1, 'f.okmail': 1 };
+  var HTML_KEYS = { 'f.okmail': 1 };
 
   function resolveLang() {
     var q = /[?&]lang=(en|es)\b/.exec(location.search);
