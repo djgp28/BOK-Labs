@@ -123,7 +123,13 @@
   try { localStorage.setItem('bok.lang', LANG); } catch (e) {}
 
   /* ----------------------------------------------------------- the engine */
-  var coarse = matchMedia('(hover: none) and (pointer: coarse)').matches;
+  var coarse = matchMedia("(hover: none) and (pointer: coarse)").matches;
+  /* on phones the closing act is a normal section: nothing sticks, every block is in flow (David: no overlaps) */
+  if (coarse || matchMedia("(max-width: 860px)").matches) {
+    var closeAct = document.getElementById("contact"), closeStage = closeAct && closeAct.querySelector("[data-sc-stage]");
+    if (closeAct) closeAct.setAttribute("data-sc-act", "flow");
+    if (closeStage) closeStage.removeAttribute("data-sc-stage");
+  }
   if (coarse) {
     document.body.setAttribute("data-sc-lerp", "0.6");   // keep the clip under the thumb
     /* a phone viewport is short: more scroll travel per text state so nothing is gone before it is read */
@@ -136,7 +142,7 @@
   /* ---------------------------------------------------------- the divider */
   var root = document.documentElement;
   var a2 = document.getElementById('a2'), a4 = document.getElementById('a4'), a6 = document.getElementById('contact');
-  var s2 = a2.querySelector("[data-sc-stage]"), s4 = a4.querySelector("[data-sc-stage]"), s6 = a6.querySelector("[data-sc-stage]");
+  var s2 = a2.querySelector("[data-sc-stage]"), s4 = a4.querySelector("[data-sc-stage]"), s6 = a6.querySelector(".stage--close");
   var flows = [document.getElementById('a3'), document.getElementById('a5')];
   var divider = document.querySelector('.divider');
   var phoneMQ = matchMedia('(max-width: 860px)');
@@ -154,7 +160,9 @@
     /* once the pipeline has run it stays built, and the ground it won stays won inside its own act */
     if (!built && p4 >= 0.70) { built = true; s4.classList.add("is-built"); }
     var peak = built ? S(p4 / 0.04) : S((p4 - 0.04) / 0.18);
-    var split = 0.5 + 0.1 * S((p2 - 0.1) / 0.5) - 0.2 * peak - 0.4 * S((p6 - 0.05) / 0.45);
+    /* on phones the close is a flow section: collapse only once it is nearly in view, so the divider never crosses the rows above */
+    var closeTerm = a6.getAttribute("data-sc-act") === "flow" ? S((p6 - 0.40) / 0.18) : S((p6 - 0.05) / 0.45);
+    var split = 0.5 + 0.1 * S((p2 - 0.1) / 0.5) - 0.2 * peak - 0.4 * closeTerm;
     split = Math.round(split * 1000) / 1000;
     if (split !== lastSplit) { root.style.setProperty('--split', split); lastSplit = split; }
 
@@ -165,6 +173,7 @@
 
     var col = split < 0.08;
     if (col !== collapsed) { collapsed = col; document.body.classList.toggle('is-collapsed', col); }
+    document.body.classList.toggle('is-collapsing', split < 0.398);
 
     /* the peak: what actually paints, for the harness */
     var run = built || p4 >= 0.70;

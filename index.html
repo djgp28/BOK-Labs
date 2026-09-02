@@ -212,6 +212,8 @@
   .tension__l { padding: 0 var(--sc-gutter); display: grid; gap: clamp(1.1rem, 3.2vh, 2rem); }
   .tension__r { padding: 0 var(--sc-gutter); display: grid; gap: clamp(.75rem, 2vh, 1.1rem); justify-items: start; }
   .tension .notif { width: min(24rem, 100%); }
+  .tension__r > .notif:not(.sc-in) { transform: translate3d(28px, 0, 0); }
+  .node__tile { display: none; }
   /* ===================================================== 4b · after the peak */
   .after { --split: 0.4; position: relative; padding: clamp(3rem, 10vh, 6rem) 0 clamp(2rem, 6vh, 4rem); }
   .after .cols { align-items: start; }
@@ -398,77 +400,86 @@
      The same page as the desktop: two columns, a vertical divider, the same
      acts. Only the type, the gutters and the peak's filing positions change. */
   @media (max-width: 860px) {
-    :root { --sc-gutter: 14px; }
+    :root { --sc-gutter: 20px; }
     .mark { top: 14px; }
     .tools { top: 12px; }
     .tools__link { display: none; }
     .chrome-fade { height: 64px; }
-    .divider__label { top: 50px; font-size: 0.78rem; letter-spacing: 0.06em; }
-    .divider__label--l { right: 10px; }
-    .divider__label--r { left: 10px; }
+    /* on phones the labels ride the divider line itself, vertically, so passing text never crosses them */
+    .divider__label { top: 76px; font-size: 0.6rem; letter-spacing: 0.1em; writing-mode: vertical-rl; }
+    .divider__label--l { right: 2px; transform: rotate(180deg); }
+    .divider__label--r { left: 2px; }
     /* hero */
     .half--chaos :is(video, .sc-stage__poster) { object-position: 42% 50%; }
-    .copy--hero { bottom: 22px; left: 12px; right: 10px; }
-    .copy--hero-sys { bottom: 22px; left: 12px; right: auto; max-width: calc(50vw - 22px); }
+    .copy--hero { bottom: 22px; left: var(--sc-gutter); right: var(--sc-gutter); }
+    .copy--hero-sys { bottom: 22px; left: var(--sc-gutter); right: auto; max-width: calc(50vw - 2 * var(--sc-gutter)); }
     .hero__h, .hero__sys { font-size: clamp(1.3rem, 6vw, 1.7rem); max-width: none; letter-spacing: -0.02em; line-height: 1.02; }
     .hero__sub { margin-top: 10px; font-size: 0.76rem; line-height: 1.4; }
     .cta { margin-top: 12px; padding: 10px 12px; font-size: 0.78rem; white-space: normal; text-align: left; }
     .status { display: none; }
     /* tension */
-    .centre { padding: 0 12px; }
+    .centre { padding: 0 var(--sc-gutter); }
     .centre--stack { gap: 14px; }
-    .cost { font-size: clamp(1rem, 4.4vw, 1.2rem); max-width: none; line-height: 1.25; }
+    .cost { font-size: clamp(1.02rem, 4.6vw, 1.25rem); max-width: none; line-height: 1.25; }
     .notif { width: calc((1 - var(--split)) * 100vw - 22px); padding: 8px 10px 9px; border-radius: 12px; }
     .notif__hd { gap: 6px; margin-bottom: 4px; font-size: 0.6rem; }
     .notif__app { width: 14px; height: 14px; font-size: 9px; line-height: 14px; border-radius: 4px; }
-    .notif b { font-size: 0.78rem; }
-    .notif p { font-size: 0.68rem; line-height: 1.35; }
+    .notif b { font-size: 0.85rem; }
+    .notif p { font-size: 0.72rem; line-height: 1.35; }
     /* turn */
     .turn { min-height: 0; padding: 2rem 0 2.5rem; }
     .stamp { font-size: 0.62rem; }
     .turn__line { font-size: clamp(1.1rem, 5vw, 1.4rem); }
-    /* peak: chips scatter in the left column and file under their step in the right one */
+    /* peak: chips scatter in the left column, fly to the right one and are absorbed; the steps are a
+       normal list, each with its own tile, so nothing depends on the viewport height */
     .tangle { width: 60%; }
-    .chip { --w: 40vw; --grow: 1.3; --shrink: 0.5; }
+    .chip { --w: 40vw; --grow: 1; --shrink: 0.6; opacity: calc(1 - clamp(0, (var(--e) - 0.72) / 0.28, 1)); }
     .chip:nth-child(2), .chip:nth-child(3), .chip:nth-child(7) { display: none; }
-    .chip:nth-child(1) { --x0: 3vw;  --y0: 12svh; --r0: -5deg;  --x1: 12vw; --y1: 15.5svh; }
-    .chip:nth-child(4) { --x0: 14vw; --y0: 32svh; --r0: 4deg;   --x1: 12vw; --y1: 30.5svh; }
-    .chip:nth-child(5) { --x0: 5vw;  --y0: 50svh; --r0: -12deg; --x1: 12vw; --y1: 47svh; --w: 34vw; }
-    .chip:nth-child(6) { --x0: 10vw; --y0: 68svh; --r0: 6deg;   --x1: 12vw; --y1: 60.5svh; }
-    .spine { left: calc(6vw - 1px); top: 12svh; height: 68svh; }
-    .runner { left: calc(6vw - 5px); }
-    @keyframes run { from { transform: translateY(12svh); } to { transform: translateY(80svh); } }
-    .node { left: calc(6vw + 16px); top: calc(12svh + var(--rp) * 1svh); width: calc(54vw - 30px); max-width: none; }
-    .node::before { left: -22px; width: 8px; height: 8px; }
-    .node b { font-size: 0.88rem; }
+    .chip:nth-child(1) { --x0: 3vw;  --y0: 12svh; --r0: -5deg;  --x1: 8vw; --y1: 18svh; }
+    .chip:nth-child(4) { --x0: 14vw; --y0: 32svh; --r0: 4deg;   --x1: 8vw; --y1: 26svh; }
+    .chip:nth-child(5) { --x0: 5vw;  --y0: 50svh; --r0: -12deg; --x1: 8vw; --y1: 34svh; --w: 34vw; }
+    .chip:nth-child(6) { --x0: 10vw; --y0: 68svh; --r0: 6deg;   --x1: 8vw; --y1: 42svh; }
+    .spine, .runner { display: none; }
+    .pipe { position: static; padding: 13svh calc(40vw + 14px) 0 var(--sc-gutter); }
+    .nodes { border-left: 2px solid var(--line-strong); display: grid; gap: clamp(16px, 3.2svh, 28px); padding-left: 16px; transition: border-color .4s var(--sc-ease-out); }
+    .is-built .nodes { border-color: var(--sc-accent); }
+    .node { position: static; width: auto; max-width: none; }
+    .node::before { left: -23px; top: .3em; width: 10px; height: 10px; }
+    .node b { font-size: 0.95rem; }
     .node span { display: none; }
-    .node .fired { font-size: 0.6rem; margin-top: 2px; }
-    .offer { left: calc(6vw + 16px); right: auto; width: calc(54vw - 30px); top: 84svh; max-width: none; font-size: 0.68rem; }
-    .peak__line { left: calc(-40vw + 12px); top: 60svh; width: calc(40vw - 20px); max-width: none; font-size: clamp(1.1rem, 5vw, 1.4rem); }
+    .node .fired { display: none; }
+    .is-running .node .fired { display: block; font-size: 0.62rem; margin-top: 4px; }
+    .node .node__tile { display: block; margin-top: 6px; padding: 6px 8px; border-radius: 8px; background: var(--elev); border: 1px solid var(--line-strong);
+      font-family: var(--sc-font-mono); font-size: 0.66rem; line-height: 1.35; color: var(--sc-ink-soft); }
+    .node .node__tile i { font-style: normal; color: var(--green-soft); }
+    .node .node__tile span { display: inline; font-size: inherit; color: inherit; }
+    .peak__quiet { display: block; }
     /* proof: the same two columns */
     .proof { padding: 2rem 0 2.5rem; }
     .proof__h { font-size: clamp(1.15rem, 5.2vw, 1.5rem); }
     .proof__lede { font-size: 0.78rem; margin-top: 10px; }
     .proof__h--2 { margin-top: 2.5rem; }
-    .had, .runs { padding: 14px 12px; }
+    .had, .runs { padding: 14px var(--sc-gutter); }
     .row--gain .had, .row--gain .runs { padding-block: 12px; }
     .had p, .runs p { font-size: 0.76rem; }
     .row--gain h3 { font-size: 0.95rem; }
     .runs h3 { font-size: 1.05rem; }
     .runs .out { font-size: 0.66rem; }
     .row .sc-label { font-size: 0.58rem; }
-    /* close */
-    .close__left { top: 11svh; left: 12px; right: 12px; width: auto; }
-    .close__quiet { font-size: 0.68rem; margin-bottom: 8px; }
+    /* close: a normal section on phones (site.js unpins it); everything in flow */
+    .stage--close { position: relative; min-height: 100svh; display: grid; align-content: start; gap: clamp(18px, 4svh, 32px); padding: 92px var(--sc-gutter) 24px; }
+    .is-collapsing .divider__label { opacity: 0; transition: none; }
+    .close__left, .close__form, .foot { position: static; width: auto; max-width: none; left: auto; right: auto; top: auto; bottom: auto; }
+    .close__quiet { font-size: 0.7rem; margin-bottom: 8px; }
     .close__h { font-size: clamp(1.3rem, 6vw, 1.7rem); max-width: none; }
-    .close__p { margin-top: 8px; font-size: 0.78rem; }
-    .close__form { left: 12px; right: 12px; top: 33svh; max-width: none; }
-    form { gap: 9px; }
+    .close__p { margin-top: 8px; font-size: 0.82rem; }
+    form { gap: 10px; }
     .field input, .field textarea { padding: 10px 12px; }
-    .field textarea { min-height: 5rem; }
-    .foot { left: 12px; bottom: 10px; gap: 3px; font-size: 0.62rem; }
+    .field textarea { min-height: 5.5rem; }
+    .foot { gap: 4px; font-size: 0.66rem; }
     .foot .mark--foot { display: none; }
-    .foot .foot__tag { font-size: 0.8rem; }
+    .foot .foot__tag { font-size: 0.85rem; }
+    .half--chaos .centre { display: none; }
   }
 </style>
 </head>
@@ -524,12 +535,12 @@
     <div class="g g--chaos"></div>
     <div class="g g--system"></div>
     <div class="cols cols--tension">
-      <div class="tension__l">
+      <div class="tension__l" data-sc-in data-sc-stagger="160">
         <p class="cost" data-i18n="t1.l">The price is in someone's head.</p>
         <p class="cost" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
         <p class="cost" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
       </div>
-      <div class="tension__r">
+      <div class="tension__r" data-sc-in data-sc-stagger="220">
         <div class="notif" role="status">
           <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
           <b data-i18n="t1.t">Price list updated</b>
@@ -591,10 +602,10 @@
           </svg>
           <i class="runner" aria-hidden="true"></i>
           <ol class="nodes">
-            <li class="node" style="--r:0; --rp:0; --n:0.34"><b data-i18n="n1">Intake</b><span data-i18n="n1.d">Chat, email, photo, voice: everything comes in through one door.</span></li>
-            <li class="node" style="--r:16.5; --rp:15; --n:0.49"><b data-i18n="n2">Rules</b><span data-i18n="n2.d">Prices, stock, deadlines: written once, applied every time.</span></li>
-            <li class="node" style="--r:30; --rp:30; --n:0.54"><b data-i18n="n3">AI where judgment is needed</b><span data-i18n="n3.d">Reads the message, drafts the reply, flags what a person should decide.</span></li>
-            <li class="node" style="--r:41.5; --rp:45; --n:0.59"><b data-i18n="n4">One record</b><span data-i18n="n4.d">Every order, invoice and customer in one place, up to date.</span></li>
+            <li class="node" style="--r:0; --rp:0; --n:0.34"><b data-i18n="n1">Intake</b><span class="node__tile"><i>WhatsApp</i> <span data-i18n="c.wa">Do you still have the 500 ml? I need 40 for Friday.</span></span><span data-i18n="n1.d">Chat, email, photo, voice: everything comes in through one door.</span></li>
+            <li class="node" style="--r:16.5; --rp:15; --n:0.49"><b data-i18n="n2">Rules</b><span class="node__tile"><i>xlsx</i> prices_v7_FINAL.xlsx</span><span data-i18n="n2.d">Prices, stock, deadlines: written once, applied every time.</span></li>
+            <li class="node" style="--r:30; --rp:30; --n:0.54"><b data-i18n="n3">AI where judgment is needed</b><span class="node__tile"><i>note</i> <span data-i18n="c.sticky">Call Marta re: invoice 1042</span></span><span data-i18n="n3.d">Reads the message, drafts the reply, flags what a person should decide.</span></li>
+            <li class="node" style="--r:41.5; --rp:45; --n:0.59"><b data-i18n="n4">One record</b><span class="node__tile"><i>mail</i> <span data-i18n="c.em.k">Re: Re: Re: invoice</span></span><span data-i18n="n4.d">Every order, invoice and customer in one place, up to date.</span></li>
             <li class="node" style="--r:53; --rp:60; --n:0.70"><b data-i18n="n5">Reports and alerts</b><span data-i18n="n5.d">Sent on time, to the right people, without anyone asking.</span><em class="fired" data-i18n="n5.s">sent · monthly report · 3 people</em></li>
           </ol>
         </div>
@@ -607,8 +618,8 @@
     <div class="g g--chaos"></div>
     <div class="g g--system"></div>
     <div class="cols">
-      <p class="peak__quiet" data-i18n="peak.l">Nothing left to hold together.</p>
-      <div class="after__r">
+      <p class="peak__quiet" data-sc-in data-i18n="peak.l">Nothing left to hold together.</p>
+      <div class="after__r" data-sc-in data-sc-stagger="140">
         <p class="sc-display peak__line" data-i18n="peak.r">One pipeline. It runs on its own.</p>
         <p class="offer" data-i18n="offer">Workflows, automations and AI systems that run the operation. A web or mobile app when the system needs a screen.</p>
       </div>
@@ -619,24 +630,24 @@
   <section id="a5" data-sc-act="flow" class="proof two">
     <div class="g g--chaos"></div>
     <div class="g g--system"></div>
-    <h2 class="sc-display proof__h" data-i18n="gain.h">Big-company tools, in everyone's hands.</h2>
-    <p class="proof__lede" data-i18n="gain.lede">Automate the work. Build the system. This is what changes for a small business.</p>
+    <h2 class="sc-display proof__h" data-sc-in data-i18n="gain.h">Big-company tools, in everyone's hands.</h2>
+    <p class="proof__lede" data-sc-in data-i18n="gain.lede">Automate the work. Build the system. This is what changes for a small business.</p>
     <div class="rows rows--gain">
       <article class="row row--gain">
-        <div class="had"><p data-i18n="g1.had">Growing means one more person holding it all together.</p></div>
-        <div class="runs"><h3 data-i18n="g1.h">Scale</h3><p data-i18n="g1.p">The system absorbs the extra volume. You take the extra business, not the extra nights.</p></div>
+        <div class="had" data-sc-in><p data-i18n="g1.had">Growing means one more person holding it all together.</p></div>
+        <div class="runs" data-sc-in><h3 data-i18n="g1.h">Scale</h3><p data-i18n="g1.p">The system absorbs the extra volume. You take the extra business, not the extra nights.</p></div>
       </article>
       <article class="row row--gain">
-        <div class="had"><p data-i18n="g2.had">Enquiries wait in a chat until someone gets to them.</p></div>
-        <div class="runs"><h3 data-i18n="g2.h">More sales</h3><p data-i18n="g2.p">Every enquiry answered, followed up and closed on time. Nothing falls between messages.</p></div>
+        <div class="had" data-sc-in><p data-i18n="g2.had">Enquiries wait in a chat until someone gets to them.</p></div>
+        <div class="runs" data-sc-in><h3 data-i18n="g2.h">More sales</h3><p data-i18n="g2.p">Every enquiry answered, followed up and closed on time. Nothing falls between messages.</p></div>
       </article>
       <article class="row row--gain">
-        <div class="had"><p data-i18n="g3.had">You hear about a problem when a customer calls about it.</p></div>
-        <div class="runs"><h3 data-i18n="g3.h">More control</h3><p data-i18n="g3.p">Stock, orders, payments and cash visible at a glance, with an alert before it hurts.</p></div>
+        <div class="had" data-sc-in><p data-i18n="g3.had">You hear about a problem when a customer calls about it.</p></div>
+        <div class="runs" data-sc-in><h3 data-i18n="g3.h">More control</h3><p data-i18n="g3.p">Stock, orders, payments and cash visible at a glance, with an alert before it hurts.</p></div>
       </article>
       <article class="row row--gain">
-        <div class="had"><p data-i18n="g4.had">Decisions come from memory and gut feeling.</p></div>
-        <div class="runs"><h3 data-i18n="g4.h">Better decisions</h3><p data-i18n="g4.p">Real numbers every week, without anyone building a spreadsheet first.</p></div>
+        <div class="had" data-sc-in><p data-i18n="g4.had">Decisions come from memory and gut feeling.</p></div>
+        <div class="runs" data-sc-in><h3 data-i18n="g4.h">Better decisions</h3><p data-i18n="g4.p">Real numbers every week, without anyone building a spreadsheet first.</p></div>
       </article>
     </div>
   </section>
