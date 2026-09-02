@@ -127,7 +127,7 @@
   if (coarse) {
     document.body.setAttribute("data-sc-lerp", "0.6");   // keep the clip under the thumb
     /* a phone viewport is short: more scroll travel per text state so nothing is gone before it is read */
-    var spans = { a1: "2.3", a2: "3", a4: "3.8", contact: "1.8" };
+    var spans = { a1: "2.3", a2: "3.4", a4: "4.2", contact: "1.8" };
     Object.keys(spans).forEach(function (id) { var el = document.getElementById(id); if (el) el.setAttribute("data-sc-span", spans[id]); });
   }
   ScrollCraft.mount(document.body);
@@ -179,16 +179,6 @@
     s2.setAttribute('data-sc-verify-state', 'split:' + split.toFixed(2));
     s6.setAttribute('data-sc-verify-state', 'split:' + split.toFixed(2) + '|left:' + (p6 >= 0.42 ? 1 : 0));
 
-    /* on a phone the divider is horizontal and fixed; hide it while a flow section sits under it */
-    var hide = false;
-    if (phoneMQ.matches) {
-      var y = split * innerHeight;
-      for (var j = 0; j < flows.length; j++) {
-        var r = flows[j].getBoundingClientRect();
-        if (r.top < y && r.bottom > y) { hide = true; break; }
-      }
-    }
-    if (hide !== hidden) { hidden = hide; divider.classList.toggle('is-hidden', hide); }
   }
   /* the latch: a text that has been seen is never hidden again. Cues are read through the engine's inline
      opacity (kinetic ones through their line units); the peak's CSS-driven nodes and caption through --sc-p. */
@@ -204,7 +194,7 @@
     for (var i = cueEls.length - 1; i >= 0; i--) { var el = cueEls[i]; if (shown(el)) { el.classList.add("is-latched"); cueEls.splice(i, 1); } }
     var p4 = p(a4);
     for (var j = nodeEls.length - 1; j >= 0; j--) { var n = parseFloat(nodeEls[j].style.getPropertyValue("--n")); if (p4 >= n + 0.06) { nodeEls[j].classList.add("is-latched"); nodeEls.splice(j, 1); } }
-    if (offerEl && p4 >= 0.8) { offerEl.classList.add("is-latched"); offerEl = null; }
+    if (offerEl && p4 >= 0.7) { offerEl.classList.add("is-latched"); offerEl = null; }
   }
 
   var queued = false;

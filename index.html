@@ -124,14 +124,13 @@
     background: var(--sc-accent); transform-origin: 50% 0; transform: scaleY(var(--prog));
   }
   .divider__label {
-    position: absolute; top: 22px; white-space: nowrap;
+    position: absolute; top: 58px; white-space: nowrap;
     font-family: var(--sc-font-mono); font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.15rem); font-weight: 600; letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--sc-ink);
     transition: opacity var(--sc-d-base) var(--sc-ease-out);
   }
   .divider__label--l { right: 14px; }
   .divider__label--r { left: 14px; color: var(--sc-accent); }
-  .is-collapsed .divider__label { opacity: 0; }
 
   /* ============================================== the two grounds, per act */
   .turn, .proof { position: relative; }
@@ -292,7 +291,7 @@
   .is-running .node .fired { display: block; }
   .offer {
     position: absolute; left: calc(8vw + 22px); top: 76vh; max-width: 36ch; font-size: var(--sc-t-sm); color: var(--sc-ink-soft);
-    opacity: clamp(0, calc((var(--sc-p, 0) - 0.72) / 0.08), 1);
+    opacity: clamp(0, calc((var(--sc-p, 0) - 0.62) / 0.08), 1);
   }
   .peak__line { position: absolute; left: calc(8vw + 22px); top: 85vh; max-width: 18ch; font-size: var(--sc-t-2xl); }
   .peak__quiet { font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); color: var(--sc-ink); max-width: 26ch; }
@@ -383,70 +382,82 @@
     .divider, .half--system { transition: none; }
   }
 
-  /* ================================================================ phone */
+  /* ================================================================ phone
+     The same page as the desktop: two columns, a vertical divider, the same
+     acts. Only the type, the gutters and the peak's filing positions change. */
   @media (max-width: 860px) {
+    :root { --sc-gutter: 14px; }
     .mark { top: 14px; }
     .tools { top: 12px; }
     .tools__link { display: none; }
-    .divider { width: 100%; height: 1px; transform: translateY(calc(var(--split) * 100svh)); }
-    .divider__fill { transform-origin: 0 50%; transform: scaleX(var(--prog)); }
-    .divider__label--l { top: auto; bottom: 8px; left: auto; right: var(--sc-gutter); }
-    .divider__label--r { top: 8px; left: auto; right: var(--sc-gutter); }
-    .g--chaos { clip-path: inset(0 0 calc((1 - var(--split)) * 100%) 0); }
-    .g--system { clip-path: inset(calc(var(--split) * 100%) 0 0 0); }
-    .half--chaos { width: 100%; height: 50%; }
-    .half--system { transform: translateY(calc(var(--split) * 100svh)); }
-    .stage--tension .half--chaos, .stage--peak .half--chaos, .stage--close .half--chaos { height: 60%; }
-    .copy--hero { bottom: 30px; right: 22vw; }
-    .copy--hero-sys { bottom: auto; top: 11svh; max-width: none; right: var(--sc-gutter); }
-    .hero__h, .hero__sys { font-size: var(--sc-t-2xl); }
-    .hero__sub { margin-top: var(--sc-4); font-size: var(--sc-t-sm); }
-    .cta { margin-top: var(--sc-4); padding: 12px 16px; }
-    .status { top: 40px; }
-    .cost { font-size: var(--sc-t-lg); }
-    .notif { width: 100%; padding: 9px 12px 10px; }
-    .notif__hd { margin-bottom: 4px; }
-    .notif p { font-size: var(--sc-t-xs); }
-    .centre { padding: 0 var(--sc-gutter); }
-    .stage--tension .half--system .centre { align-content: start; padding-top: 3.5svh; gap: 8px; }
-    .turn { min-height: 0; padding: 2rem 0 3rem; }
-    .cols { grid-template-columns: 1fr; gap: 1.5rem; }
-    .turn .g { display: none; }
-    .turn__line { font-size: var(--sc-t-xl); }
-    /* peak on a phone: five chips, no descriptions, the closing line in the cleared top half */
-    .chip { --w: 44vw; --grow: 1.4; --shrink: 0.38; }
+    .chrome-fade { height: 64px; }
+    .divider__label { top: 50px; font-size: 0.78rem; letter-spacing: 0.06em; }
+    .divider__label--l { right: 10px; }
+    .divider__label--r { left: 10px; }
+    /* hero */
+    .half--chaos :is(video, .sc-stage__poster) { object-position: 42% 50%; }
+    .copy--hero { bottom: 22px; left: 12px; right: 10px; }
+    .copy--hero-sys { bottom: 22px; left: 12px; right: auto; max-width: calc(50vw - 22px); }
+    .hero__h, .hero__sys { font-size: clamp(1.3rem, 6vw, 1.7rem); max-width: none; letter-spacing: -0.02em; line-height: 1.02; }
+    .hero__sub { margin-top: 10px; font-size: 0.76rem; line-height: 1.4; }
+    .cta { margin-top: 12px; padding: 10px 12px; font-size: 0.78rem; white-space: normal; text-align: left; }
+    .status { display: none; }
+    /* tension */
+    .centre { padding: 0 12px; }
+    .centre--stack { gap: 14px; }
+    .cost { font-size: clamp(1rem, 4.4vw, 1.2rem); max-width: none; line-height: 1.25; }
+    .notif { width: calc((1 - var(--split)) * 100vw - 22px); padding: 8px 10px 9px; border-radius: 12px; }
+    .notif__hd { gap: 6px; margin-bottom: 4px; font-size: 0.6rem; }
+    .notif__app { width: 14px; height: 14px; font-size: 9px; line-height: 14px; border-radius: 4px; }
+    .notif b { font-size: 0.78rem; }
+    .notif p { font-size: 0.68rem; line-height: 1.35; }
+    /* turn */
+    .turn { min-height: 0; padding: 2rem 0 2.5rem; }
+    .stamp { font-size: 0.62rem; }
+    .turn__line { font-size: clamp(1.1rem, 5vw, 1.4rem); }
+    /* peak: chips scatter in the left column and file under their step in the right one */
+    .tangle { width: 60%; }
+    .chip { --w: 40vw; --grow: 1.3; --shrink: 0.5; }
     .chip:nth-child(2), .chip:nth-child(3), .chip:nth-child(7) { display: none; }
-    .chip:nth-child(1) { --x0: 4vw;  --y0: 4svh;  --r0: -5deg;  --x1: 60vw; --y1: calc(40svh + 3svh); }
-    .chip:nth-child(4) { --x0: 40vw; --y0: 18svh; --r0: 4deg;   --x1: 60vw; --y1: calc(40svh + 15svh); }
-    .chip:nth-child(5) { --x0: 6vw;  --y0: 26svh; --r0: -12deg; --x1: 60vw; --y1: calc(40svh + 26.5svh); --w: 36vw; }
-    .chip:nth-child(6) { --x0: 30vw; --y0: 32svh; --r0: 6deg;   --x1: 60vw; --y1: calc(40svh + 36.5svh); }
-    .stage--peak .chip { --final: 0; }
-    .stage--peak .half--chaos { height: 40%; }
-    .spine { left: calc(var(--sc-gutter) + 5px); top: 3svh; height: 44svh; }
-    .runner { left: calc(var(--sc-gutter) + 1px); }
-    @keyframes run { from { transform: translateY(3svh); } to { transform: translateY(47svh); } }
-    .node { left: calc(var(--sc-gutter) + 28px); top: calc(2svh + var(--rp) * 1svh); width: 46vw; max-width: none; }
-    .node b { font-size: var(--sc-t-base); }
+    .chip:nth-child(1) { --x0: 3vw;  --y0: 12svh; --r0: -5deg;  --x1: 12vw; --y1: 15.5svh; }
+    .chip:nth-child(4) { --x0: 14vw; --y0: 32svh; --r0: 4deg;   --x1: 12vw; --y1: 30.5svh; }
+    .chip:nth-child(5) { --x0: 5vw;  --y0: 50svh; --r0: -12deg; --x1: 12vw; --y1: 47svh; --w: 34vw; }
+    .chip:nth-child(6) { --x0: 10vw; --y0: 68svh; --r0: 6deg;   --x1: 12vw; --y1: 60.5svh; }
+    .spine { left: calc(6vw - 1px); top: 12svh; height: 68svh; }
+    .runner { left: calc(6vw - 5px); }
+    @keyframes run { from { transform: translateY(12svh); } to { transform: translateY(80svh); } }
+    .node { left: calc(6vw + 16px); top: calc(12svh + var(--rp) * 1svh); width: calc(54vw - 30px); max-width: none; }
+    .node::before { left: -22px; width: 8px; height: 8px; }
+    .node b { font-size: 0.88rem; }
     .node span { display: none; }
-    .node .fired { margin-top: 2px; }
-    .offer { left: var(--sc-gutter); right: var(--sc-gutter); top: 54svh; max-width: none; font-size: var(--sc-t-xs); }
-    .peak__line { left: var(--sc-gutter); top: -30svh; font-size: var(--sc-t-xl); max-width: 14ch; }
+    .node .fired { font-size: 0.6rem; margin-top: 2px; }
+    .offer { left: calc(6vw + 16px); right: auto; width: calc(54vw - 30px); top: 84svh; max-width: none; font-size: 0.68rem; }
+    .peak__line { left: calc(-40vw + 12px); top: 60svh; width: calc(40vw - 20px); max-width: none; font-size: clamp(1.1rem, 5vw, 1.4rem); }
     .peak__quiet { display: none; }
-    .proof { padding: 2.5rem 0 3rem; }
-    .proof .g { display: none; }
-    .proof__h { margin-left: 0; }
-    .row { grid-template-columns: 1fr; }
-    .had { background: var(--chaos); }
-    .runs { background-color: var(--system); background-image: var(--grid); background-size: 56px 56px; }
-    .close__left { top: 8svh; left: var(--sc-gutter); right: var(--sc-gutter); width: auto; }
-    .close__h { font-size: var(--sc-t-xl); max-width: none; }
-    .close__p { margin-top: var(--sc-3); font-size: var(--sc-t-sm); }
-    .close__form { left: var(--sc-gutter); right: var(--sc-gutter); top: 31svh; max-width: none; }
-    form { gap: 10px; }
-    .field textarea { min-height: 5.5rem; }
-    .foot { bottom: 12px; gap: 3px; }
+    /* proof: the same two columns */
+    .proof { padding: 2rem 0 2.5rem; }
+    .proof__h { font-size: clamp(1.15rem, 5.2vw, 1.5rem); }
+    .proof__lede { font-size: 0.78rem; margin-top: 10px; }
+    .proof__h--2 { margin-top: 2.5rem; }
+    .had, .runs { padding: 14px 12px; }
+    .row--gain .had, .row--gain .runs { padding-block: 12px; }
+    .had p, .runs p { font-size: 0.76rem; }
+    .row--gain h3 { font-size: 0.95rem; }
+    .runs h3 { font-size: 1.05rem; }
+    .runs .out { font-size: 0.66rem; }
+    .row .sc-label { font-size: 0.58rem; }
+    /* close */
+    .close__left { top: 11svh; left: 12px; right: 12px; width: auto; }
+    .close__quiet { font-size: 0.68rem; margin-bottom: 8px; }
+    .close__h { font-size: clamp(1.3rem, 6vw, 1.7rem); max-width: none; }
+    .close__p { margin-top: 8px; font-size: 0.78rem; }
+    .close__form { left: 12px; right: 12px; top: 33svh; max-width: none; }
+    form { gap: 9px; }
+    .field input, .field textarea { padding: 10px 12px; }
+    .field textarea { min-height: 5rem; }
+    .foot { left: 12px; bottom: 10px; gap: 3px; font-size: 0.62rem; }
     .foot .mark--foot { display: none; }
-    .close__quiet { font-size: var(--sc-t-xs); margin-bottom: var(--sc-3); }
+    .foot .foot__tag { font-size: 0.8rem; }
   }
 </style>
 </head>
@@ -498,15 +509,15 @@
   </section>
 
   <!-- 2 · TENSION · pin: three costs, each answered; the divider leans toward the mess -->
-  <section id="a2" data-sc-act="pin" data-sc-span="2.4">
+  <section id="a2" data-sc-act="pin" data-sc-span="2.8">
     <div data-sc-stage class="stage stage--tension two" data-sc-verify-state="split:0.50">
       <div class="g g--chaos"></div>
       <div class="g g--system"></div>
       <div class="half half--chaos">
         <div class="centre centre--stack">
           <p class="cost" data-sc-cue="0 1 0 0" data-i18n="t1.l">The price is in someone's head.</p>
-          <p class="cost" data-sc-cue="0.30 1 0.12 0" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
-          <p class="cost" data-sc-cue="0.58 1 0.12 0" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
+          <p class="cost" data-sc-cue="0.22 1 0.12 0" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
+          <p class="cost" data-sc-cue="0.44 1 0.12 0" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
         </div>
       </div>
       <div class="half half--system">
@@ -516,12 +527,12 @@
             <b data-i18n="t1.t">Price list updated</b>
             <p data-i18n="t1.b">v12 is live. Everyone sees the same one.</p>
           </div>
-          <div class="notif" data-sc-cue="0.30 1 0.12 0" role="status">
+          <div class="notif" data-sc-cue="0.22 1 0.12 0" role="status">
             <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
             <b data-i18n="t2.t">Order 1042 confirmed</b>
             <p data-i18n="t2.b">From WhatsApp. Saved to the record, invoice sent.</p>
           </div>
-          <div class="notif" data-sc-cue="0.58 1 0.12 0" role="status">
+          <div class="notif" data-sc-cue="0.44 1 0.12 0" role="status">
             <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
             <b data-i18n="t3.t">Monthly report sent</b>
             <p data-i18n="t3.b">Generated at 07:00, delivered to three people.</p>
@@ -542,7 +553,7 @@
   </section>
 
   <!-- 4 · PEAK · pin: chaos becomes a system -->
-  <section id="a4" data-sc-act="pin" data-sc-span="3.2">
+  <section id="a4" data-sc-act="pin" data-sc-span="3.6">
     <div data-sc-stage class="stage stage--peak two" data-sc-verify-state="split:0.60|landed:0|tangle:1.00|spine:0.00|run:0">
       <div class="g g--chaos"></div>
       <div class="g g--system"></div>
@@ -574,18 +585,18 @@
           <i class="runner" aria-hidden="true"></i>
           <ol class="nodes">
             <li class="node" style="--r:0; --rp:0; --n:0.42"><b data-i18n="n1">Intake</b><span data-i18n="n1.d">Chat, email, photo, voice: everything comes in through one door.</span></li>
-            <li class="node" style="--r:16.5; --rp:11; --n:0.60"><b data-i18n="n2">Rules</b><span data-i18n="n2.d">Prices, stock, deadlines: written once, applied every time.</span></li>
-            <li class="node" style="--r:30; --rp:22; --n:0.72"><b data-i18n="n3">AI where judgment is needed</b><span data-i18n="n3.d">Reads the message, drafts the reply, flags what a person should decide.</span></li>
-            <li class="node" style="--r:41.5; --rp:33; --n:0.78"><b data-i18n="n4">One record</b><span data-i18n="n4.d">Every order, invoice and customer in one place, up to date.</span></li>
-            <li class="node" style="--r:53; --rp:44; --n:0.86"><b data-i18n="n5">Reports and alerts</b><span data-i18n="n5.d">Sent on time, to the right people, without anyone asking.</span><em class="fired" data-i18n="n5.s">sent · monthly report · 3 people</em></li>
+            <li class="node" style="--r:16.5; --rp:15; --n:0.60"><b data-i18n="n2">Rules</b><span data-i18n="n2.d">Prices, stock, deadlines: written once, applied every time.</span></li>
+            <li class="node" style="--r:30; --rp:30; --n:0.72"><b data-i18n="n3">AI where judgment is needed</b><span data-i18n="n3.d">Reads the message, drafts the reply, flags what a person should decide.</span></li>
+            <li class="node" style="--r:41.5; --rp:45; --n:0.78"><b data-i18n="n4">One record</b><span data-i18n="n4.d">Every order, invoice and customer in one place, up to date.</span></li>
+            <li class="node" style="--r:53; --rp:60; --n:0.86"><b data-i18n="n5">Reports and alerts</b><span data-i18n="n5.d">Sent on time, to the right people, without anyone asking.</span><em class="fired" data-i18n="n5.s">sent · monthly report · 3 people</em></li>
           </ol>
           <p class="offer" data-i18n="offer">Workflows, automations and AI systems that run the operation. A web or mobile app when the system needs a screen.</p>
         </div>
-        <p class="sc-display peak__line" data-sc-cue="0.80 1 0.2 0" data-sc-kinetic="words" data-i18n="peak.r">One pipeline. It runs on its own.</p>
+        <p class="sc-display peak__line" data-sc-cue="0.72 1 0.2 0" data-sc-kinetic="words" data-i18n="peak.r">One pipeline. It runs on its own.</p>
       </div>
       <div class="half half--chaos">
         <div class="centre">
-          <p class="peak__quiet" data-sc-cue="0.82 1 0.2 0" data-i18n="peak.l">Nothing left to hold together.</p>
+          <p class="peak__quiet" data-sc-cue="0.74 1 0.2 0" data-i18n="peak.l">Nothing left to hold together.</p>
         </div>
       </div>
     </div>
