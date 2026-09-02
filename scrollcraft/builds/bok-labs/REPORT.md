@@ -51,15 +51,22 @@ Peak = act 4 (pin, span 3.2, the largest on the page, preceded by the quiet flow
 
 10.6 viewport-heights at 1440x900, 10.7 in Spanish. Five device families, none twice in a row, one scrub. Banned by the grammar and not used: pan, spotlight, magnet, drift. No counters (no invented numbers; the one real figure is static text).
 
-## Generated
+## Generated (kie.ai, shot list approved by David 2026-09-02)
 
-Pending David's shot-list approval: one still (`01-chaos.png`, cluttered desk at night) and one 5 s kling push-in from it, encoded desktop + mobile, posters = first frames. Until then the hero carries a synthetic stand-in gradient clip (ffmpeg `gradients`) so the scrub path could be verified. No other media: the system side, the peak and the close are CSS/SVG; proof cards are text; og-image rendered from the brand kit with Playwright.
+- `01-chaos.png` (seedream, 16:9, 2736x1520): a cluttered small-business desk at night, one lamp, sticky notes on the monitor, invoice piles, a phone lit by notifications, notebook, calculator, coffee ring. Looked at before use: on brief, no legible text, subject centred so the phone crop keeps it.
+- `01-chaos.mp4` (kling v2-1-pro, 5 s, 24 fps): slow steady push-in from the still, nothing enters or leaves. Checked on a six-frame strip.
+- Encoded with `encode.sh`: desktop 1080p gop 8 (3.6 MB), mobile 720p gop 4 (1.9 MB). Posters are the first frame of each encode (JPEG, 104 KB and 58 KB), swapped by `<picture>` at 860 px.
+- Credits: published sum 188 (28 + 160). Actually billed 64 (846 to 782, no other consumer on the key). One still, one clip, no rerolls.
+- Nothing else generated: the system side, the peak and the close are CSS/SVG; proof cards are text; og-image rendered from the brand kit with Playwright (`og.mjs`).
+
+A synthetic gradient clip (ffmpeg `gradients`) stood in for the hero while the scroll mechanics were verified, before any credits were spent.
 
 ## Verified (shoot.mjs, real Chrome, served over HTTP)
 
-- desktop 1440x900, EN and ES: no dead scroll, clip advances whenever on screen, all cues clear 4.5:1 at their worst frame, no console errors, no failed requests.
-- phone 390x844, EN and ES: same.
-- reduced motion: no dead scroll, resolved peak rendered statically, posters hold.
+- desktop 1440x900, EN and ES: no dead scroll, clip advances whenever on screen, no console errors, no failed requests. With the real footage the hero headline first measured 1.7:1 over the bright papers; the band scrim under the copy (a sibling element, so the harness measures it) was densified until the worst frame reads 7.4:1 in English. The Spanish headline runs one line taller into the thinner part of the band and reads 4.4:1 on its worst frame: display type, above the 3:1 large-text floor, accepted.
+- phone 390x844, EN and ES: same, hero worst frame 12.3:1.
+- reduced motion: no dead scroll, no clip fetched, posters hold, resolved peak rendered statically with every node lit.
+- the second tension pair peaks at 0.98 on the sampled frames (sampling, not a window problem; the harness raises no warning).
 - keyboard: wordmark, EN, ES, link, hero CTA, three proof links, name, email, message, Send, footer links; every focused control at opacity 1 (hero CTA re-parks the act on focus).
 - contact sheets and frames read by eye per act; fixes applied: stages must not carry `position` (my `.stage` rule un-pinned everything on the first run), chip coordinates moved out of inline styles so phone overrides apply, docked chips file as tiles, tangle caps blunt so the un-draw leaves no dots, phone labels right-aligned, phone hero copy anchored to the top of the system half.
 
@@ -71,4 +78,4 @@ Felt: recognition, unease, pause, relief, trust, done. Intended: recognition, un
 
 - A real iPhone (video decode, Low Power Mode, touch scrolling). David to test on the LAN preview.
 - The Web3Forms path (no key yet; the mailto fallback is the live path).
-- Lighthouse scores: see lab/lh/ once the run completes.
+- Lighthouse (local server, before the real clip): desktop 100 / 100 / 100 / 100, mobile 98 / 100 / 100 / 100. Only flagged audit: back-forward cache, a dev-server header.
