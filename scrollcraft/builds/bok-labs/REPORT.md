@@ -3,6 +3,10 @@
 Build folder: `scrollcraft/builds/bok-labs/`. Page: `/index.html` + `/site.js` + `/engine/` (unmodified scrollcraft engine, `nateherkai/scroll-craft` main @ 2026-09-01).
 Brief: interviewed (see BRIEF.md). Local URL during verification: http://localhost:4500
 
+## Where it stands (2026-09-02, end of round 5)
+
+This report describes the build as shipped in PR #1 and its first rounds; it is a record, not the current map. For the current page (acts, cues, latch, freeze, phone layout, copy, probes, deploy procedure, PR history #1 to #20) read `HANDOFF.md` next to this file. Live = `main` @ 6c1d33f, assets `?v=20260902n`. Since this report was written: the three example projects were removed (only the gains block remains in act 5); the tension and the after-peak lines are flow sections with scroll cues, not pins; every text latches once shown; the peak freezes once built; phones are a vertical split with everything in flow and the close unpinned; the divider labels are larger; the tension act is one grid with a row per cost/notification pair.
+
 ## Grammar: split stage
 
 Left column = today (chaos), right column = with a system. The divider is the chrome
