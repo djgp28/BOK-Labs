@@ -275,7 +275,10 @@
   .nodes { list-style: none; margin: 0; padding: 0; }
   .node {
     position: absolute; left: calc(8vw + 22px); top: calc(10vh + var(--row) * 10.5vh); width: 26vw; max-width: 26rem;
-    opacity: calc(0.38 + 0.62 * clamp(0, calc((var(--sc-p, 0) - var(--n)) / 0.06), 1));
+    /* each step appears on its own, as its first artifact lands */
+    --on: clamp(0, calc((var(--sc-p, 0) - var(--n)) / 0.06), 1);
+    opacity: var(--on);
+    transform: translateY(calc((1 - var(--on)) * 12px));
   }
   .node::before {
     content: ""; position: absolute; left: -28px; top: .38em; width: 10px; height: 10px; border-radius: 50%;
@@ -360,6 +363,12 @@
      engine's per-frame inline writes without touching the engine. */
   .is-latched, .is-latched .sc-split__i { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
   .node.is-latched, .offer.is-latched { opacity: 1 !important; }
+  /* once the pipeline has run, the peak stays built: site.js adds .is-built to the stage */
+  .is-built .chip { --k: 1; }
+  .is-built .tangle path { stroke-dashoffset: 1; }
+  .is-built .spine .draw { stroke-dashoffset: 0; }
+  .is-built .node { --on: 1; }
+  .is-built .offer { opacity: 1; }
 
   /* =========================================================== reduced motion */
   @media (prefers-reduced-motion: reduce) {
@@ -367,7 +376,7 @@
     .tangle path { stroke-dashoffset: clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1); }
     .spine .draw { stroke-dashoffset: calc(1 - clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1)); }
     .is-running .spine .flow, .is-running .runner { animation: none; }
-    .node { opacity: calc(0.38 + 0.62 * clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1)); }
+    .node { --on: clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1); transform: none; }
     .offer { opacity: clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1); }
     .divider, .half--system { transition: none; }
   }

@@ -140,7 +140,7 @@
   var flows = [document.getElementById('a3'), document.getElementById('a5')];
   var divider = document.querySelector('.divider');
   var phoneMQ = matchMedia('(max-width: 860px)');
-  var lastSplit = -1, lastProg = -1, running = false, collapsed = false, hidden = false, lastState4 = '';
+  var lastSplit = -1, lastProg = -1, running = false, collapsed = false, hidden = false, lastState4 = "", built = false;
 
   function p(act) { var v = parseFloat(act.style.getPropertyValue('--sc-p')); return isNaN(v) ? 0 : v; }
   function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
@@ -151,7 +151,10 @@
     var p2 = p(a2), p4 = p(a4), p6 = p(a6);
     var S = reduce ? step : smooth;
     /* 0.50 in the hero. 0.60 by the end of the tension. 0.40 across the peak. 0 at the close. */
-    var split = 0.5 + 0.1 * S(p2) - 0.2 * S((p4 - 0.04) / 0.18) - 0.4 * S((p6 - 0.05) / 0.45);
+    /* once the pipeline has run it stays built, and the ground it won stays won inside its own act */
+    if (!built && p4 >= 0.86) { built = true; s4.classList.add("is-built"); }
+    var peak = built ? S(p4 / 0.04) : S((p4 - 0.04) / 0.18);
+    var split = 0.5 + 0.1 * S(p2) - 0.2 * peak - 0.4 * S((p6 - 0.05) / 0.45);
     split = Math.round(split * 1000) / 1000;
     if (split !== lastSplit) { root.style.setProperty('--split', split); lastSplit = split; }
 
@@ -164,12 +167,12 @@
     if (col !== collapsed) { collapsed = col; document.body.classList.toggle('is-collapsed', col); }
 
     /* the peak: what actually paints, for the harness */
-    var run = p4 >= 0.86;
+    var run = built || p4 >= 0.86;
     if (run !== running) { running = run; s4.classList.toggle('is-running', run); }
     var starts = [0.24, 0.30, 0.36, 0.42, 0.48, 0.54, 0.60], landed = 0;
-    for (var i = 0; i < starts.length; i++) if ((reduce ? p4 >= 0.5 : p4 >= starts[i] + 0.18)) landed++;
-    var tangle = reduce ? (p4 >= 0.5 ? 0 : 1) : 1 - clamp01((p4 - 0.26) / 0.52);
-    var spine = reduce ? (p4 >= 0.5 ? 1 : 0) : clamp01((p4 - 0.40) / 0.36);
+    for (var i = 0; i < starts.length; i++) if (built || (reduce ? p4 >= 0.5 : p4 >= starts[i] + 0.18)) landed++;
+    var tangle = built ? 0 : reduce ? (p4 >= 0.5 ? 0 : 1) : 1 - clamp01((p4 - 0.26) / 0.52);
+    var spine = built ? 1 : reduce ? (p4 >= 0.5 ? 1 : 0) : clamp01((p4 - 0.40) / 0.36);
     var st4 = 'split:' + split.toFixed(2) + '|landed:' + landed + '|tangle:' + tangle.toFixed(2) + '|spine:' + spine.toFixed(2) + '|run:' + (run ? 1 : 0);
     if (st4 !== lastState4) { s4.setAttribute('data-sc-verify-state', st4); lastState4 = st4; }
     if (reduce) s4.setAttribute('data-sc-verify-hold', p4 >= 0.5 && p4 < 1 ? 'true' : 'false');
