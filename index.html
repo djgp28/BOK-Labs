@@ -29,7 +29,7 @@
 <link rel="preload" href="assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/jetbrains-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/01-chaos-poster.jpg" as="image" media="(min-width: 861px)">
-<link rel="stylesheet" href="engine/scrollcraft.css?v=20260902m">
+<link rel="stylesheet" href="engine/scrollcraft.css?v=20260902n">
 <style>
   @font-face {
     font-family: "Space Grotesk";
@@ -192,7 +192,7 @@
   .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--sc-accent); box-shadow: 0 0 0 3px var(--green-dim); }
 
   /* ========================================================== 2 · tension */
-  .cost { font-family: var(--sc-font-display); font-weight: 500; font-size: var(--sc-t-xl); line-height: 1.22; letter-spacing: -0.02em; max-width: 20ch; }
+  .cost { font-family: var(--sc-font-display); font-weight: 500; font-size: var(--sc-t-xl); line-height: 1.22; letter-spacing: -0.02em; max-width: 26ch; }
   /* the system answers back the way an agent does: a notification on the phone */
   .centre--notifs { gap: clamp(.75rem, 2vh, 1.1rem); }
   .notif {
@@ -214,11 +214,10 @@
 
   /* ========================================================== 2 · tension */
   .tension { position: relative; min-height: 92vh; padding: clamp(2.5rem, 8vh, 5rem) 0 clamp(3rem, 10vh, 6rem); }
-  .cols--tension { grid-template-columns: 60% 40%; align-items: center; }
-  .tension__l { padding: 0 var(--sc-gutter); display: grid; gap: clamp(1.1rem, 3.2vh, 2rem); }
-  .tension__r { padding: 0 var(--sc-gutter); display: grid; gap: clamp(.75rem, 2vh, 1.1rem); justify-items: start; }
-  .tension .notif { width: min(24rem, 100%); }
-  .tension__r > .notif:not(.sc-in) { transform: translate3d(28px, 0, 0); }
+  /* one grid row per pair: the cost on the left and its answer on the right share a row, centred on each other */
+  .cols--tension { grid-template-columns: 60% 40%; align-items: center; align-content: center; row-gap: clamp(1.6rem, 6vh, 3.4rem); }
+  .cols--tension > .cost { padding: 0 var(--sc-gutter); }
+  .cols--tension > .notif { margin-inline: var(--sc-gutter); width: min(24rem, calc(100% - 2 * var(--sc-gutter))); }
   .node .node__tile { display: none; }
   /* ===================================================== 4b · after the peak */
   .after { --split: 0.4; position: relative; padding: clamp(3rem, 10vh, 6rem) 0 clamp(2rem, 6vh, 4rem); }
@@ -232,7 +231,7 @@
   .turn { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(4rem, 14vh, 9rem); min-height: 52vh; }
   .cols { display: grid; grid-template-columns: calc(var(--split) * 100%) 1fr; align-items: center; min-height: inherit; }
   .stamp { padding: 0 var(--sc-gutter); font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); letter-spacing: 0.06em; color: var(--muted); }
-  .turn__line { padding: 0 var(--sc-gutter); max-width: 22ch; font-size: var(--sc-t-2xl); }
+  .turn__line { padding: 0 var(--sc-gutter); max-width: 28ch; font-size: var(--sc-t-2xl); }
 
   /* ============================================================= 4 · peak */
   .stage--peak { --final: 0.4; }
@@ -427,7 +426,8 @@
     .centre { padding: 0 var(--sc-gutter); }
     .centre--stack { gap: 14px; }
     .cost { font-size: clamp(1.02rem, 4.6vw, 1.25rem); max-width: none; line-height: 1.25; }
-    .notif { width: calc((1 - var(--split)) * 100vw - 22px); padding: 8px 10px 9px; border-radius: 12px; }
+    .notif, .cols--tension > .notif { width: auto; margin-inline: 12px 10px; padding: 8px 10px 9px; border-radius: 12px; }
+    .cols--tension { row-gap: clamp(1.2rem, 4vh, 2rem); }
     .notif__hd { gap: 6px; margin-bottom: 4px; font-size: 0.6rem; }
     .notif__app { width: 14px; height: 14px; font-size: 9px; line-height: 14px; border-radius: 4px; }
     .notif b { font-size: 0.85rem; }
@@ -519,7 +519,7 @@
           <source media="(max-width: 860px)" srcset="assets/01-chaos-poster-m.jpg">
           <img class="sc-stage__poster" src="assets/01-chaos-poster.jpg" alt="">
         </picture>
-        <video data-sc-scrub data-sc-src="assets/01-chaos.mp4?v=20260902m" data-sc-src-mobile="assets/01-chaos-m.mp4?v=20260902m" muted playsinline></video>
+        <video data-sc-scrub data-sc-src="assets/01-chaos.mp4?v=20260902n" data-sc-src-mobile="assets/01-chaos-m.mp4?v=20260902n" muted playsinline></video>
         <div class="hero-scrim" aria-hidden="true"></div>
         <div class="copy copy--hero" data-sc-cue="0 1 0 0">
           <h1 class="sc-display hero__h" data-i18n="hero.l">Your operation runs on WhatsApp, spreadsheets and memory.</h1>
@@ -528,8 +528,8 @@
       <div class="half half--system">
         <p class="status" data-i18n="hero.status">running · nothing waiting on you</p>
         <div class="copy copy--hero-sys">
-          <h2 class="sc-display hero__sys" data-sc-cue="0 1 0 0" data-sc-kinetic="lines" data-i18n="hero.r">It could run on a system.</h2>
-          <p class="hero__sub" data-sc-cue="0 1 0 0" data-i18n="hero.sub">BOK Labs builds the workflows, automations and AI-powered systems that run small business operations.</p>
+          <h2 class="sc-display hero__sys" data-sc-cue="0 1 0 0" data-sc-kinetic="lines" data-i18n="hero.r">It could run on your own system.</h2>
+          <p class="hero__sub" data-sc-cue="0 1 0 0" data-i18n="hero.sub">BOK Labs builds the workflows, automations and AI systems tailored to your business's needs, to accelerate its growth.</p>
           <a class="cta" href="#contact" data-sc-cue="0 1 0 0" data-sc-rise="0" data-i18n="cta">Tell us what's slowing you down</a>
         </div>
       </div>
@@ -541,27 +541,23 @@
     <div class="g g--chaos"></div>
     <div class="g g--system"></div>
     <div class="cols cols--tension">
-      <div class="tension__l">
-        <p class="cost" data-sc-cue="0.16 1 0.09 0" data-i18n="t1.l">The price is in someone's head.</p>
-        <p class="cost" data-sc-cue="0.32 1 0.09 0" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
-        <p class="cost" data-sc-cue="0.48 1 0.09 0" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
+      <p class="cost" data-sc-cue="0.16 1 0.09 0" data-i18n="t1.l">The price is in an email thread with someone.</p>
+      <div class="notif" role="status" data-sc-cue="0.24 1 0.09 0">
+        <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
+        <b data-i18n="t1.t">Price list updated</b>
+        <p data-i18n="t1.b">v12 is live. Everyone sees the same one.</p>
       </div>
-      <div class="tension__r">
-        <div class="notif" role="status" data-sc-cue="0.24 1 0.09 0">
-          <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
-          <b data-i18n="t1.t">Price list updated</b>
-          <p data-i18n="t1.b">v12 is live. Everyone sees the same one.</p>
-        </div>
-        <div class="notif" role="status" data-sc-cue="0.40 1 0.09 0">
-          <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
-          <b data-i18n="t2.t">Order 1042 confirmed</b>
-          <p data-i18n="t2.b">From WhatsApp. Saved to the record, invoice sent.</p>
-        </div>
-        <div class="notif" role="status" data-sc-cue="0.56 1 0.09 0">
-          <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
-          <b data-i18n="t3.t">Monthly report sent</b>
-          <p data-i18n="t3.b">Generated at 07:00, delivered to three people.</p>
-        </div>
+      <p class="cost" data-sc-cue="0.32 1 0.09 0" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
+      <div class="notif" role="status" data-sc-cue="0.40 1 0.09 0">
+        <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
+        <b data-i18n="t2.t">Order 1042 confirmed</b>
+        <p data-i18n="t2.b">From WhatsApp. Saved to the record, invoice sent.</p>
+      </div>
+      <p class="cost" data-sc-cue="0.48 1 0.09 0" data-i18n="t3.l">The report is in a spreadsheet only one person knows how to use.</p>
+      <div class="notif" role="status" data-sc-cue="0.56 1 0.09 0">
+        <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
+        <b data-i18n="t3.t">Monthly report sent</b>
+        <p data-i18n="t3.b">Generated at 07:00, delivered to three people.</p>
       </div>
     </div>
   </section>
@@ -572,7 +568,7 @@
     <div class="g g--system"></div>
     <div class="cols">
       <p class="stamp" data-i18n="turn.stamp">Tuesday, 11:40 pm. Still at the desk.</p>
-      <p class="sc-display turn__line" data-i18n="turn.line">Then someone builds the system.</p>
+      <p class="sc-display turn__line" data-i18n="turn.line">Then you make one decision, and we build the rest.</p>
     </div>
   </section>
 
@@ -700,7 +696,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://bok-labs.com/#bok-labs","name":"BOK Labs","url":"https://bok-labs.com/","email":"info@bok-labs.com","image":"https://bok-labs.com/og-image.png","logo":"https://bok-labs.com/apple-touch-icon.png","slogan":"Making small businesses feel large.","description":"BOK Labs builds the workflows, automations and AI systems that run small business operations. Big-company tools in everyone's hands, from Maracaibo, Venezuela.","address":{"@type":"PostalAddress","addressLocality":"Maracaibo","addressRegion":"Zulia","addressCountry":"VE"},"geo":{"@type":"GeoCoordinates","latitude":10.6427,"longitude":-71.6125},"areaServed":[{"@type":"City","name":"Maracaibo"},{"@type":"State","name":"Zulia"},{"@type":"Country","name":"Venezuela"},{"@type":"City","name":"Barcelona"}],"knowsLanguage":["es","en"],"serviceType":["Business process automation","Workflow automation","AI systems for small business","Custom business software"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Workflow and process automation for small businesses","areaServed":"Maracaibo, Venezuela"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"AI-powered custom systems for business operations","areaServed":"Venezuela"}}]}
 </script>
-<script src="engine/scrollcraft.js?v=20260902m"></script>
-<script src="site.js?v=20260902m"></script>
+<script src="engine/scrollcraft.js?v=20260902n"></script>
+<script src="site.js?v=20260902n"></script>
 </body>
 </html>
