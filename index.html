@@ -3,8 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title data-i18n="meta.title">BOK Labs · Systems that run small business operations</title>
-<meta name="description" data-i18n-attr="content:meta.desc" content="BOK Labs builds the workflows, automations and AI-powered systems that run small business operations. Tell us what's slowing you down.">
+<title data-i18n="meta.title">BOK Labs · Automation and AI systems for small businesses · Maracaibo, Venezuela</title>
+<meta name="description" data-i18n-attr="content:meta.desc" content="BOK Labs builds the workflows, automations and AI systems that run small business operations. Big-company tools in everyone's hands, from Maracaibo, Venezuela.">
+<meta name="geo.region" content="VE-V">
+<meta name="geo.placename" content="Maracaibo, Zulia, Venezuela">
+<meta name="geo.position" content="10.6427;-71.6125">
+<meta name="ICBM" content="10.6427, -71.6125">
 <meta name="theme-color" content="#0A0A0A">
 <link rel="canonical" href="https://bok-labs.com/">
 <link rel="alternate" hreflang="en" href="https://bok-labs.com/">
@@ -12,8 +16,11 @@
 <link rel="alternate" hreflang="x-default" href="https://bok-labs.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bok-labs.com/">
-<meta property="og:title" data-i18n-attr="content:meta.title" content="BOK Labs · Systems that run small business operations">
-<meta property="og:description" data-i18n-attr="content:meta.desc" content="BOK Labs builds the workflows, automations and AI-powered systems that run small business operations. Tell us what's slowing you down.">
+<meta property="og:site_name" content="BOK Labs">
+<meta property="og:locale" data-i18n-attr="content:meta.locale" content="en_US">
+<meta property="og:locale:alternate" data-i18n-attr="content:meta.locale_alt" content="es_VE">
+<meta property="og:title" data-i18n-attr="content:meta.title" content="BOK Labs · Automation and AI systems for small businesses · Maracaibo, Venezuela">
+<meta property="og:description" data-i18n-attr="content:meta.desc" content="BOK Labs builds the workflows, automations and AI systems that run small business operations. Big-company tools in everyone's hands, from Maracaibo, Venezuela.">
 <meta property="og:image" content="https://bok-labs.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -128,6 +135,11 @@
 
   /* ============================================== the two grounds, per act */
   .turn, .proof { position: relative; }
+  /* flow sections do not move: they take the divider value that holds while they are on screen, so their
+     layout never re-wraps as the global --split travels (a live value here re-flowed the page by ~800px
+     at the collapse and made the browser anchor-jump the scroll) */
+  .turn { --split: 0.6; }
+  .proof { --split: 0.4; }
   .g { position: absolute; inset: 0; pointer-events: none; }
   .g--chaos { background: var(--chaos); clip-path: inset(0 calc((1 - var(--split)) * 100%) 0 0); }
   .g--system {
@@ -301,6 +313,7 @@
   /* the gains: what changes, told as the same two columns */
   .proof__h { max-width: 22ch; }
   .proof__h--2 { margin-top: clamp(3.5rem, 10vh, 7rem); max-width: 16ch; }
+  .proof__lede { padding: 0 var(--sc-gutter); margin-left: calc(var(--split) * 100%); margin-top: var(--sc-5); max-width: 44ch; font-size: var(--sc-t-lg); line-height: 1.4; color: var(--sc-ink-soft); text-wrap: pretty; }
   .row--gain .had, .row--gain .runs { padding-block: clamp(1.25rem, 3.5vh, 2rem); }
   .row--gain .had p { color: var(--sc-ink-soft); }
   .row--gain h3 { font: 600 var(--sc-t-lg)/1.15 var(--sc-font-display); letter-spacing: -0.015em; color: var(--sc-ink); }
@@ -316,6 +329,7 @@
   .foot a { color: var(--sc-ink-soft); text-decoration: none; }
   .foot a:hover { color: var(--sc-ink); }
   .foot .mark--foot { position: static; font-size: 1rem; margin-bottom: 6px; }
+  .foot .foot__tag { font-family: var(--sc-font-text); font-size: var(--sc-t-base); letter-spacing: -0.005em; color: var(--sc-ink); margin-bottom: 6px; }
   .close__form { position: absolute; left: 50vw; right: var(--sc-gutter); top: 14vh; max-width: 34rem; z-index: var(--sc-z-copy); }
   form { display: grid; gap: 14px; }
   .field { display: grid; gap: 7px; }
@@ -565,7 +579,8 @@
   <section id="a5" data-sc-act="flow" class="proof two">
     <div class="g g--chaos"></div>
     <div class="g g--system"></div>
-    <h2 class="sc-display proof__h" data-sc-in data-i18n="gain.h">Automate the work. Build the system. This is what changes.</h2>
+    <h2 class="sc-display proof__h" data-sc-in data-i18n="gain.h">Big-company tools, in everyone's hands.</h2>
+    <p class="proof__lede" data-sc-in data-i18n="gain.lede">Automate the work. Build the system. This is what changes for a small business.</p>
     <div class="rows rows--gain">
       <article class="row row--gain">
         <div class="had" data-sc-in><p data-i18n="g1.had">Growing means one more person holding it all together.</p></div>
@@ -630,7 +645,8 @@
       </div>
       <footer class="foot" data-sc-cue="0 1 0 0">
         <a class="mark mark--foot" href="#top" aria-label="BOK Labs">BOK <small><b>[</b>labs<b>]</b></small></a>
-        <span>Barcelona · Maracaibo</span>
+        <span class="foot__tag" data-i18n="foot.tag">Making small businesses feel large.</span>
+        <span data-i18n="foot.where">Maracaibo, Venezuela · Barcelona, Spain</span>
         <a href="mailto:info@bok-labs.com">info@bok-labs.com</a>
         <span>© 2026 BOK Labs</span>
       </footer>
@@ -640,7 +656,7 @@
 </main>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"BOK Labs","url":"https://bok-labs.com/","email":"info@bok-labs.com","description":"Workflows, automations and AI-powered systems that run small business operations.","areaServed":["Barcelona","Maracaibo"]}
+{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://bok-labs.com/#bok-labs","name":"BOK Labs","url":"https://bok-labs.com/","email":"info@bok-labs.com","image":"https://bok-labs.com/og-image.png","logo":"https://bok-labs.com/apple-touch-icon.png","slogan":"Making small businesses feel large.","description":"BOK Labs builds the workflows, automations and AI systems that run small business operations. Big-company tools in everyone's hands, from Maracaibo, Venezuela.","address":{"@type":"PostalAddress","addressLocality":"Maracaibo","addressRegion":"Zulia","addressCountry":"VE"},"geo":{"@type":"GeoCoordinates","latitude":10.6427,"longitude":-71.6125},"areaServed":[{"@type":"City","name":"Maracaibo"},{"@type":"State","name":"Zulia"},{"@type":"Country","name":"Venezuela"},{"@type":"City","name":"Barcelona"}],"knowsLanguage":["es","en"],"serviceType":["Business process automation","Workflow automation","AI systems for small business","Custom business software"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Workflow and process automation for small businesses","areaServed":"Maracaibo, Venezuela"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"AI-powered custom systems for business operations","areaServed":"Venezuela"}}]}
 </script>
 <script src="engine/scrollcraft.js?v=20260902"></script>
 <script src="site.js?v=20260902"></script>
