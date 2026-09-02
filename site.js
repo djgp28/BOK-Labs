@@ -127,7 +127,7 @@
   if (coarse) {
     document.body.setAttribute("data-sc-lerp", "0.6");   // keep the clip under the thumb
     /* a phone viewport is short: more scroll travel per text state so nothing is gone before it is read */
-    var spans = { a1: "2.3", a2: "3.4", a4: "4.2", contact: "1.8" };
+    var spans = { a1: "1.6", a4: "3", contact: "1.3" };
     Object.keys(spans).forEach(function (id) { var el = document.getElementById(id); if (el) el.setAttribute("data-sc-span", spans[id]); });
   }
   ScrollCraft.mount(document.body);
@@ -136,7 +136,7 @@
   /* ---------------------------------------------------------- the divider */
   var root = document.documentElement;
   var a2 = document.getElementById('a2'), a4 = document.getElementById('a4'), a6 = document.getElementById('contact');
-  var s2 = a2.querySelector('[data-sc-stage]'), s4 = a4.querySelector('[data-sc-stage]'), s6 = a6.querySelector('[data-sc-stage]');
+  var s2 = a2.querySelector("[data-sc-stage]"), s4 = a4.querySelector("[data-sc-stage]"), s6 = a6.querySelector("[data-sc-stage]");
   var flows = [document.getElementById('a3'), document.getElementById('a5')];
   var divider = document.querySelector('.divider');
   var phoneMQ = matchMedia('(max-width: 860px)');
@@ -152,9 +152,9 @@
     var S = reduce ? step : smooth;
     /* 0.50 in the hero. 0.60 by the end of the tension. 0.40 across the peak. 0 at the close. */
     /* once the pipeline has run it stays built, and the ground it won stays won inside its own act */
-    if (!built && p4 >= 0.86) { built = true; s4.classList.add("is-built"); }
+    if (!built && p4 >= 0.70) { built = true; s4.classList.add("is-built"); }
     var peak = built ? S(p4 / 0.04) : S((p4 - 0.04) / 0.18);
-    var split = 0.5 + 0.1 * S(p2) - 0.2 * peak - 0.4 * S((p6 - 0.05) / 0.45);
+    var split = 0.5 + 0.1 * S((p2 - 0.1) / 0.5) - 0.2 * peak - 0.4 * S((p6 - 0.05) / 0.45);
     split = Math.round(split * 1000) / 1000;
     if (split !== lastSplit) { root.style.setProperty('--split', split); lastSplit = split; }
 
@@ -167,16 +167,15 @@
     if (col !== collapsed) { collapsed = col; document.body.classList.toggle('is-collapsed', col); }
 
     /* the peak: what actually paints, for the harness */
-    var run = built || p4 >= 0.86;
+    var run = built || p4 >= 0.70;
     if (run !== running) { running = run; s4.classList.toggle('is-running', run); }
-    var starts = [0.24, 0.30, 0.36, 0.42, 0.48, 0.54, 0.60], landed = 0;
+    var starts = [0.16, 0.21, 0.26, 0.31, 0.36, 0.41, 0.46], landed = 0;
     for (var i = 0; i < starts.length; i++) if (built || (reduce ? p4 >= 0.5 : p4 >= starts[i] + 0.18)) landed++;
-    var tangle = built ? 0 : reduce ? (p4 >= 0.5 ? 0 : 1) : 1 - clamp01((p4 - 0.26) / 0.52);
-    var spine = built ? 1 : reduce ? (p4 >= 0.5 ? 1 : 0) : clamp01((p4 - 0.40) / 0.36);
+    var tangle = built ? 0 : reduce ? (p4 >= 0.5 ? 0 : 1) : 1 - clamp01((p4 - 0.18) / 0.46);
+    var spine = built ? 1 : reduce ? (p4 >= 0.5 ? 1 : 0) : clamp01((p4 - 0.30) / 0.32);
     var st4 = 'split:' + split.toFixed(2) + '|landed:' + landed + '|tangle:' + tangle.toFixed(2) + '|spine:' + spine.toFixed(2) + '|run:' + (run ? 1 : 0);
     if (st4 !== lastState4) { s4.setAttribute('data-sc-verify-state', st4); lastState4 = st4; }
     if (reduce) s4.setAttribute('data-sc-verify-hold', p4 >= 0.5 && p4 < 1 ? 'true' : 'false');
-    s2.setAttribute('data-sc-verify-state', 'split:' + split.toFixed(2));
     s6.setAttribute('data-sc-verify-state', 'split:' + split.toFixed(2) + '|left:' + (p6 >= 0.42 ? 1 : 0));
 
   }

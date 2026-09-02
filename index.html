@@ -206,6 +206,20 @@
   .notif b { display: block; font-weight: 600; font-size: var(--sc-t-base); line-height: 1.3; color: var(--sc-ink); }
   .notif p { margin-top: 2px; font-size: var(--sc-t-sm); line-height: 1.45; color: var(--sc-ink-soft); text-wrap: pretty; }
 
+  /* ========================================================== 2 · tension */
+  .tension { position: relative; padding: clamp(2.5rem, 8vh, 5rem) 0 clamp(3rem, 10vh, 6rem); }
+  .cols--tension { grid-template-columns: 60% 40%; align-items: center; }
+  .tension__l { padding: 0 var(--sc-gutter); display: grid; gap: clamp(1.1rem, 3.2vh, 2rem); }
+  .tension__r { padding: 0 var(--sc-gutter); display: grid; gap: clamp(.75rem, 2vh, 1.1rem); justify-items: start; }
+  .tension .notif { width: min(24rem, 100%); }
+  /* ===================================================== 4b · after the peak */
+  .after { --split: 0.4; position: relative; padding: clamp(3rem, 10vh, 6rem) 0 clamp(2rem, 6vh, 4rem); }
+  .after .cols { align-items: start; }
+  .after .peak__quiet { padding: 0 var(--sc-gutter); }
+  .after__r { padding: 0 var(--sc-gutter); display: grid; gap: var(--sc-5); }
+  .after .peak__line { position: static; max-width: 18ch; font-size: var(--sc-t-2xl); }
+  .after .offer { position: static; opacity: 1; width: auto; max-width: 46ch; font-size: var(--sc-t-base); }
+
   /* ============================================================= 3 · turn */
   .turn { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(4rem, 14vh, 9rem); min-height: 52vh; }
   .cols { display: grid; grid-template-columns: calc(var(--split) * 100%) 1fr; align-items: center; min-height: inherit; }
@@ -235,13 +249,13 @@
     will-change: transform;
   }
   /* where each artifact sits (chaos side) and where it files (beside its node) */
-  .chip:nth-child(1) { --x0: 3vw;  --y0: 10vh; --r0: -6deg;  --s: 0.24; --x1: 36vw;   --y1: 10vh; }
-  .chip:nth-child(2) { --x0: 20vw; --y0: 30vh; --r0: 9deg;   --s: 0.30; --x1: 47.5vw; --y1: 10vh;   --w: 11vw; }
-  .chip:nth-child(3) { --x0: 8vw;  --y0: 56vh; --r0: -11deg; --s: 0.36; --x1: 47.5vw; --y1: 17.5vh; --w: 8vw; }
-  .chip:nth-child(4) { --x0: 22vw; --y0: 6vh;  --r0: 4deg;   --s: 0.42; --x1: 36vw;   --y1: 26.5vh; }
-  .chip:nth-child(5) { --x0: 4vw;  --y0: 36vh; --r0: -13deg; --s: 0.48; --x1: 47.5vw; --y1: 26.5vh; --w: 11vw; }
-  .chip:nth-child(6) { --x0: 24vw; --y0: 66vh; --r0: 6deg;   --s: 0.54; --x1: 36vw;   --y1: 40vh; }
-  .chip:nth-child(7) { --x0: 12vw; --y0: 78vh; --r0: -4deg;  --s: 0.60; --x1: 36vw;   --y1: 51.5vh; --w: 12vw; }
+  .chip:nth-child(1) { --x0: 3vw;  --y0: 10vh; --r0: -6deg;  --s: 0.16; --x1: 36vw;   --y1: 10vh; }
+  .chip:nth-child(2) { --x0: 20vw; --y0: 30vh; --r0: 9deg;   --s: 0.21; --x1: 47.5vw; --y1: 10vh;   --w: 11vw; }
+  .chip:nth-child(3) { --x0: 8vw;  --y0: 56vh; --r0: -11deg; --s: 0.26; --x1: 47.5vw; --y1: 17.5vh; --w: 8vw; }
+  .chip:nth-child(4) { --x0: 22vw; --y0: 6vh;  --r0: 4deg;   --s: 0.31; --x1: 36vw;   --y1: 26.5vh; }
+  .chip:nth-child(5) { --x0: 4vw;  --y0: 36vh; --r0: -13deg; --s: 0.36; --x1: 47.5vw; --y1: 26.5vh; --w: 11vw; }
+  .chip:nth-child(6) { --x0: 24vw; --y0: 66vh; --r0: 6deg;   --s: 0.41; --x1: 36vw;   --y1: 40vh; }
+  .chip:nth-child(7) { --x0: 12vw; --y0: 78vh; --r0: -4deg;  --s: 0.46; --x1: 36vw;   --y1: 51.5vh; --w: 12vw; }
   .chip b { display: block; font-weight: 500; color: var(--sc-ink); }
   .chip--wa { background: var(--green-dim); border-color: var(--green); border-radius: 14px 14px 14px 4px; }
   .chip--wa b { font-family: var(--sc-font-text); font-size: 1.15em; font-weight: 500; }
@@ -261,7 +275,7 @@
   .spine { position: absolute; left: calc(8vw - 1px); top: 10vh; width: 2px; height: 65vh; overflow: visible; }
   .spine line { stroke: var(--line-strong); stroke-width: 2px; }
   .spine .draw {
-    stroke: var(--sc-accent); stroke-dasharray: 1; stroke-dashoffset: calc(1 - clamp(0, calc((var(--sc-p, 0) - 0.40) / 0.36), 1));
+    stroke: var(--sc-accent); stroke-dasharray: 1; stroke-dashoffset: calc(1 - clamp(0, calc((var(--sc-p, 0) - 0.30) / 0.32), 1));
   }
   .spine .flow { stroke: var(--green-soft); stroke-dasharray: 0.018 0.03; opacity: 0; transition: opacity var(--sc-d-slow) var(--sc-ease-out); }
   .is-running .spine .flow { opacity: 1; animation: flow 1.6s linear infinite; }
@@ -433,7 +447,6 @@
     .node .fired { font-size: 0.6rem; margin-top: 2px; }
     .offer { left: calc(6vw + 16px); right: auto; width: calc(54vw - 30px); top: 84svh; max-width: none; font-size: 0.68rem; }
     .peak__line { left: calc(-40vw + 12px); top: 60svh; width: calc(40vw - 20px); max-width: none; font-size: clamp(1.1rem, 5vw, 1.4rem); }
-    .peak__quiet { display: none; }
     /* proof: the same two columns */
     .proof { padding: 2rem 0 2.5rem; }
     .proof__h { font-size: clamp(1.15rem, 5.2vw, 1.5rem); }
@@ -508,35 +521,31 @@
     </div>
   </section>
 
-  <!-- 2 · TENSION · pin: three costs, each answered; the divider leans toward the mess -->
-  <section id="a2" data-sc-act="pin" data-sc-span="2.8">
-    <div data-sc-stage class="stage stage--tension two" data-sc-verify-state="split:0.50">
-      <div class="g g--chaos"></div>
-      <div class="g g--system"></div>
-      <div class="half half--chaos">
-        <div class="centre centre--stack">
-          <p class="cost" data-sc-cue="0 1 0 0" data-i18n="t1.l">The price is in someone's head.</p>
-          <p class="cost" data-sc-cue="0.22 1 0.12 0" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
-          <p class="cost" data-sc-cue="0.44 1 0.12 0" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
-        </div>
+  <!-- 2 · TENSION · flow: three costs, each answered by a notification. Normal content: it appears once and stays. -->
+  <section id="a2" data-sc-act="flow" class="tension two">
+    <div class="g g--chaos"></div>
+    <div class="g g--system"></div>
+    <div class="cols cols--tension">
+      <div class="tension__l" data-sc-in data-sc-stagger="160">
+        <p class="cost" data-i18n="t1.l">The price is in someone's head.</p>
+        <p class="cost" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
+        <p class="cost" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
       </div>
-      <div class="half half--system">
-        <div class="centre centre--stack centre--notifs">
-          <div class="notif" data-sc-cue="0 1 0 0" role="status">
-            <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
-            <b data-i18n="t1.t">Price list updated</b>
-            <p data-i18n="t1.b">v12 is live. Everyone sees the same one.</p>
-          </div>
-          <div class="notif" data-sc-cue="0.22 1 0.12 0" role="status">
-            <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
-            <b data-i18n="t2.t">Order 1042 confirmed</b>
-            <p data-i18n="t2.b">From WhatsApp. Saved to the record, invoice sent.</p>
-          </div>
-          <div class="notif" data-sc-cue="0.44 1 0.12 0" role="status">
-            <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
-            <b data-i18n="t3.t">Monthly report sent</b>
-            <p data-i18n="t3.b">Generated at 07:00, delivered to three people.</p>
-          </div>
+      <div class="tension__r" data-sc-in data-sc-stagger="220">
+        <div class="notif" role="status">
+          <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
+          <b data-i18n="t1.t">Price list updated</b>
+          <p data-i18n="t1.b">v12 is live. Everyone sees the same one.</p>
+        </div>
+        <div class="notif" role="status">
+          <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
+          <b data-i18n="t2.t">Order 1042 confirmed</b>
+          <p data-i18n="t2.b">From WhatsApp. Saved to the record, invoice sent.</p>
+        </div>
+        <div class="notif" role="status">
+          <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
+          <b data-i18n="t3.t">Monthly report sent</b>
+          <p data-i18n="t3.b">Generated at 07:00, delivered to three people.</p>
         </div>
       </div>
     </div>
@@ -553,18 +562,18 @@
   </section>
 
   <!-- 4 · PEAK · pin: chaos becomes a system -->
-  <section id="a4" data-sc-act="pin" data-sc-span="3.6">
+  <section id="a4" data-sc-act="pin" data-sc-span="2.6">
     <div data-sc-stage class="stage stage--peak two" data-sc-verify-state="split:0.60|landed:0|tangle:1.00|spine:0.00|run:0">
       <div class="g g--chaos"></div>
       <div class="g g--system"></div>
       <svg class="tangle" viewBox="0 0 1000 700" preserveAspectRatio="xMinYMid slice" aria-hidden="true">
-        <path style="--u:0.26" pathLength="1" d="M40 98 C 140 28, 220 210, 120 238 S 300 420, 200 462 S 80 588, 220 630"/>
-        <path style="--u:0.31" pathLength="1" d="M260 56 C 340 140, 120 182, 180 280 S 360 294, 300 392 S 140 490, 300 546"/>
-        <path style="--u:0.36" pathLength="1" d="M80 210 C 200 252, 300 168, 340 252 S 180 378, 280 434 S 360 560, 140 602"/>
-        <path style="--u:0.41" pathLength="1" d="M20 350 C 120 308, 240 462, 340 378 S 400 210, 280 168 S 100 112, 200 84"/>
-        <path style="--u:0.46" pathLength="1" d="M360 84 C 280 182, 380 280, 260 322 S 60 406, 160 490 S 340 476, 380 588"/>
-        <path style="--u:0.51" pathLength="1" d="M60 504 C 180 434, 300 518, 240 588 S 80 644, 180 672"/>
-        <path style="--u:0.56" pathLength="1" d="M300 28 C 400 70, 360 154, 280 140 S 120 70, 60 140"/>
+        <path style="--u:0.18" pathLength="1" d="M40 98 C 140 28, 220 210, 120 238 S 300 420, 200 462 S 80 588, 220 630"/>
+        <path style="--u:0.22" pathLength="1" d="M260 56 C 340 140, 120 182, 180 280 S 360 294, 300 392 S 140 490, 300 546"/>
+        <path style="--u:0.26" pathLength="1" d="M80 210 C 200 252, 300 168, 340 252 S 180 378, 280 434 S 360 560, 140 602"/>
+        <path style="--u:0.30" pathLength="1" d="M20 350 C 120 308, 240 462, 340 378 S 400 210, 280 168 S 100 112, 200 84"/>
+        <path style="--u:0.34" pathLength="1" d="M360 84 C 280 182, 380 280, 260 322 S 60 406, 160 490 S 340 476, 380 588"/>
+        <path style="--u:0.38" pathLength="1" d="M60 504 C 180 434, 300 518, 240 588 S 80 644, 180 672"/>
+        <path style="--u:0.42" pathLength="1" d="M300 28 C 400 70, 360 154, 280 140 S 120 70, 60 140"/>
       </svg>
       <div class="chips" aria-hidden="false">
         <div class="chip chip--wa"><span data-i18n="c.wa.k">WhatsApp · 11:42 PM</span><b data-i18n="c.wa">Do you still have the 500 ml? I need 40 for Friday.</b></div>
@@ -584,20 +593,26 @@
           </svg>
           <i class="runner" aria-hidden="true"></i>
           <ol class="nodes">
-            <li class="node" style="--r:0; --rp:0; --n:0.42"><b data-i18n="n1">Intake</b><span data-i18n="n1.d">Chat, email, photo, voice: everything comes in through one door.</span></li>
-            <li class="node" style="--r:16.5; --rp:15; --n:0.60"><b data-i18n="n2">Rules</b><span data-i18n="n2.d">Prices, stock, deadlines: written once, applied every time.</span></li>
-            <li class="node" style="--r:30; --rp:30; --n:0.72"><b data-i18n="n3">AI where judgment is needed</b><span data-i18n="n3.d">Reads the message, drafts the reply, flags what a person should decide.</span></li>
-            <li class="node" style="--r:41.5; --rp:45; --n:0.78"><b data-i18n="n4">One record</b><span data-i18n="n4.d">Every order, invoice and customer in one place, up to date.</span></li>
-            <li class="node" style="--r:53; --rp:60; --n:0.86"><b data-i18n="n5">Reports and alerts</b><span data-i18n="n5.d">Sent on time, to the right people, without anyone asking.</span><em class="fired" data-i18n="n5.s">sent · monthly report · 3 people</em></li>
+            <li class="node" style="--r:0; --rp:0; --n:0.34"><b data-i18n="n1">Intake</b><span data-i18n="n1.d">Chat, email, photo, voice: everything comes in through one door.</span></li>
+            <li class="node" style="--r:16.5; --rp:15; --n:0.49"><b data-i18n="n2">Rules</b><span data-i18n="n2.d">Prices, stock, deadlines: written once, applied every time.</span></li>
+            <li class="node" style="--r:30; --rp:30; --n:0.54"><b data-i18n="n3">AI where judgment is needed</b><span data-i18n="n3.d">Reads the message, drafts the reply, flags what a person should decide.</span></li>
+            <li class="node" style="--r:41.5; --rp:45; --n:0.59"><b data-i18n="n4">One record</b><span data-i18n="n4.d">Every order, invoice and customer in one place, up to date.</span></li>
+            <li class="node" style="--r:53; --rp:60; --n:0.70"><b data-i18n="n5">Reports and alerts</b><span data-i18n="n5.d">Sent on time, to the right people, without anyone asking.</span><em class="fired" data-i18n="n5.s">sent · monthly report · 3 people</em></li>
           </ol>
-          <p class="offer" data-i18n="offer">Workflows, automations and AI systems that run the operation. A web or mobile app when the system needs a screen.</p>
         </div>
-        <p class="sc-display peak__line" data-sc-cue="0.72 1 0.2 0" data-sc-kinetic="words" data-i18n="peak.r">One pipeline. It runs on its own.</p>
       </div>
-      <div class="half half--chaos">
-        <div class="centre">
-          <p class="peak__quiet" data-sc-cue="0.74 1 0.2 0" data-i18n="peak.l">Nothing left to hold together.</p>
-        </div>
+    </div>
+  </section>
+
+  <!-- 4b · AFTER THE PEAK · flow: what the reader just saw, said once, kept -->
+  <section id="a4b" data-sc-act="flow" class="after two">
+    <div class="g g--chaos"></div>
+    <div class="g g--system"></div>
+    <div class="cols">
+      <p class="peak__quiet" data-sc-in data-i18n="peak.l">Nothing left to hold together.</p>
+      <div class="after__r" data-sc-in data-sc-stagger="140">
+        <p class="sc-display peak__line" data-i18n="peak.r">One pipeline. It runs on its own.</p>
+        <p class="offer" data-i18n="offer">Workflows, automations and AI systems that run the operation. A web or mobile app when the system needs a screen.</p>
       </div>
     </div>
   </section>
@@ -644,7 +659,7 @@
   </section>
 
   <!-- 6 · COMMITMENT · pin: the collapse. Last element on the page; footer inside the stage. -->
-  <section id="contact" data-sc-act="pin" data-sc-span="1.6">
+  <section id="contact" data-sc-act="pin" data-sc-span="1.4">
     <div data-sc-stage class="stage stage--close two" data-sc-verify-state="split:0.40">
       <div class="g g--chaos"></div>
       <div class="g g--system"></div>
