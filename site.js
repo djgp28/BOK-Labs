@@ -7,7 +7,7 @@
   /* ------------------------------------------------------------ language */
   var ES = {
     'meta.title': 'BOK Labs · Automatización y sistemas con IA para pequeños negocios · Maracaibo, Venezuela',
-    'meta.desc': 'BOK Labs construye los flujos de trabajo, automatizaciones y sistemas con IA que hacen funcionar la operación de tu negocio. Herramientas de gran empresa al alcance de todos, desde Maracaibo, Venezuela.',
+    'meta.desc': 'BOK Labs construye los flujos de trabajo, automatizaciones y sistemas con IA que hacen funcionar la operación de tu negocio. Herramientas de grandes empresas al alcance de todos, desde Maracaibo, Venezuela.',
     'meta.locale': 'es_VE', 'meta.locale_alt': 'en_US',
     'gain.lede': 'Automatiza el trabajo. Construye el sistema. Esto es lo que cambia para un negocio pequeño.',
     'foot.tag': 'Que un negocio pequeño se sienta grande.',
@@ -48,7 +48,7 @@
     'offer': 'Flujos de trabajo, automatizaciones y sistemas con IA que hacen funcionar la operación. Una app web o móvil cuando el sistema necesita una pantalla.',
     'peak.r': 'Un solo flujo. Funciona solo.',
     'peak.l': 'Ya no hay nada que sostener a mano.',
-    'gain.h': 'Herramientas de gran empresa, al alcance de todos.',
+    'gain.h': 'Herramientas de grandes empresas, al alcance de todos.',
     'g1.had': 'Crecer significa una persona más sosteniéndolo todo.',
     'g1.h': 'Escala', 'g1.p': 'El sistema absorbe el volumen extra. Tú te quedas con el negocio extra, no con las noches extra.',
     'g2.had': 'Las consultas esperan en un chat hasta que alguien llega a ellas.',
