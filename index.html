@@ -278,6 +278,13 @@
   .runs .out { color: var(--green-soft); font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); }
   .row .sc-label { color: var(--muted); }
   .row .sc-label--sys { color: var(--green-soft); }
+  /* the gains: what changes, told as the same two columns */
+  .proof__h { max-width: 22ch; }
+  .proof__h--2 { margin-top: clamp(3.5rem, 10vh, 7rem); max-width: 16ch; }
+  .row--gain .had, .row--gain .runs { padding-block: clamp(1.25rem, 3.5vh, 2rem); }
+  .row--gain .had p { color: var(--sc-ink-soft); }
+  .row--gain h3 { font: 600 var(--sc-t-lg)/1.15 var(--sc-font-display); letter-spacing: -0.015em; color: var(--sc-ink); }
+  .row--gain .runs p { max-width: 46ch; }
 
   /* ============================================================ 6 · close */
   .close__quiet { font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); color: var(--sc-ink); max-width: 26ch; }
@@ -523,19 +530,38 @@
   <section id="a5" data-sc-act="flow" class="proof two">
     <div class="g g--chaos"></div>
     <div class="g g--system"></div>
-    <h2 class="sc-display proof__h" data-sc-in data-i18n="proof.h">Built, shipped, running.</h2>
+    <h2 class="sc-display proof__h" data-sc-in data-i18n="gain.h">Automate the work. Build the system. This is what changes.</h2>
+    <div class="rows rows--gain">
+      <article class="row row--gain">
+        <div class="had" data-sc-in><p data-i18n="g1.had">Growing means one more person holding it all together.</p></div>
+        <div class="runs" data-sc-in><h3 data-i18n="g1.h">Scale</h3><p data-i18n="g1.p">The system absorbs the extra volume. You take the extra business, not the extra nights.</p></div>
+      </article>
+      <article class="row row--gain">
+        <div class="had" data-sc-in><p data-i18n="g2.had">Enquiries wait in a chat until someone gets to them.</p></div>
+        <div class="runs" data-sc-in><h3 data-i18n="g2.h">More sales</h3><p data-i18n="g2.p">Every enquiry answered, followed up and closed on time. Nothing falls between messages.</p></div>
+      </article>
+      <article class="row row--gain">
+        <div class="had" data-sc-in><p data-i18n="g3.had">You hear about a problem when a customer calls about it.</p></div>
+        <div class="runs" data-sc-in><h3 data-i18n="g3.h">More control</h3><p data-i18n="g3.p">Stock, orders, payments and cash visible at a glance, with an alert before it hurts.</p></div>
+      </article>
+      <article class="row row--gain">
+        <div class="had" data-sc-in><p data-i18n="g4.had">Decisions come from memory and gut feeling.</p></div>
+        <div class="runs" data-sc-in><h3 data-i18n="g4.h">Better decisions</h3><p data-i18n="g4.p">Real numbers every week, without anyone building a spreadsheet first.</p></div>
+      </article>
+    </div>
+    <h2 class="sc-display proof__h proof__h--2" data-sc-in data-i18n="proof.h">Built, shipped, running.</h2>
     <div class="rows">
       <article class="row">
         <div class="had" data-sc-in><span class="sc-label" data-i18n="proof.had">They had</span><p data-i18n="p1.had">Years of daily farm records in notebooks and spreadsheets, and one person who knew where everything was.</p></div>
-        <div class="runs" data-sc-reveal="left" data-sc-reveal-at="0.10 0.30"><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://ager-pro.com" rel="noopener">AgerPRO</a></h3><p data-i18n="p1.runs">Production, rainfall, finances, fuel and staff in one platform, on the web and on Android, for several farms at once.</p><p class="out" data-i18n="p1.out">1,280 days of history imported. In production.</p></div>
+        <div class="runs" data-sc-reveal="left" data-sc-reveal-at="0.40 0.56"><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://ager-pro.com" rel="noopener">AgerPRO</a></h3><p data-i18n="p1.runs">Production, rainfall, finances, fuel and staff in one platform, on the web and on Android, for several farms at once.</p><p class="out" data-i18n="p1.out">1,280 days of history imported. In production.</p></div>
       </article>
       <article class="row">
         <div class="had" data-sc-in><span class="sc-label" data-i18n="proof.had">They had</span><p data-i18n="p2.had">Orders arriving over chat, payments confirmed by hand, stock counted from memory.</p></div>
-        <div class="runs" data-sc-reveal="left" data-sc-reveal-at="0.28 0.48"><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://pharmatechus.com" rel="noopener">PharmaTech US</a></h3><p data-i18n="p2.runs">An online store that hands each order to WhatsApp with a confirmation link, and an owner panel for orders, payments, inventory and sales.</p><p class="out" data-i18n="p2.out">Orders arrive structured. The owner works from one panel.</p></div>
+        <div class="runs" data-sc-reveal="left" data-sc-reveal-at="0.48 0.64"><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://pharmatechus.com" rel="noopener">PharmaTech US</a></h3><p data-i18n="p2.runs">An online store that hands each order to WhatsApp with a confirmation link, and an owner panel for orders, payments, inventory and sales.</p><p class="out" data-i18n="p2.out">Orders arrive structured. The owner works from one panel.</p></div>
       </article>
       <article class="row">
         <div class="had" data-sc-in><span class="sc-label" data-i18n="proof.had">They had</span><p data-i18n="p3.had">A practice with no online presence and enquiries scattered across messages.</p></div>
-        <div class="runs" data-sc-reveal="left" data-sc-reveal-at="0.46 0.66"><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://www.drdoulapoppins.com/" rel="noopener">DrDoulaPoppins</a></h3><p data-i18n="p3.runs">A single-page site with services, pricing and a lead capture that lands in WhatsApp.</p><p class="out" data-i18n="p3.out">Live at drdoulapoppins.com.</p></div>
+        <div class="runs" data-sc-reveal="left" data-sc-reveal-at="0.56 0.72"><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://www.drdoulapoppins.com/" rel="noopener">DrDoulaPoppins</a></h3><p data-i18n="p3.runs">A single-page site with services, pricing and a lead capture that lands in WhatsApp.</p><p class="out" data-i18n="p3.out">Live at drdoulapoppins.com.</p></div>
       </article>
     </div>
   </section>

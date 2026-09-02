@@ -46,10 +46,10 @@ Peak = act 4 (pin, span 3.2, the largest on the page, preceded by the quiet flow
 | 2 | pin | 1.8 | three cue pairs, divider 0.50 to 0.60 |
 | 3 | flow | ~0.5 | one `data-sc-in` line (authored silence) |
 | 4 | pin | 3.2 | signature move, one kinetic closing line |
-| 5 | flow | ~1.8 | `data-sc-in`, `data-sc-reveal="left"` per system panel |
+| 5 | flow | ~2.9 | the gains (four today / with-a-system pairs: scale, more sales, more control, better decisions, `data-sc-in`), then the three real systems (`data-sc-reveal="left"` per system panel). Gains added on David's review, 2026-09-02. |
 | 6 | pin | 1.6 | collapse 0.40 to 0, form, hold cues, footer in the stage |
 
-10.6 viewport-heights at 1440x900, 10.7 in Spanish. Five device families, none twice in a row, one scrub. Banned by the grammar and not used: pan, spotlight, magnet, drift. No counters (no invented numbers; the one real figure is static text).
+11.7 viewport-heights at 1440x900 (12.1 on a 390x844 phone) after the gains block; 10.6 before it. Five device families, none twice in a row, one scrub. Banned by the grammar and not used: pan, spotlight, magnet, drift. No counters (no invented numbers; the one real figure is static text).
 
 ## Generated (kie.ai, shot list approved by David 2026-09-02)
 
