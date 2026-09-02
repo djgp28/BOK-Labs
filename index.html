@@ -29,7 +29,7 @@
 <link rel="preload" href="assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/jetbrains-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/01-chaos-poster.jpg" as="image" media="(min-width: 861px)">
-<link rel="stylesheet" href="engine/scrollcraft.css?v=20260902j">
+<link rel="stylesheet" href="engine/scrollcraft.css?v=20260902k">
 <style>
   @font-face {
     font-family: "Space Grotesk";
@@ -133,7 +133,9 @@
   .divider__label--r { left: 14px; color: var(--sc-accent); }
 
   /* ============================================== the two grounds, per act */
-  .turn, .proof { position: relative; }
+  .turn, .proof, .tension, .after { position: relative; isolation: isolate; }
+  /* ground layers always paint under the section text, whatever transform state the text is in */
+  .turn .g, .proof .g, .tension .g, .after .g { z-index: -1; }
   /* flow sections do not move: they take the divider value that holds while they are on screen, so their
      layout never re-wraps as the global --split travels (a live value here re-flowed the page by ~800px
      at the collapse and made the browser anchor-jump the scroll) */
@@ -517,7 +519,7 @@
           <source media="(max-width: 860px)" srcset="assets/01-chaos-poster-m.jpg">
           <img class="sc-stage__poster" src="assets/01-chaos-poster.jpg" alt="">
         </picture>
-        <video data-sc-scrub data-sc-src="assets/01-chaos.mp4?v=20260902j" data-sc-src-mobile="assets/01-chaos-m.mp4?v=20260902j" muted playsinline></video>
+        <video data-sc-scrub data-sc-src="assets/01-chaos.mp4?v=20260902k" data-sc-src-mobile="assets/01-chaos-m.mp4?v=20260902k" muted playsinline></video>
         <div class="hero-scrim" aria-hidden="true"></div>
         <div class="copy copy--hero" data-sc-cue="0 1 0 0">
           <h1 class="sc-display hero__h" data-i18n="hero.l">Your operation runs on WhatsApp, spreadsheets and memory.</h1>
@@ -698,7 +700,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://bok-labs.com/#bok-labs","name":"BOK Labs","url":"https://bok-labs.com/","email":"info@bok-labs.com","image":"https://bok-labs.com/og-image.png","logo":"https://bok-labs.com/apple-touch-icon.png","slogan":"Making small businesses feel large.","description":"BOK Labs builds the workflows, automations and AI systems that run small business operations. Big-company tools in everyone's hands, from Maracaibo, Venezuela.","address":{"@type":"PostalAddress","addressLocality":"Maracaibo","addressRegion":"Zulia","addressCountry":"VE"},"geo":{"@type":"GeoCoordinates","latitude":10.6427,"longitude":-71.6125},"areaServed":[{"@type":"City","name":"Maracaibo"},{"@type":"State","name":"Zulia"},{"@type":"Country","name":"Venezuela"},{"@type":"City","name":"Barcelona"}],"knowsLanguage":["es","en"],"serviceType":["Business process automation","Workflow automation","AI systems for small business","Custom business software"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Workflow and process automation for small businesses","areaServed":"Maracaibo, Venezuela"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"AI-powered custom systems for business operations","areaServed":"Venezuela"}}]}
 </script>
-<script src="engine/scrollcraft.js?v=20260902j"></script>
-<script src="site.js?v=20260902j"></script>
+<script src="engine/scrollcraft.js?v=20260902k"></script>
+<script src="site.js?v=20260902k"></script>
 </body>
 </html>
