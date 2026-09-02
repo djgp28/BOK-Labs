@@ -117,13 +117,13 @@
     background: var(--sc-accent); transform-origin: 50% 0; transform: scaleY(var(--prog));
   }
   .divider__label {
-    position: absolute; top: 24px; white-space: nowrap;
-    font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); letter-spacing: var(--sc-track-wide);
-    text-transform: uppercase; color: var(--sc-ink-soft);
+    position: absolute; top: 22px; white-space: nowrap;
+    font-family: var(--sc-font-mono); font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.15rem); font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--sc-ink);
     transition: opacity var(--sc-d-base) var(--sc-ease-out);
   }
   .divider__label--l { right: 14px; }
-  .divider__label--r { left: 14px; color: var(--green-soft); }
+  .divider__label--r { left: 14px; color: var(--sc-accent); }
   .is-collapsed .divider__label { opacity: 0; }
 
   /* ============================================== the two grounds, per act */
@@ -307,7 +307,7 @@
   .row--gain .runs p { max-width: 46ch; }
 
   /* ============================================================ 6 · close */
-  .close__quiet { font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); color: var(--sc-ink); max-width: 26ch; }
+  .close__quiet { font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); color: var(--sc-ink); max-width: 30ch; margin-bottom: var(--sc-5); }
   .close__left { position: absolute; left: var(--sc-gutter); top: 16vh; width: min(34rem, 40vw); z-index: var(--sc-z-copy); }
   .close__h { font-size: var(--sc-t-3xl); max-width: 12ch; letter-spacing: -0.03em; }
   .close__p { margin-top: var(--sc-5); max-width: 36ch; color: var(--sc-ink-soft); }
@@ -411,12 +411,12 @@
     .close__left { top: 8svh; left: var(--sc-gutter); right: var(--sc-gutter); width: auto; }
     .close__h { font-size: var(--sc-t-xl); max-width: none; }
     .close__p { margin-top: var(--sc-3); font-size: var(--sc-t-sm); }
-    .close__form { left: var(--sc-gutter); right: var(--sc-gutter); top: 27svh; max-width: none; }
+    .close__form { left: var(--sc-gutter); right: var(--sc-gutter); top: 31svh; max-width: none; }
     form { gap: 10px; }
     .field textarea { min-height: 5.5rem; }
     .foot { bottom: 12px; gap: 3px; }
     .foot .mark--foot { display: none; }
-    .close__quiet { font-size: var(--sc-t-xs); }
+    .close__quiet { font-size: var(--sc-t-xs); margin-bottom: var(--sc-3); }
   }
 </style>
 </head>
@@ -588,15 +588,15 @@
     <div class="rows">
       <article class="row">
         <div class="had" data-sc-in><span class="sc-label" data-i18n="proof.had">They had</span><p data-i18n="p1.had">Years of daily farm records in notebooks and spreadsheets, and one person who knew where everything was.</p></div>
-        <div class="runs" data-sc-reveal="left" data-sc-reveal-at="0.40 0.56"><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://ager-pro.com" rel="noopener">AgerPRO</a></h3><p data-i18n="p1.runs">Production, rainfall, finances, fuel and staff in one platform, on the web and on Android, for several farms at once.</p><p class="out" data-i18n="p1.out">1,280 days of history imported. In production.</p></div>
+        <div class="runs" data-sc-in><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://ager-pro.com" rel="noopener">AgerPRO</a></h3><p data-i18n="p1.runs">Production, rainfall, finances, fuel and staff in one platform, on the web and on Android, for several farms at once.</p><p class="out" data-i18n="p1.out">1,280 days of history imported. In production.</p></div>
       </article>
       <article class="row">
         <div class="had" data-sc-in><span class="sc-label" data-i18n="proof.had">They had</span><p data-i18n="p2.had">Orders arriving over chat, payments confirmed by hand, stock counted from memory.</p></div>
-        <div class="runs" data-sc-reveal="left" data-sc-reveal-at="0.48 0.64"><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://pharmatechus.com" rel="noopener">PharmaTech US</a></h3><p data-i18n="p2.runs">An online store that hands each order to WhatsApp with a confirmation link, and an owner panel for orders, payments, inventory and sales.</p><p class="out" data-i18n="p2.out">Orders arrive structured. The owner works from one panel.</p></div>
+        <div class="runs" data-sc-in><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://pharmatechus.com" rel="noopener">PharmaTech US</a></h3><p data-i18n="p2.runs">An online store that hands each order to WhatsApp with a confirmation link, and an owner panel for orders, payments, inventory and sales.</p><p class="out" data-i18n="p2.out">Orders arrive structured. The owner works from one panel.</p></div>
       </article>
       <article class="row">
         <div class="had" data-sc-in><span class="sc-label" data-i18n="proof.had">They had</span><p data-i18n="p3.had">A practice with no online presence and enquiries scattered across messages.</p></div>
-        <div class="runs" data-sc-reveal="left" data-sc-reveal-at="0.56 0.72"><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://www.drdoulapoppins.com/" rel="noopener">DrDoulaPoppins</a></h3><p data-i18n="p3.runs">A single-page site with services, pricing and a lead capture that lands in WhatsApp.</p><p class="out" data-i18n="p3.out">Live at drdoulapoppins.com.</p></div>
+        <div class="runs" data-sc-in><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://www.drdoulapoppins.com/" rel="noopener">DrDoulaPoppins</a></h3><p data-i18n="p3.runs">A single-page site with services, pricing and a lead capture that lands in WhatsApp.</p><p class="out" data-i18n="p3.out">Live at drdoulapoppins.com.</p></div>
       </article>
     </div>
   </section>
@@ -606,12 +606,8 @@
     <div data-sc-stage class="stage stage--close two" data-sc-verify-state="split:0.40">
       <div class="g g--chaos"></div>
       <div class="g g--system"></div>
-      <div class="half half--chaos">
-        <div class="centre">
-          <p class="close__quiet" data-sc-cue="0 0.3 0" data-i18n="close.quiet">Or keep holding it together by hand.</p>
-        </div>
-      </div>
-      <div class="close__left" data-sc-cue="0.42">
+      <div class="close__left" data-sc-cue="0 1 0 0">
+        <p class="close__quiet" data-i18n="close.quiet">Or keep holding it together by hand.</p>
         <h2 class="sc-display close__h" data-i18n="close.h">Tell us what's slowing you down.</h2>
         <p class="close__p" data-i18n="close.p">One message is enough. We read it, we reply, and if we can help we say how.</p>
       </div>
@@ -632,7 +628,7 @@
           <p class="sent__mail" data-i18n="f.okmail">Your mail app should open with the message ready. If it didn't, write to <a href="mailto:info@bok-labs.com">info@bok-labs.com</a>.</p>
         </div>
       </div>
-      <footer class="foot" data-sc-cue="0.5">
+      <footer class="foot" data-sc-cue="0 1 0 0">
         <a class="mark mark--foot" href="#top" aria-label="BOK Labs">BOK <small><b>[</b>labs<b>]</b></small></a>
         <span>Barcelona · Maracaibo</span>
         <a href="mailto:info@bok-labs.com">info@bok-labs.com</a>

@@ -46,8 +46,10 @@ Peak = act 4 (pin, span 3.2, the largest on the page, preceded by the quiet flow
 | 2 | pin | 1.8 | three cue pairs, divider 0.50 to 0.60 |
 | 3 | flow | ~0.5 | one `data-sc-in` line (authored silence) |
 | 4 | pin | 3.2 | signature move, one kinetic closing line |
-| 5 | flow | ~2.9 | the gains (four today / with-a-system pairs: scale, more sales, more control, better decisions, `data-sc-in`), then the three real systems (`data-sc-reveal="left"` per system panel). Gains added on David's review, 2026-09-02. |
-| 6 | pin | 1.6 | collapse 0.40 to 0, form, hold cues, footer in the stage |
+| 5 | flow | ~2.9 | the gains (four today / with-a-system pairs: scale, more sales, more control, better decisions), then the three real systems; everything `data-sc-in` so nothing un-reveals when the reader scrolls back (the wipe per system panel was dropped on David's feedback). Gains added on David's review, 2026-09-02. |
+| 6 | pin | 1.6 | collapse 0.40 to 0; every line (the quiet line, heading, body, form, footer) present from p = 0 and held, so the collapse changes the ground under text that is already there |
+
+Round 3 (David, live site): all pinned copy holds to the end of its act (hero, the three costs and their notification answers, the peak's closing lines); phones get longer spans (site.js); a soft top fade keeps the wordmark legible over sliding text; the divider labels are larger and in ink / accent. Device families now: scrub, pin+cue, kinetic, flow+in (four, the floor).
 
 11.7 viewport-heights at 1440x900 (12.1 on a 390x844 phone) after the gains block; 10.6 before it. Five device families, none twice in a row, one scrub. Banned by the grammar and not used: pan, spotlight, magnet, drift. No counters (no invented numbers; the one real figure is static text).
 
