@@ -1,96 +1,617 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
-<title>BOK Labs — Software that ships.</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-i18n="meta.title">BOK Labs · Systems that run small business operations</title>
+<meta name="description" data-i18n-attr="content:meta.desc" content="BOK Labs builds the workflows, automations and AI-powered systems that run small business operations. Tell us what's slowing you down.">
 <meta name="theme-color" content="#0A0A0A">
+<link rel="canonical" href="https://bok-labs.com/">
+<link rel="alternate" hreflang="en" href="https://bok-labs.com/">
+<link rel="alternate" hreflang="es" href="https://bok-labs.com/?lang=es">
+<link rel="alternate" hreflang="x-default" href="https://bok-labs.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bok-labs.com/">
+<meta property="og:title" data-i18n-attr="content:meta.title" content="BOK Labs · Systems that run small business operations">
+<meta property="og:description" data-i18n-attr="content:meta.desc" content="BOK Labs builds the workflows, automations and AI-powered systems that run small business operations. Tell us what's slowing you down.">
+<meta property="og:image" content="https://bok-labs.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="alternate icon" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="description" content="BOK Labs — custom software for teams that need real engineering, not templates. Web, mobile, automation.">
-<meta property="og:title" content="BOK Labs — Software that ships">
-<meta property="og:description" content="Custom software for SMBs and mid-market teams. Real engineering, real deadlines.">
-<meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jetbrains-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/01-chaos-poster.jpg" as="image" media="(min-width: 861px)">
+<link rel="stylesheet" href="engine/scrollcraft.css?v=20260902">
 <style>
+  @font-face {
+    font-family: "Space Grotesk";
+    src: url("assets/fonts/space-grotesk-latin-wght-normal.woff2") format("woff2-variations"),
+         url("assets/fonts/space-grotesk-latin-wght-normal.woff2") format("woff2");
+    font-weight: 300 700; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "JetBrains Mono";
+    src: url("assets/fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2-variations"),
+         url("assets/fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+    font-weight: 100 800; font-style: normal; font-display: swap;
+  }
+
+  /* ---- brand: six colours, two faces (the BOK Labs kit, unchanged) ---- */
   :root {
-    --bg: #0A0A0A;
-    --surface: #111111;
-    --elevated: #171717;
-    --border: #262626;
-    --border-strong: #303030;
-    --text: #F4F4F5;
-    --text-2: #A1A1AA;
-    --text-3: #52525B;
-    --text-4: #3F3F46;
-    --green: #1F5C3F;
-    --green-active: #3DBA7E;
-    --green-dim: #14361F;
-    --green-soft: #7DD3A8;
-    --danger: #E5484D;
-    --sans: 'Space Grotesk', system-ui, sans-serif;
-    --mono: 'JetBrains Mono', ui-monospace, monospace;
-  }
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--sans); scroll-behavior: smooth; }
-  body {
-    background-image:
-      radial-gradient(900px 600px at 90% 0%, rgba(31,92,63,0.18), transparent 60%),
-      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 100% 100%, 56px 56px, 56px 56px;
-    background-attachment: fixed, fixed, fixed;
-  }
-  a { color: inherit; text-decoration: none; }
-  button { font-family: inherit; cursor: pointer; }
-  input, textarea, select { font-family: inherit; }
-  ::selection { background: var(--green); color: var(--text); }
+    --sc-canvas: #0A0A0A;
+    --sc-surface: #111111;
+    --sc-ink: #F4F4F5;
+    --sc-ink-soft: #A1A1AA;
+    --sc-accent: #3DBA7E;
+    --sc-accent-ink: #0A0A0A;
+    --sc-font-display: "Space Grotesk", system-ui, sans-serif;
+    --sc-font-text: "Space Grotesk", system-ui, sans-serif;
+    --sc-font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --sc-shadow-color: 150 20% 3%;
+    --sc-r-sm: 6px; --sc-r-md: 10px; --sc-r-lg: 14px;
 
-  /* Reusable button styles */
-  .btn-primary {
-    background: var(--green); color: var(--text); border: none;
-    padding: 14px 22px; border-radius: 6;
-    font-family: var(--sans); font-weight: 600; font-size: 14px;
-    letter-spacing: -0.005em;
-    display: inline-flex; align-items: center; gap: 10px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 1px 0 rgba(0,0,0,0.4);
-    transition: background 150ms;
-  }
-  .btn-primary:hover { background: #2A7350; }
-  .btn-ghost {
-    background: transparent; color: var(--text);
-    border: 1px solid var(--border-strong);
-    padding: 14px 22px; border-radius: 6;
-    font-family: var(--sans); font-weight: 500; font-size: 14px;
-    transition: border-color 150ms, background 150ms;
-  }
-  .btn-ghost:hover { border-color: var(--text-2); background: rgba(255,255,255,0.02); }
+    --green: #1F5C3F; --green-dim: #14361F; --green-soft: #7DD3A8;
+    --muted: #52525B; --line: #262626; --line-strong: #303030; --elev: #171717;
+    --chaos: #151311;      /* the ground of the left column: warm off-black */
+    --system: #0A0A0A;     /* the ground of the right column: the canvas */
+    --paper: #D8D1B4; --paper-ink: #1B1A16;
 
-  /* Section eyebrow */
-  .eyebrow {
-    font-family: var(--mono); font-size: 11px; color: var(--green-active);
-    letter-spacing: 0.18em; text-transform: uppercase;
-    display: inline-flex; align-items: center; gap: 10px;
+    /* the divider, as a fraction of the viewport. site.js drives it. */
+    --split: 0.5;
+    --prog: 0;
+    --grid: linear-gradient(rgba(244,244,245,.035) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(244,244,245,.035) 1px, transparent 1px);
   }
-  .eyebrow::before {
-    content: ''; width: 16px; height: 1px; background: var(--green-active);
+  html { background: var(--sc-canvas); }
+  body { min-height: 100svh; }
+  h1, h2, h3, p { margin: 0; }
+  .sc-display { font-weight: 600; }
+
+  /* ================================================================ chrome */
+  .mark {
+    position: fixed; top: 20px; left: var(--sc-gutter); z-index: 70;
+    display: inline-flex; align-items: baseline; gap: .32em;
+    font: 700 1.2rem/1 var(--sc-font-display); letter-spacing: -0.025em;
+    color: var(--sc-ink); text-decoration: none;
+  }
+  .mark small {
+    font: 400 .55em/1 var(--sc-font-mono); letter-spacing: 0; color: var(--sc-ink-soft);
+  }
+  .mark small b { color: var(--sc-accent); font-weight: 500; }
+  .tools {
+    position: fixed; top: 18px; right: var(--sc-gutter); z-index: 70;
+    display: flex; align-items: center; gap: 18px;
+    font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); letter-spacing: var(--sc-track-wide);
+  }
+  .lang { display: inline-flex; align-items: center; gap: 6px; }
+  .lang button {
+    background: none; border: 0; padding: 6px 4px; cursor: pointer;
+    color: var(--muted); font: inherit; letter-spacing: inherit; text-transform: uppercase;
+    transition: color var(--sc-d-fast) var(--sc-ease-out);
+  }
+  .lang button[aria-pressed="true"] { color: var(--sc-ink); }
+  .lang button:hover { color: var(--sc-ink); }
+  .lang i { width: 1px; height: 12px; background: var(--line-strong); }
+  .tools__link {
+    color: var(--sc-ink-soft); text-decoration: none; text-transform: uppercase;
+    padding: 6px 0; border-bottom: 1px solid transparent;
+    transition: color var(--sc-d-fast) var(--sc-ease-out), border-color var(--sc-d-fast) var(--sc-ease-out);
+  }
+  .tools__link:hover { color: var(--sc-ink); border-color: var(--sc-accent); }
+
+  /* the divider is the chrome: hairline + the two labels + the page progress */
+  .divider {
+    position: fixed; top: 0; left: 0; width: 1px; height: 100svh; z-index: 65;
+    transform: translateX(calc(var(--split) * 100vw)); pointer-events: none;
+    transition: opacity var(--sc-d-base) var(--sc-ease-out);
+  }
+  .divider.is-hidden { opacity: 0; }
+  .divider__line { position: absolute; inset: 0; background: var(--line-strong); }
+  .divider__fill {
+    position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+    background: var(--sc-accent); transform-origin: 50% 0; transform: scaleY(var(--prog));
+  }
+  .divider__label {
+    position: absolute; top: 24px; white-space: nowrap;
+    font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); letter-spacing: var(--sc-track-wide);
+    text-transform: uppercase; color: var(--sc-ink-soft);
+    transition: opacity var(--sc-d-base) var(--sc-ease-out);
+  }
+  .divider__label--l { right: 14px; }
+  .divider__label--r { left: 14px; color: var(--green-soft); }
+  .is-collapsed .divider__label { opacity: 0; }
+
+  /* ============================================== the two grounds, per act */
+  .turn, .proof { position: relative; }
+  .g { position: absolute; inset: 0; pointer-events: none; }
+  .g--chaos { background: var(--chaos); clip-path: inset(0 calc((1 - var(--split)) * 100%) 0 0); }
+  .g--system {
+    background-color: var(--system); background-image: var(--grid); background-size: 56px 56px;
+    clip-path: inset(0 0 0 calc(var(--split) * 100%));
+  }
+
+  .half { position: absolute; top: 0; height: 100%; }
+  .half--chaos { left: 0; width: 50%; }
+  .half--system { left: 0; width: 100%; transform: translateX(calc(var(--split) * 100vw)); will-change: transform; }
+  .centre { position: absolute; inset: 0; display: grid; align-content: center; padding: 0 var(--sc-gutter); }
+  .centre > * { grid-area: 1 / 1; }
+
+  /* ============================================================= 1 · hero */
+  /* a band under the copy only: the papers on the desk are the brightest thing in the frame */
+  .hero-scrim {
+    position: absolute; inset: auto 0 0 0; height: 76%; z-index: 1; pointer-events: none;
+    background: linear-gradient(to top, rgba(21,19,17,.99) 0%, rgba(21,19,17,.97) 32%, rgba(21,19,17,.9) 56%, rgba(21,19,17,.55) 78%, transparent 100%);
+  }
+  .copy { position: absolute; z-index: var(--sc-z-copy); left: var(--sc-gutter); }
+  .copy--hero { bottom: clamp(3rem, 12vh, 8rem); right: var(--sc-gutter); }
+  .copy--hero-sys { bottom: clamp(3rem, 12vh, 8rem); max-width: min(38rem, calc((1 - var(--split)) * 100vw - 2 * var(--sc-gutter))); }
+  .hero__h { font-size: var(--sc-t-3xl); max-width: 14ch; letter-spacing: -0.03em; }
+  .hero__sys { font-size: var(--sc-t-3xl); max-width: 12ch; letter-spacing: -0.03em; }
+  .hero__sub { margin-top: var(--sc-5); max-width: 42ch; font-size: var(--sc-t-base); color: var(--sc-ink-soft); }
+  .cta {
+    display: inline-flex; align-items: center; gap: 10px; margin-top: var(--sc-6);
+    padding: 13px 20px; border-radius: var(--sc-r-sm);
+    background: var(--green); color: var(--sc-ink); text-decoration: none;
+    font-weight: 600; font-size: var(--sc-t-sm); letter-spacing: -0.005em;
+    box-shadow: var(--sc-edge), var(--sc-e1);
+    transition: background var(--sc-d-fast) var(--sc-ease-out), transform var(--sc-d-fast) var(--sc-ease-out);
+  }
+  .cta:hover { background: #2A7350; }
+  .cta:active { transform: translateY(1px); }
+  .cta::after { content: "→"; font-family: var(--sc-font-mono); }
+  .status {
+    position: absolute; top: 88px; left: var(--sc-gutter);
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); letter-spacing: 0.06em; color: var(--sc-ink-soft);
+  }
+  .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--sc-accent); box-shadow: 0 0 0 3px var(--green-dim); }
+
+  /* ========================================================== 2 · tension */
+  .cost { font-family: var(--sc-font-display); font-weight: 500; font-size: var(--sc-t-xl); line-height: 1.22; letter-spacing: -0.02em; max-width: 20ch; }
+  .answer {
+    font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); line-height: 1.6; color: var(--green-soft);
+    max-width: min(30rem, calc((1 - var(--split)) * 100vw - 2 * var(--sc-gutter)));
+  }
+  .answer b { font-weight: 500; color: var(--sc-ink); }
+
+  /* ============================================================= 3 · turn */
+  .turn { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(4rem, 14vh, 9rem); min-height: 52vh; }
+  .cols { display: grid; grid-template-columns: calc(var(--split) * 100%) 1fr; align-items: center; min-height: inherit; }
+  .stamp { padding: 0 var(--sc-gutter); font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); letter-spacing: 0.06em; color: var(--muted); }
+  .turn__line { padding: 0 var(--sc-gutter); max-width: 22ch; font-size: var(--sc-t-2xl); }
+
+  /* ============================================================= 4 · peak */
+  .stage--peak { --final: 0.4; }
+  .tangle { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+  .tangle path {
+    fill: none; stroke: var(--sc-ink-soft); stroke-width: 1.6; stroke-linecap: butt; opacity: .55;
+    stroke-dasharray: 1; stroke-dashoffset: clamp(0, calc((var(--sc-p, 0) - var(--u)) / 0.22), 1);
+  }
+  .chips { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .chip {
+    position: absolute; left: 0; top: 0; width: var(--w, 14vw); transform-origin: 0 0;
+    --k: clamp(0, calc((var(--sc-p, 0) - var(--s)) / 0.18), 1);
+    --e: calc(var(--k) * (2 - var(--k)));
+    --tx: calc(var(--x0) * (1 - var(--e)) + (var(--final) * 100vw + var(--x1)) * var(--e));
+    --ty: calc(var(--y0) * (1 - var(--e)) + var(--y1) * var(--e));
+    transform: translate(var(--tx), var(--ty)) rotate(calc(var(--r0) * (1 - var(--e)))) scale(calc(1 - 0.5 * var(--e)));
+    background: var(--elev); border: 1px solid var(--line-strong); border-radius: var(--sc-r-md);
+    box-shadow: var(--sc-edge), var(--sc-e2); padding: 12px 14px;
+    font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); line-height: 1.5; color: var(--sc-ink-soft);
+    will-change: transform;
+  }
+  /* where each artifact sits (chaos side) and where it files (beside its node) */
+  .chip:nth-child(1) { --x0: 3vw;  --y0: 10vh; --r0: -6deg;  --s: 0.24; --x1: 36vw;   --y1: 10vh; }
+  .chip:nth-child(2) { --x0: 20vw; --y0: 30vh; --r0: 9deg;   --s: 0.30; --x1: 44.5vw; --y1: 10vh;   --w: 11vw; }
+  .chip:nth-child(3) { --x0: 8vw;  --y0: 56vh; --r0: -11deg; --s: 0.36; --x1: 51.5vw; --y1: 10vh; }
+  .chip:nth-child(4) { --x0: 22vw; --y0: 6vh;  --r0: 4deg;   --s: 0.42; --x1: 36vw;   --y1: 20.5vh; }
+  .chip:nth-child(5) { --x0: 4vw;  --y0: 36vh; --r0: -13deg; --s: 0.48; --x1: 44.5vw; --y1: 20.5vh; --w: 11vw; }
+  .chip:nth-child(6) { --x0: 24vw; --y0: 66vh; --r0: 6deg;   --s: 0.54; --x1: 36vw;   --y1: 31vh; }
+  .chip:nth-child(7) { --x0: 12vw; --y0: 78vh; --r0: -4deg;  --s: 0.60; --x1: 36vw;   --y1: 41.5vh; --w: 12vw; }
+  .chip b { display: block; font-weight: 500; color: var(--sc-ink); }
+  .chip--wa { background: var(--green-dim); border-color: var(--green); border-radius: 14px 14px 14px 4px; }
+  .chip--wa b { font-family: var(--sc-font-text); font-size: var(--sc-t-sm); font-weight: 500; }
+  .chip--sticky { background: var(--paper); border-color: transparent; color: var(--paper-ink); border-radius: 2px; font-family: var(--sc-font-text); font-size: var(--sc-t-sm); font-weight: 500; }
+  .chip--sticky::before { content: ""; position: absolute; left: 30%; top: -7px; width: 40%; height: 12px; background: rgba(255,255,255,.35); transform: rotate(-2deg); }
+  .chip--xlsx .cells { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 8px; }
+  .chip--xlsx .cells i { height: 9px; background: rgba(244,244,245,.08); border-radius: 1px; }
+  .chip--xlsx .cells i:nth-child(6), .chip--xlsx .cells i:nth-child(11) { background: rgba(61,186,126,.35); }
+  .chip--email { border-left: 1px solid var(--line-strong); }
+  .chip--note { background: var(--sc-surface); background-image: repeating-linear-gradient(transparent 0 19px, rgba(244,244,245,.08) 19px 20px); font-family: var(--sc-font-text); }
+  .chip--voice .bars { display: flex; align-items: center; gap: 2px; height: 18px; margin-top: 6px; }
+  .chip--voice .bars i { width: 3px; border-radius: 2px; background: var(--green-soft); height: var(--h); }
+  .chip--receipt { width: var(--w, 9vw); background: #ECE7D5; color: var(--paper-ink); border-color: transparent; border-radius: 2px; text-align: center; padding: 10px 8px 14px; }
+  .chip--receipt i { display: block; height: 4px; margin: 6px 4px; background: repeating-linear-gradient(90deg, rgba(27,26,22,.35) 0 6px, transparent 6px 10px); }
+  .chip--receipt b { color: var(--paper-ink); }
+  .pipe { position: absolute; inset: 0; }
+  .spine { position: absolute; left: calc(8vw - 1px); top: 10vh; width: 2px; height: 60vh; overflow: visible; }
+  .spine line { stroke: var(--line-strong); stroke-width: 2px; }
+  .spine .draw {
+    stroke: var(--sc-accent); stroke-dasharray: 1; stroke-dashoffset: calc(1 - clamp(0, calc((var(--sc-p, 0) - 0.40) / 0.36), 1));
+  }
+  .spine .flow { stroke: var(--green-soft); stroke-dasharray: 0.018 0.03; opacity: 0; transition: opacity var(--sc-d-slow) var(--sc-ease-out); }
+  .is-running .spine .flow { opacity: 1; animation: flow 1.6s linear infinite; }
+  @keyframes flow { to { stroke-dashoffset: -0.096; } }
+  .runner {
+    position: absolute; left: calc(8vw - 5px); top: 0; width: 10px; height: 10px; border-radius: 50%;
+    background: var(--sc-accent); box-shadow: 0 0 0 4px var(--green-dim); opacity: 0;
+    transition: opacity var(--sc-d-slow) var(--sc-ease-out);
+  }
+  .is-running .runner { opacity: 1; animation: run 2.8s linear infinite; }
+  @keyframes run { from { transform: translateY(10vh); } to { transform: translateY(70vh); } }
+  .nodes { list-style: none; margin: 0; padding: 0; }
+  .node {
+    position: absolute; left: calc(8vw + 22px); top: calc(10vh + var(--row) * 10.5vh); width: 26vw; max-width: 26rem;
+    opacity: calc(0.38 + 0.62 * clamp(0, calc((var(--sc-p, 0) - var(--n)) / 0.06), 1));
+  }
+  .node::before {
+    content: ""; position: absolute; left: -28px; top: .38em; width: 10px; height: 10px; border-radius: 50%;
+    background: var(--sc-canvas); border: 2px solid var(--sc-accent); box-sizing: border-box;
+  }
+  .node b { display: block; font: 600 var(--sc-t-lg)/1.15 var(--sc-font-display); letter-spacing: -0.015em; }
+  .node span { display: block; margin-top: 4px; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); max-width: 30ch; text-wrap: pretty; }
+  .node .fired { display: none; margin-top: 6px; font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: var(--green-soft); }
+  .is-running .node .fired { display: block; }
+  .offer {
+    position: absolute; left: calc(8vw + 22px); top: 66vh; max-width: 36ch; font-size: var(--sc-t-sm); color: var(--sc-ink-soft);
+    opacity: clamp(0, calc((var(--sc-p, 0) - 0.72) / 0.08), 1);
+  }
+  .peak__line { position: absolute; left: calc(8vw + 22px); top: 78vh; max-width: 18ch; font-size: var(--sc-t-2xl); }
+  .peak__quiet { font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); color: var(--sc-ink); max-width: 26ch; }
+
+  /* ============================================================ 5 · proof */
+  .proof { padding: clamp(3rem, 10vh, 7rem) 0 clamp(4rem, 12vh, 8rem); }
+  .proof__h { padding: 0 var(--sc-gutter); margin-left: calc(var(--split) * 100%); max-width: 16ch; font-size: var(--sc-t-2xl); }
+  .rows { margin-top: clamp(2rem, 6vh, 4rem); }
+  .row { display: grid; grid-template-columns: calc(var(--split) * 100%) 1fr; border-top: 1px solid var(--line); }
+  .row:last-child { border-bottom: 1px solid var(--line); }
+  .had, .runs { padding: clamp(1.5rem, 4vh, 2.5rem) var(--sc-gutter); }
+  .had { display: grid; align-content: start; gap: 10px; }
+  .had p { font-size: var(--sc-t-base); color: var(--sc-ink-soft); max-width: 34ch; text-wrap: pretty; }
+  .runs { display: grid; gap: 10px; align-content: start; }
+  .runs h3 { font: 600 var(--sc-t-xl)/1.1 var(--sc-font-display); letter-spacing: -0.02em; }
+  .runs h3 a { text-decoration: none; }
+  .runs h3 a:hover { text-decoration: underline; text-decoration-color: var(--sc-accent); }
+  .runs h3 a::after { content: "↗"; font-family: var(--sc-font-mono); font-weight: 400; font-size: .6em; margin-left: .4em; color: var(--sc-accent); }
+  .runs p { max-width: 52ch; color: var(--sc-ink-soft); text-wrap: pretty; }
+  .runs .out { color: var(--green-soft); font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); }
+  .row .sc-label { color: var(--muted); }
+  .row .sc-label--sys { color: var(--green-soft); }
+  /* the gains: what changes, told as the same two columns */
+  .proof__h { max-width: 22ch; }
+  .proof__h--2 { margin-top: clamp(3.5rem, 10vh, 7rem); max-width: 16ch; }
+  .row--gain .had, .row--gain .runs { padding-block: clamp(1.25rem, 3.5vh, 2rem); }
+  .row--gain .had p { color: var(--sc-ink-soft); }
+  .row--gain h3 { font: 600 var(--sc-t-lg)/1.15 var(--sc-font-display); letter-spacing: -0.015em; color: var(--sc-ink); }
+  .row--gain .runs p { max-width: 46ch; }
+
+  /* ============================================================ 6 · close */
+  .close__quiet { font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); color: var(--sc-ink); max-width: 26ch; }
+  .close__left { position: absolute; left: var(--sc-gutter); top: 16vh; width: min(34rem, 40vw); z-index: var(--sc-z-copy); }
+  .close__h { font-size: var(--sc-t-3xl); max-width: 12ch; letter-spacing: -0.03em; }
+  .close__p { margin-top: var(--sc-5); max-width: 36ch; color: var(--sc-ink-soft); }
+  .foot { position: absolute; left: var(--sc-gutter); bottom: clamp(2rem, 6vh, 4rem); z-index: var(--sc-z-copy);
+    display: grid; gap: 8px; font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); letter-spacing: 0.04em; color: var(--sc-ink-soft); }
+  .foot a { color: var(--sc-ink-soft); text-decoration: none; }
+  .foot a:hover { color: var(--sc-ink); }
+  .foot .mark--foot { position: static; font-size: 1rem; margin-bottom: 6px; }
+  .close__form { position: absolute; left: 50vw; right: var(--sc-gutter); top: 14vh; max-width: 34rem; z-index: var(--sc-z-copy); }
+  form { display: grid; gap: 14px; }
+  .field { display: grid; gap: 7px; }
+  .field span { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); letter-spacing: var(--sc-track-wide); text-transform: uppercase; color: var(--muted); }
+  .field input, .field textarea {
+    width: 100%; background: var(--sc-surface); color: var(--sc-ink); border: 1px solid var(--line);
+    border-radius: var(--sc-r-sm); padding: 12px 14px; font-size: 16px; line-height: 1.5; outline: none;
+    transition: border-color var(--sc-d-fast) var(--sc-ease-out);
+  }
+  .field input:hover, .field textarea:hover { border-color: var(--line-strong); }
+  .field input:focus-visible, .field textarea:focus-visible { border-color: var(--sc-accent); outline: none; }
+  .field textarea { resize: vertical; min-height: 7.5rem; }
+  .field input::placeholder, .field textarea::placeholder { color: var(--muted); }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .send { justify-self: start; margin-top: 4px; border: 0; cursor: pointer; }
+  .send[disabled] { opacity: .6; cursor: default; }
+  .sent { display: none; padding: 28px; border: 1px solid var(--green); border-radius: var(--sc-r-md); background: var(--sc-surface); }
+  .sent b { display: block; font: 600 var(--sc-t-xl)/1.1 var(--sc-font-display); letter-spacing: -0.02em; }
+  .sent p { margin-top: 10px; color: var(--sc-ink-soft); max-width: 40ch; }
+  .sent p a { color: var(--green-soft); }
+  .is-sent form { display: none; }
+  .is-sent .sent { display: block; }
+  .err { display: none; font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: #E5484D; }
+  .is-err .err { display: block; }
+
+  /* =========================================================== reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .chip { --k: clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1); transition: none; }
+    .tangle path { stroke-dashoffset: clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1); }
+    .spine .draw { stroke-dashoffset: calc(1 - clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1)); }
+    .is-running .spine .flow, .is-running .runner { animation: none; }
+    .node { opacity: calc(0.38 + 0.62 * clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1)); }
+    .offer { opacity: clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1); }
+    .divider, .half--system { transition: none; }
+  }
+
+  /* ================================================================ phone */
+  @media (max-width: 860px) {
+    .mark { top: 14px; }
+    .tools { top: 12px; }
+    .tools__link { display: none; }
+    .divider { width: 100%; height: 1px; transform: translateY(calc(var(--split) * 100svh)); }
+    .divider__fill { transform-origin: 0 50%; transform: scaleX(var(--prog)); }
+    .divider__label--l { top: auto; bottom: 8px; left: auto; right: var(--sc-gutter); }
+    .divider__label--r { top: 8px; left: auto; right: var(--sc-gutter); }
+    .g--chaos { clip-path: inset(0 0 calc((1 - var(--split)) * 100%) 0); }
+    .g--system { clip-path: inset(calc(var(--split) * 100%) 0 0 0); }
+    .half--chaos { width: 100%; height: 50%; }
+    .half--system { transform: translateY(calc(var(--split) * 100svh)); }
+    .stage--tension .half--chaos, .stage--peak .half--chaos, .stage--close .half--chaos { height: 60%; }
+    .copy--hero { bottom: 30px; right: 22vw; }
+    .copy--hero-sys { bottom: auto; top: 11svh; max-width: none; right: var(--sc-gutter); }
+    .hero__h, .hero__sys { font-size: var(--sc-t-2xl); }
+    .hero__sub { margin-top: var(--sc-4); font-size: var(--sc-t-sm); }
+    .cta { margin-top: var(--sc-4); padding: 12px 16px; }
+    .status { top: 40px; }
+    .cost { font-size: var(--sc-t-lg); }
+    .answer { max-width: none; }
+    .centre { padding: 0 var(--sc-gutter); }
+    .stage--tension .half--system .centre { align-content: start; padding-top: 12svh; }
+    .turn { min-height: 0; padding: 2rem 0 3rem; }
+    .cols { grid-template-columns: 1fr; gap: 1.5rem; }
+    .turn .g { display: none; }
+    .turn__line { font-size: var(--sc-t-xl); }
+    /* peak on a phone: five chips, no descriptions, the closing line in the cleared top half */
+    .chip { --w: 44vw; }
+    .chip:nth-child(2), .chip:nth-child(7) { display: none; }
+    .chip:nth-child(1) { --x0: 4vw;  --y0: 4svh;  --r0: -5deg;  --x1: 62vw; --y1: calc(40svh + 6svh); }
+    .chip:nth-child(3) { --x0: 58vw; --y0: 8svh;  --r0: 9deg;   --x1: 66vw; --y1: calc(40svh + 9svh); --w: 26vw; }
+    .chip:nth-child(4) { --x0: 40vw; --y0: 18svh; --r0: 4deg;   --x1: 62vw; --y1: calc(40svh + 14svh); }
+    .chip:nth-child(5) { --x0: 6vw;  --y0: 24svh; --r0: -12deg; --x1: 66vw; --y1: calc(40svh + 17svh); --w: 36vw; }
+    .chip:nth-child(6) { --x0: 30vw; --y0: 31svh; --r0: 6deg;   --x1: 62vw; --y1: calc(40svh + 22svh); }
+    .stage--peak .chip { --final: 0; }
+    .stage--peak .half--chaos { height: 40%; }
+    .spine { left: calc(var(--sc-gutter) + 5px); top: 3svh; height: 36svh; }
+    .runner { left: calc(var(--sc-gutter) + 1px); }
+    @keyframes run { from { transform: translateY(3svh); } to { transform: translateY(39svh); } }
+    .node { left: calc(var(--sc-gutter) + 28px); top: calc(2svh + var(--row) * 8svh); width: 46vw; max-width: none; }
+    .node b { font-size: var(--sc-t-base); }
+    .node span { display: none; }
+    .node .fired { margin-top: 2px; }
+    .offer { left: var(--sc-gutter); right: var(--sc-gutter); top: 46svh; max-width: none; font-size: var(--sc-t-xs); }
+    .peak__line { left: var(--sc-gutter); top: -30svh; font-size: var(--sc-t-xl); max-width: 14ch; }
+    .peak__quiet { display: none; }
+    .proof { padding: 2.5rem 0 3rem; }
+    .proof .g { display: none; }
+    .proof__h { margin-left: 0; }
+    .row { grid-template-columns: 1fr; }
+    .had { background: var(--chaos); }
+    .runs { background-color: var(--system); background-image: var(--grid); background-size: 56px 56px; }
+    .close__left { top: 8svh; left: var(--sc-gutter); right: var(--sc-gutter); width: auto; }
+    .close__h { font-size: var(--sc-t-xl); max-width: none; }
+    .close__p { margin-top: var(--sc-3); font-size: var(--sc-t-sm); }
+    .close__form { left: var(--sc-gutter); right: var(--sc-gutter); top: 27svh; max-width: none; }
+    form { gap: 10px; }
+    .field textarea { min-height: 5.5rem; }
+    .foot { bottom: 12px; gap: 3px; }
+    .foot .mark--foot { display: none; }
+    .close__quiet { font-size: var(--sc-t-xs); }
   }
 </style>
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 </head>
 <body>
-<div id="root"></div>
-<script type="text/babel" src="landing-shared.jsx"></script>
-<script type="text/babel" src="motion.jsx"></script>
-<script type="text/babel" src="hero-bg.jsx"></script>
-<script type="text/babel" src="landing-sections.jsx"></script>
-<script type="text/babel" src="landing-contact.jsx"></script>
-<script type="text/babel" src="landing-app.jsx"></script>
+<noscript><style>[data-sc-cue], [data-sc-in], [data-sc-stagger] > * { opacity: 1 !important; transform: none !important; }</style></noscript>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<a class="mark" href="#top" aria-label="BOK Labs">BOK <small><b>[</b>labs<b>]</b></small></a>
+<nav class="tools" aria-label="Language and contact">
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-lang-set="en" aria-pressed="true">EN</button><i aria-hidden="true"></i><button type="button" data-lang-set="es" aria-pressed="false">ES</button>
+  </div>
+  <a class="tools__link" href="#contact" data-i18n="cta">Tell us what's slowing you down</a>
+</nav>
+<div class="divider" aria-hidden="true">
+  <span class="divider__line"><i class="divider__fill"></i></span>
+  <span class="divider__label divider__label--l" data-i18n="label.l">Today</span>
+  <span class="divider__label divider__label--r" data-i18n="label.r">With a system</span>
+</div>
+
+<main id="top">
+
+  <!-- 1 · RECOGNITION · scrub: the desk under their hand, beside the surface they do not have yet -->
+  <section id="a1" data-sc-act="scrub" data-sc-span="2" data-sc-dwell="0.3">
+    <div data-sc-stage class="stage stage--hero two">
+      <div class="g g--chaos"></div>
+      <div class="g g--system"></div>
+      <div class="half half--chaos">
+        <picture>
+          <source media="(max-width: 860px)" srcset="assets/01-chaos-poster-m.jpg">
+          <img class="sc-stage__poster" src="assets/01-chaos-poster.jpg" alt="">
+        </picture>
+        <video data-sc-scrub data-sc-src="assets/01-chaos.mp4?v=20260902" data-sc-src-mobile="assets/01-chaos-m.mp4?v=20260902" muted playsinline preload="none"></video>
+        <div class="hero-scrim" aria-hidden="true"></div>
+        <div class="copy copy--hero" data-sc-cue="0 0.92 0 0.08">
+          <h1 class="sc-display hero__h" data-i18n="hero.l">Your operation runs on WhatsApp, spreadsheets and memory.</h1>
+        </div>
+      </div>
+      <div class="half half--system">
+        <p class="status" data-i18n="hero.status">running · nothing waiting on you</p>
+        <div class="copy copy--hero-sys">
+          <h2 class="sc-display hero__sys" data-sc-cue="0 0.92 0 0.08" data-sc-kinetic="lines" data-i18n="hero.r">It could run on a system.</h2>
+          <p class="hero__sub" data-sc-cue="0 0.92 0 0.08" data-i18n="hero.sub">BOK Labs builds the workflows, automations and AI-powered systems that run small business operations.</p>
+          <a class="cta" href="#contact" data-sc-cue="0 0.92 0 0.08" data-sc-rise="0" data-i18n="cta">Tell us what's slowing you down</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · TENSION · pin: three costs, each answered; the divider leans toward the mess -->
+  <section id="a2" data-sc-act="pin" data-sc-span="1.8">
+    <div data-sc-stage class="stage stage--tension two" data-sc-verify-state="split:0.50">
+      <div class="g g--chaos"></div>
+      <div class="g g--system"></div>
+      <div class="half half--chaos">
+        <div class="centre">
+          <p class="cost" data-sc-cue="0 0.36 0" data-i18n="t1.l">The price is in someone's head.</p>
+          <p class="cost" data-sc-cue="0.30 0.68" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
+          <p class="cost" data-sc-cue="0.62 1" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
+        </div>
+      </div>
+      <div class="half half--system">
+        <div class="centre">
+          <p class="answer" data-sc-cue="0 0.36 0" data-i18n="t1.r"><b>price list</b> · v12 · everyone sees the same one</p>
+          <p class="answer" data-sc-cue="0.30 0.68" data-i18n="t2.r"><b>order 1042</b> · confirmed · in the record</p>
+          <p class="answer" data-sc-cue="0.62 1" data-i18n="t3.r"><b>monthly report</b> · generated · sent to three people</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · TURN · flow: one line. Authored silence. -->
+  <section id="a3" data-sc-act="flow" class="turn two">
+    <div class="g g--chaos"></div>
+    <div class="g g--system"></div>
+    <div class="cols">
+      <p class="stamp" data-sc-in data-i18n="turn.stamp">Tuesday, 11:40 pm. Still at the desk.</p>
+      <p class="sc-display turn__line" data-sc-in data-i18n="turn.line">Then someone builds the system.</p>
+    </div>
+  </section>
+
+  <!-- 4 · PEAK · pin: chaos becomes a system -->
+  <section id="a4" data-sc-act="pin" data-sc-span="3.2">
+    <div data-sc-stage class="stage stage--peak two" data-sc-verify-state="split:0.60|landed:0|tangle:1.00|spine:0.00|run:0">
+      <div class="g g--chaos"></div>
+      <div class="g g--system"></div>
+      <svg class="tangle" viewBox="0 0 1000 700" preserveAspectRatio="xMinYMid slice" aria-hidden="true">
+        <path style="--u:0.26" pathLength="1" d="M40 98 C 140 28, 220 210, 120 238 S 300 420, 200 462 S 80 588, 220 630"/>
+        <path style="--u:0.31" pathLength="1" d="M260 56 C 340 140, 120 182, 180 280 S 360 294, 300 392 S 140 490, 300 546"/>
+        <path style="--u:0.36" pathLength="1" d="M80 210 C 200 252, 300 168, 340 252 S 180 378, 280 434 S 360 560, 140 602"/>
+        <path style="--u:0.41" pathLength="1" d="M20 350 C 120 308, 240 462, 340 378 S 400 210, 280 168 S 100 112, 200 84"/>
+        <path style="--u:0.46" pathLength="1" d="M360 84 C 280 182, 380 280, 260 322 S 60 406, 160 490 S 340 476, 380 588"/>
+        <path style="--u:0.51" pathLength="1" d="M60 504 C 180 434, 300 518, 240 588 S 80 644, 180 672"/>
+        <path style="--u:0.56" pathLength="1" d="M300 28 C 400 70, 360 154, 280 140 S 120 70, 60 140"/>
+      </svg>
+      <div class="chips" aria-hidden="false">
+        <div class="chip chip--wa"><span data-i18n="c.wa.k">WhatsApp · 11:42 PM</span><b data-i18n="c.wa">Do you still have the 500 ml? I need 40 for Friday.</b></div>
+        <div class="chip chip--voice"><span data-i18n="c.voice">Voice note · 0:47</span><div class="bars" aria-hidden="true"><i style="--h:40%"></i><i style="--h:80%"></i><i style="--h:55%"></i><i style="--h:100%"></i><i style="--h:35%"></i><i style="--h:70%"></i><i style="--h:90%"></i><i style="--h:45%"></i><i style="--h:65%"></i><i style="--h:30%"></i><i style="--h:75%"></i><i style="--h:50%"></i></div></div>
+        <div class="chip chip--receipt"><span data-i18n="c.rc.k">RECEIPT</span><i></i><i></i><i></i><b data-i18n="c.rc">TOTAL 184.20</b><span data-i18n="c.rc.n">photo, blurry</span></div>
+        <div class="chip chip--xlsx"><b>prices_v7_FINAL.xlsx</b><span data-i18n="c.xlsx">modified yesterday · by Luis</span><div class="cells" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="chip chip--sticky" data-i18n="c.sticky">Call Marta re: invoice 1042</div>
+        <div class="chip chip--email"><b data-i18n="c.em.k">Re: Re: Re: invoice</b><span data-i18n="c.em">Which version is the right one?</span></div>
+        <div class="chip chip--note" data-i18n="c.note">Tue · 12 units · Wed · ?</div>
+      </div>
+      <div class="half half--system">
+        <div class="pipe">
+          <svg class="spine" viewBox="0 0 2 1" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="1" y1="0" x2="1" y2="1" pathLength="1"/>
+            <line class="draw" x1="1" y1="0" x2="1" y2="1" pathLength="1"/>
+            <line class="flow" x1="1" y1="0" x2="1" y2="1" pathLength="1"/>
+          </svg>
+          <i class="runner" aria-hidden="true"></i>
+          <ol class="nodes">
+            <li class="node" style="--row:0; --n:0.42"><b data-i18n="n1">Intake</b><span data-i18n="n1.d">Chat, email, photo, voice: everything comes in through one door.</span></li>
+            <li class="node" style="--row:1; --n:0.60"><b data-i18n="n2">Rules</b><span data-i18n="n2.d">Prices, stock, deadlines: written once, applied every time.</span></li>
+            <li class="node" style="--row:2; --n:0.72"><b data-i18n="n3">AI where judgment is needed</b><span data-i18n="n3.d">Reads the message, drafts the reply, flags what a person should decide.</span></li>
+            <li class="node" style="--row:3; --n:0.78"><b data-i18n="n4">One record</b><span data-i18n="n4.d">Every order, invoice and customer in one place, up to date.</span></li>
+            <li class="node" style="--row:4; --n:0.86"><b data-i18n="n5">Reports and alerts</b><span data-i18n="n5.d">Sent on time, to the right people, without anyone asking.</span><em class="fired" data-i18n="n5.s">sent · monthly report · 3 people</em></li>
+          </ol>
+          <p class="offer" data-i18n="offer">Workflows, automations and AI systems that run the operation. A web or mobile app when the system needs a screen.</p>
+        </div>
+        <p class="sc-display peak__line" data-sc-cue="0.80 1 0.2 0.06" data-sc-kinetic="words" data-i18n="peak.r">One pipeline. It runs on its own.</p>
+      </div>
+      <div class="half half--chaos">
+        <div class="centre">
+          <p class="peak__quiet" data-sc-cue="0.82 1 0.2 0.06" data-i18n="peak.l">Nothing left to hold together.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · PROOF · flow: three real systems -->
+  <section id="a5" data-sc-act="flow" class="proof two">
+    <div class="g g--chaos"></div>
+    <div class="g g--system"></div>
+    <h2 class="sc-display proof__h" data-sc-in data-i18n="gain.h">Automate the work. Build the system. This is what changes.</h2>
+    <div class="rows rows--gain">
+      <article class="row row--gain">
+        <div class="had" data-sc-in><p data-i18n="g1.had">Growing means one more person holding it all together.</p></div>
+        <div class="runs" data-sc-in><h3 data-i18n="g1.h">Scale</h3><p data-i18n="g1.p">The system absorbs the extra volume. You take the extra business, not the extra nights.</p></div>
+      </article>
+      <article class="row row--gain">
+        <div class="had" data-sc-in><p data-i18n="g2.had">Enquiries wait in a chat until someone gets to them.</p></div>
+        <div class="runs" data-sc-in><h3 data-i18n="g2.h">More sales</h3><p data-i18n="g2.p">Every enquiry answered, followed up and closed on time. Nothing falls between messages.</p></div>
+      </article>
+      <article class="row row--gain">
+        <div class="had" data-sc-in><p data-i18n="g3.had">You hear about a problem when a customer calls about it.</p></div>
+        <div class="runs" data-sc-in><h3 data-i18n="g3.h">More control</h3><p data-i18n="g3.p">Stock, orders, payments and cash visible at a glance, with an alert before it hurts.</p></div>
+      </article>
+      <article class="row row--gain">
+        <div class="had" data-sc-in><p data-i18n="g4.had">Decisions come from memory and gut feeling.</p></div>
+        <div class="runs" data-sc-in><h3 data-i18n="g4.h">Better decisions</h3><p data-i18n="g4.p">Real numbers every week, without anyone building a spreadsheet first.</p></div>
+      </article>
+    </div>
+    <h2 class="sc-display proof__h proof__h--2" data-sc-in data-i18n="proof.h">Built, shipped, running.</h2>
+    <div class="rows">
+      <article class="row">
+        <div class="had" data-sc-in><span class="sc-label" data-i18n="proof.had">They had</span><p data-i18n="p1.had">Years of daily farm records in notebooks and spreadsheets, and one person who knew where everything was.</p></div>
+        <div class="runs" data-sc-reveal="left" data-sc-reveal-at="0.40 0.56"><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://ager-pro.com" rel="noopener">AgerPRO</a></h3><p data-i18n="p1.runs">Production, rainfall, finances, fuel and staff in one platform, on the web and on Android, for several farms at once.</p><p class="out" data-i18n="p1.out">1,280 days of history imported. In production.</p></div>
+      </article>
+      <article class="row">
+        <div class="had" data-sc-in><span class="sc-label" data-i18n="proof.had">They had</span><p data-i18n="p2.had">Orders arriving over chat, payments confirmed by hand, stock counted from memory.</p></div>
+        <div class="runs" data-sc-reveal="left" data-sc-reveal-at="0.48 0.64"><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://pharmatechus.com" rel="noopener">PharmaTech US</a></h3><p data-i18n="p2.runs">An online store that hands each order to WhatsApp with a confirmation link, and an owner panel for orders, payments, inventory and sales.</p><p class="out" data-i18n="p2.out">Orders arrive structured. The owner works from one panel.</p></div>
+      </article>
+      <article class="row">
+        <div class="had" data-sc-in><span class="sc-label" data-i18n="proof.had">They had</span><p data-i18n="p3.had">A practice with no online presence and enquiries scattered across messages.</p></div>
+        <div class="runs" data-sc-reveal="left" data-sc-reveal-at="0.56 0.72"><span class="sc-label sc-label--sys" data-i18n="proof.runs">What runs now</span><h3><a href="https://www.drdoulapoppins.com/" rel="noopener">DrDoulaPoppins</a></h3><p data-i18n="p3.runs">A single-page site with services, pricing and a lead capture that lands in WhatsApp.</p><p class="out" data-i18n="p3.out">Live at drdoulapoppins.com.</p></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 6 · COMMITMENT · pin: the collapse. Last element on the page; footer inside the stage. -->
+  <section id="contact" data-sc-act="pin" data-sc-span="1.6">
+    <div data-sc-stage class="stage stage--close two" data-sc-verify-state="split:0.40">
+      <div class="g g--chaos"></div>
+      <div class="g g--system"></div>
+      <div class="half half--chaos">
+        <div class="centre">
+          <p class="close__quiet" data-sc-cue="0 0.3 0" data-i18n="close.quiet">Or keep holding it together by hand.</p>
+        </div>
+      </div>
+      <div class="close__left" data-sc-cue="0.42">
+        <h2 class="sc-display close__h" data-i18n="close.h">Tell us what's slowing you down.</h2>
+        <p class="close__p" data-i18n="close.p">One message is enough. We read it, we reply, and if we can help we say how.</p>
+      </div>
+      <div class="close__form" data-sc-cue="0 1 0 0" data-sc-rise="0">
+        <form id="form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <input type="hidden" name="subject" value="bok-labs.com · new message">
+          <input type="hidden" name="from_name" value="bok-labs.com">
+          <input type="hidden" name="lang" value="en">
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="field"><span data-i18n="f.name">Name</span><input type="text" name="name" required autocomplete="name"></label>
+          <label class="field"><span data-i18n="f.email">Email</span><input type="email" name="email" required autocomplete="email"></label>
+          <label class="field"><span data-i18n="f.msg">What's slowing you down?</span><textarea name="message" rows="4" required data-i18n-attr="placeholder:f.ph" placeholder="The thing you do by hand every week that a system should do for you."></textarea></label>
+          <button class="cta send" type="submit" data-i18n="f.send">Send</button>
+          <p class="err" data-i18n="f.err">That did not go through. Write to info@bok-labs.com instead.</p>
+        </form>
+        <div class="sent" role="status" aria-live="polite">
+          <b data-i18n="f.ok">Received. We'll be in touch.</b>
+          <p class="sent__mail" data-i18n="f.okmail">Your mail app should open with the message ready. If it didn't, write to <a href="mailto:info@bok-labs.com">info@bok-labs.com</a>.</p>
+        </div>
+      </div>
+      <footer class="foot" data-sc-cue="0.5">
+        <a class="mark mark--foot" href="#top" aria-label="BOK Labs">BOK <small><b>[</b>labs<b>]</b></small></a>
+        <span>Barcelona · Maracaibo</span>
+        <a href="mailto:info@bok-labs.com">info@bok-labs.com</a>
+        <span>© 2026 BOK Labs</span>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"BOK Labs","url":"https://bok-labs.com/","email":"info@bok-labs.com","description":"Workflows, automations and AI-powered systems that run small business operations.","areaServed":["Barcelona","Maracaibo"]}
+</script>
+<script src="engine/scrollcraft.js?v=20260902"></script>
+<script src="site.js?v=20260902"></script>
 </body>
 </html>
