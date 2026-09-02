@@ -100,6 +100,10 @@
   }
   .tools__link:hover { color: var(--sc-ink); border-color: var(--sc-accent); }
 
+  /* a soft fade at the top edge so the wordmark and tools stay legible over anything sliding under them (not a bar) */
+  .chrome-fade { position: fixed; inset: 0 0 auto 0; height: 84px; z-index: 64; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(10,10,10,.88) 0%, rgba(10,10,10,.55) 45%, transparent 100%); }
+
   /* the divider is the chrome: hairline + the two labels + the page progress */
   .divider {
     position: fixed; top: 0; left: 0; width: 1px; height: 100svh; z-index: 65;
@@ -136,6 +140,9 @@
   .half--system { left: 0; width: 100%; transform: translateX(calc(var(--split) * 100vw)); will-change: transform; }
   .centre { position: absolute; inset: 0; display: grid; align-content: center; padding: 0 var(--sc-gutter); }
   .centre > * { grid-area: 1 / 1; }
+  /* lines that accumulate instead of replacing each other: the reader can scroll back and still find them */
+  .centre--stack { grid-auto-flow: row; gap: clamp(1.1rem, 3.2vh, 2rem); }
+  .centre--stack > * { grid-area: auto; }
 
   /* ============================================================= 1 · hero */
   /* a band under the copy only: the papers on the desk are the brightest thing in the frame */
@@ -402,6 +409,7 @@
 <noscript><style>[data-sc-cue], [data-sc-in], [data-sc-stagger] > * { opacity: 1 !important; transform: none !important; }</style></noscript>
 <div class="sc-grain" aria-hidden="true"></div>
 
+<div class="chrome-fade" aria-hidden="true"></div>
 <a class="mark" href="#top" aria-label="BOK Labs">BOK <small><b>[</b>labs<b>]</b></small></a>
 <nav class="tools" aria-label="Language and contact">
   <div class="lang" role="group" aria-label="Language">
@@ -429,38 +437,38 @@
         </picture>
         <video data-sc-scrub data-sc-src="assets/01-chaos.mp4?v=20260902" data-sc-src-mobile="assets/01-chaos-m.mp4?v=20260902" muted playsinline preload="none"></video>
         <div class="hero-scrim" aria-hidden="true"></div>
-        <div class="copy copy--hero" data-sc-cue="0 0.92 0 0.08">
+        <div class="copy copy--hero" data-sc-cue="0 1 0 0">
           <h1 class="sc-display hero__h" data-i18n="hero.l">Your operation runs on WhatsApp, spreadsheets and memory.</h1>
         </div>
       </div>
       <div class="half half--system">
         <p class="status" data-i18n="hero.status">running · nothing waiting on you</p>
         <div class="copy copy--hero-sys">
-          <h2 class="sc-display hero__sys" data-sc-cue="0 0.92 0 0.08" data-sc-kinetic="lines" data-i18n="hero.r">It could run on a system.</h2>
-          <p class="hero__sub" data-sc-cue="0 0.92 0 0.08" data-i18n="hero.sub">BOK Labs builds the workflows, automations and AI-powered systems that run small business operations.</p>
-          <a class="cta" href="#contact" data-sc-cue="0 0.92 0 0.08" data-sc-rise="0" data-i18n="cta">Tell us what's slowing you down</a>
+          <h2 class="sc-display hero__sys" data-sc-cue="0 1 0 0" data-sc-kinetic="lines" data-i18n="hero.r">It could run on a system.</h2>
+          <p class="hero__sub" data-sc-cue="0 1 0 0" data-i18n="hero.sub">BOK Labs builds the workflows, automations and AI-powered systems that run small business operations.</p>
+          <a class="cta" href="#contact" data-sc-cue="0 1 0 0" data-sc-rise="0" data-i18n="cta">Tell us what's slowing you down</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 2 · TENSION · pin: three costs, each answered; the divider leans toward the mess -->
-  <section id="a2" data-sc-act="pin" data-sc-span="1.8">
+  <section id="a2" data-sc-act="pin" data-sc-span="2.4">
     <div data-sc-stage class="stage stage--tension two" data-sc-verify-state="split:0.50">
       <div class="g g--chaos"></div>
       <div class="g g--system"></div>
       <div class="half half--chaos">
-        <div class="centre">
-          <p class="cost" data-sc-cue="0 0.36 0" data-i18n="t1.l">The price is in someone's head.</p>
-          <p class="cost" data-sc-cue="0.30 0.68" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
-          <p class="cost" data-sc-cue="0.62 1" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
+        <div class="centre centre--stack">
+          <p class="cost" data-sc-cue="0 1 0 0" data-i18n="t1.l">The price is in someone's head.</p>
+          <p class="cost" data-sc-cue="0.30 1 0.12 0" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
+          <p class="cost" data-sc-cue="0.58 1 0.12 0" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
         </div>
       </div>
       <div class="half half--system">
-        <div class="centre">
-          <p class="answer" data-sc-cue="0 0.36 0" data-i18n="t1.r"><b>price list</b> · v12 · everyone sees the same one</p>
-          <p class="answer" data-sc-cue="0.30 0.68" data-i18n="t2.r"><b>order 1042</b> · confirmed · in the record</p>
-          <p class="answer" data-sc-cue="0.62 1" data-i18n="t3.r"><b>monthly report</b> · generated · sent to three people</p>
+        <div class="centre centre--stack">
+          <p class="answer" data-sc-cue="0 1 0 0" data-i18n="t1.r"><b>price list</b> · v12 · everyone sees the same one</p>
+          <p class="answer" data-sc-cue="0.30 1 0.12 0" data-i18n="t2.r"><b>order 1042</b> · confirmed · in the record</p>
+          <p class="answer" data-sc-cue="0.58 1 0.12 0" data-i18n="t3.r"><b>monthly report</b> · generated · sent to three people</p>
         </div>
       </div>
     </div>
@@ -516,11 +524,11 @@
           </ol>
           <p class="offer" data-i18n="offer">Workflows, automations and AI systems that run the operation. A web or mobile app when the system needs a screen.</p>
         </div>
-        <p class="sc-display peak__line" data-sc-cue="0.80 1 0.2 0.06" data-sc-kinetic="words" data-i18n="peak.r">One pipeline. It runs on its own.</p>
+        <p class="sc-display peak__line" data-sc-cue="0.80 1 0.2 0" data-sc-kinetic="words" data-i18n="peak.r">One pipeline. It runs on its own.</p>
       </div>
       <div class="half half--chaos">
         <div class="centre">
-          <p class="peak__quiet" data-sc-cue="0.82 1 0.2 0.06" data-i18n="peak.l">Nothing left to hold together.</p>
+          <p class="peak__quiet" data-sc-cue="0.82 1 0.2 0" data-i18n="peak.l">Nothing left to hold together.</p>
         </div>
       </div>
     </div>

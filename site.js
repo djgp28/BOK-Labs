@@ -119,7 +119,12 @@
 
   /* ----------------------------------------------------------- the engine */
   var coarse = matchMedia('(hover: none) and (pointer: coarse)').matches;
-  if (coarse) document.body.setAttribute('data-sc-lerp', '0.6');   // keep the clip under the thumb
+  if (coarse) {
+    document.body.setAttribute("data-sc-lerp", "0.6");   // keep the clip under the thumb
+    /* a phone viewport is short: more scroll travel per text state so nothing is gone before it is read */
+    var spans = { a1: "2.3", a2: "3", a4: "3.8", contact: "1.8" };
+    Object.keys(spans).forEach(function (id) { var el = document.getElementById(id); if (el) el.setAttribute("data-sc-span", spans[id]); });
+  }
   ScrollCraft.mount(document.body);
   var reduce = ScrollCraft.reduce;
 
