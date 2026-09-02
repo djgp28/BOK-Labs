@@ -355,6 +355,12 @@
   .err { display: none; font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: #E5484D; }
   .is-err .err { display: block; }
 
+  /* once a text has appeared it stays, whichever way the reader scrolls, until the page is reloaded.
+     site.js adds .is-latched the first time an element reaches full opacity; !important beats the
+     engine's per-frame inline writes without touching the engine. */
+  .is-latched, .is-latched .sc-split__i { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
+  .node.is-latched, .offer.is-latched { opacity: 1 !important; }
+
   /* =========================================================== reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .chip { --k: clamp(0, calc((var(--sc-p, 0) - 0.5) * 1000), 1); transition: none; }

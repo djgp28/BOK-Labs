@@ -187,12 +187,29 @@
     }
     if (hide !== hidden) { hidden = hide; divider.classList.toggle('is-hidden', hide); }
   }
+  /* the latch: a text that has been seen is never hidden again. Cues are read through the engine's inline
+     opacity (kinetic ones through their line units); the peak's CSS-driven nodes and caption through --sc-p. */
+  var cueEls = Array.prototype.slice.call(document.querySelectorAll("[data-sc-cue]"));
+  var nodeEls = Array.prototype.slice.call(document.querySelectorAll(".node"));
+  var offerEl = document.querySelector(".offer");
+  function shown(el) {
+    var units = el.querySelectorAll(".sc-split__i");
+    if (units.length) { for (var i = 0; i < units.length; i++) if (parseFloat(units[i].style.opacity) < 0.99) return false; return true; }
+    return parseFloat(el.style.opacity) >= 0.99;
+  }
+  function latch() {
+    for (var i = cueEls.length - 1; i >= 0; i--) { var el = cueEls[i]; if (shown(el)) { el.classList.add("is-latched"); cueEls.splice(i, 1); } }
+    var p4 = p(a4);
+    for (var j = nodeEls.length - 1; j >= 0; j--) { var n = parseFloat(nodeEls[j].style.getPropertyValue("--n")); if (p4 >= n + 0.06) { nodeEls[j].classList.add("is-latched"); nodeEls.splice(j, 1); } }
+    if (offerEl && p4 >= 0.8) { offerEl.classList.add("is-latched"); offerEl = null; }
+  }
+
   var queued = false;
-  function ask() { if (queued) return; queued = true; requestAnimationFrame(function () { queued = false; frame(); }); }
+  function ask() { if (queued) return; queued = true; requestAnimationFrame(function () { queued = false; frame(); latch(); }); }
   addEventListener('scroll', ask, { passive: true });
   addEventListener('resize', ask);
   /* the engine writes --sc-p in its own rAF after ours; run once more next frame so the first paint is right */
-  frame(); requestAnimationFrame(frame); setTimeout(frame, 120); setTimeout(frame, 600);
+  frame(); requestAnimationFrame(function () { frame(); latch(); }); setTimeout(function () { frame(); latch(); }, 120); setTimeout(function () { frame(); latch(); }, 600);
 
   /* a pinned act holds one viewport position for its whole span, so the browser cannot scroll a
      focused control into an open cue by itself (verify.md). Park the hero where its copy is lit. */
