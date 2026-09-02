@@ -29,7 +29,7 @@
 <link rel="preload" href="assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/jetbrains-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/01-chaos-poster.jpg" as="image" media="(min-width: 861px)">
-<link rel="stylesheet" href="engine/scrollcraft.css?v=20260902k">
+<link rel="stylesheet" href="engine/scrollcraft.css?v=20260902m">
 <style>
   @font-face {
     font-family: "Space Grotesk";
@@ -213,7 +213,7 @@
   .notif p { margin-top: 2px; font-size: var(--sc-t-sm); line-height: 1.45; color: var(--sc-ink-soft); text-wrap: pretty; }
 
   /* ========================================================== 2 · tension */
-  .tension { position: relative; padding: clamp(2.5rem, 8vh, 5rem) 0 clamp(3rem, 10vh, 6rem); }
+  .tension { position: relative; min-height: 92vh; padding: clamp(2.5rem, 8vh, 5rem) 0 clamp(3rem, 10vh, 6rem); }
   .cols--tension { grid-template-columns: 60% 40%; align-items: center; }
   .tension__l { padding: 0 var(--sc-gutter); display: grid; gap: clamp(1.1rem, 3.2vh, 2rem); }
   .tension__r { padding: 0 var(--sc-gutter); display: grid; gap: clamp(.75rem, 2vh, 1.1rem); justify-items: start; }
@@ -519,7 +519,7 @@
           <source media="(max-width: 860px)" srcset="assets/01-chaos-poster-m.jpg">
           <img class="sc-stage__poster" src="assets/01-chaos-poster.jpg" alt="">
         </picture>
-        <video data-sc-scrub data-sc-src="assets/01-chaos.mp4?v=20260902k" data-sc-src-mobile="assets/01-chaos-m.mp4?v=20260902k" muted playsinline></video>
+        <video data-sc-scrub data-sc-src="assets/01-chaos.mp4?v=20260902m" data-sc-src-mobile="assets/01-chaos-m.mp4?v=20260902m" muted playsinline></video>
         <div class="hero-scrim" aria-hidden="true"></div>
         <div class="copy copy--hero" data-sc-cue="0 1 0 0">
           <h1 class="sc-display hero__h" data-i18n="hero.l">Your operation runs on WhatsApp, spreadsheets and memory.</h1>
@@ -542,22 +542,22 @@
     <div class="g g--system"></div>
     <div class="cols cols--tension">
       <div class="tension__l">
-        <p class="cost" data-sc-cue="0.12 1 0.12 0" data-i18n="t1.l">The price is in someone's head.</p>
-        <p class="cost" data-sc-cue="0.2 1 0.12 0" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
-        <p class="cost" data-sc-cue="0.28 1 0.12 0" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
+        <p class="cost" data-sc-cue="0.16 1 0.09 0" data-i18n="t1.l">The price is in someone's head.</p>
+        <p class="cost" data-sc-cue="0.32 1 0.09 0" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
+        <p class="cost" data-sc-cue="0.48 1 0.09 0" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
       </div>
       <div class="tension__r">
-        <div class="notif" role="status" data-sc-cue="0.16 1 0.12 0">
+        <div class="notif" role="status" data-sc-cue="0.24 1 0.09 0">
           <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
           <b data-i18n="t1.t">Price list updated</b>
           <p data-i18n="t1.b">v12 is live. Everyone sees the same one.</p>
         </div>
-        <div class="notif" role="status" data-sc-cue="0.24 1 0.12 0">
+        <div class="notif" role="status" data-sc-cue="0.40 1 0.09 0">
           <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
           <b data-i18n="t2.t">Order 1042 confirmed</b>
           <p data-i18n="t2.b">From WhatsApp. Saved to the record, invoice sent.</p>
         </div>
-        <div class="notif" role="status" data-sc-cue="0.32 1 0.12 0">
+        <div class="notif" role="status" data-sc-cue="0.56 1 0.09 0">
           <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
           <b data-i18n="t3.t">Monthly report sent</b>
           <p data-i18n="t3.b">Generated at 07:00, delivered to three people.</p>
@@ -700,7 +700,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://bok-labs.com/#bok-labs","name":"BOK Labs","url":"https://bok-labs.com/","email":"info@bok-labs.com","image":"https://bok-labs.com/og-image.png","logo":"https://bok-labs.com/apple-touch-icon.png","slogan":"Making small businesses feel large.","description":"BOK Labs builds the workflows, automations and AI systems that run small business operations. Big-company tools in everyone's hands, from Maracaibo, Venezuela.","address":{"@type":"PostalAddress","addressLocality":"Maracaibo","addressRegion":"Zulia","addressCountry":"VE"},"geo":{"@type":"GeoCoordinates","latitude":10.6427,"longitude":-71.6125},"areaServed":[{"@type":"City","name":"Maracaibo"},{"@type":"State","name":"Zulia"},{"@type":"Country","name":"Venezuela"},{"@type":"City","name":"Barcelona"}],"knowsLanguage":["es","en"],"serviceType":["Business process automation","Workflow automation","AI systems for small business","Custom business software"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Workflow and process automation for small businesses","areaServed":"Maracaibo, Venezuela"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"AI-powered custom systems for business operations","areaServed":"Venezuela"}}]}
 </script>
-<script src="engine/scrollcraft.js?v=20260902k"></script>
-<script src="site.js?v=20260902k"></script>
+<script src="engine/scrollcraft.js?v=20260902m"></script>
+<script src="site.js?v=20260902m"></script>
 </body>
 </html>
