@@ -100,6 +100,10 @@
   }
   .tools__link:hover { color: var(--sc-ink); border-color: var(--sc-accent); }
 
+  /* a soft fade at the top edge so the wordmark and tools stay legible over anything sliding under them (not a bar) */
+  .chrome-fade { position: fixed; inset: 0 0 auto 0; height: 84px; z-index: 64; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(10,10,10,.88) 0%, rgba(10,10,10,.55) 45%, transparent 100%); }
+
   /* the divider is the chrome: hairline + the two labels + the page progress */
   .divider {
     position: fixed; top: 0; left: 0; width: 1px; height: 100svh; z-index: 65;
@@ -136,6 +140,9 @@
   .half--system { left: 0; width: 100%; transform: translateX(calc(var(--split) * 100vw)); will-change: transform; }
   .centre { position: absolute; inset: 0; display: grid; align-content: center; padding: 0 var(--sc-gutter); }
   .centre > * { grid-area: 1 / 1; }
+  /* lines that accumulate instead of replacing each other: the reader can scroll back and still find them */
+  .centre--stack { grid-auto-flow: row; gap: clamp(1.1rem, 3.2vh, 2rem); }
+  .centre--stack > * { grid-area: auto; }
 
   /* ============================================================= 1 · hero */
   /* a band under the copy only: the papers on the desk are the brightest thing in the frame */
@@ -169,11 +176,24 @@
 
   /* ========================================================== 2 · tension */
   .cost { font-family: var(--sc-font-display); font-weight: 500; font-size: var(--sc-t-xl); line-height: 1.22; letter-spacing: -0.02em; max-width: 20ch; }
-  .answer {
-    font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); line-height: 1.6; color: var(--green-soft);
-    max-width: min(30rem, calc((1 - var(--split)) * 100vw - 2 * var(--sc-gutter)));
+  /* the system answers back the way an agent does: a notification on the phone */
+  .centre--notifs { gap: clamp(.75rem, 2vh, 1.1rem); }
+  .notif {
+    width: min(24rem, calc((1 - var(--split)) * 100vw - 2 * var(--sc-gutter)));
+    background: rgba(23,23,23,.94); border: 1px solid var(--line-strong); border-radius: 18px;
+    padding: 11px 14px 13px; box-shadow: var(--sc-edge), var(--sc-e2);
   }
-  .answer b { font-weight: 500; color: var(--sc-ink); }
+  .notif__hd {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 7px;
+    font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); letter-spacing: .06em; text-transform: uppercase; color: var(--sc-ink-soft);
+  }
+  .notif__app {
+    width: 18px; height: 18px; border-radius: 5px; background: var(--green); color: var(--sc-ink);
+    font: 700 11px/18px var(--sc-font-display); font-style: normal; text-align: center; letter-spacing: 0;
+  }
+  .notif__hd time { margin-left: auto; text-transform: none; letter-spacing: 0; color: var(--muted); }
+  .notif b { display: block; font-weight: 600; font-size: var(--sc-t-base); line-height: 1.3; color: var(--sc-ink); }
+  .notif p { margin-top: 2px; font-size: var(--sc-t-sm); line-height: 1.45; color: var(--sc-ink-soft); text-wrap: pretty; }
 
   /* ============================================================= 3 · turn */
   .turn { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(4rem, 14vh, 9rem); min-height: 52vh; }
@@ -353,9 +373,11 @@
     .cta { margin-top: var(--sc-4); padding: 12px 16px; }
     .status { top: 40px; }
     .cost { font-size: var(--sc-t-lg); }
-    .answer { max-width: none; }
+    .notif { width: 100%; padding: 9px 12px 10px; }
+    .notif__hd { margin-bottom: 4px; }
+    .notif p { font-size: var(--sc-t-xs); }
     .centre { padding: 0 var(--sc-gutter); }
-    .stage--tension .half--system .centre { align-content: start; padding-top: 12svh; }
+    .stage--tension .half--system .centre { align-content: start; padding-top: 3.5svh; gap: 8px; }
     .turn { min-height: 0; padding: 2rem 0 3rem; }
     .cols { grid-template-columns: 1fr; gap: 1.5rem; }
     .turn .g { display: none; }
@@ -402,6 +424,7 @@
 <noscript><style>[data-sc-cue], [data-sc-in], [data-sc-stagger] > * { opacity: 1 !important; transform: none !important; }</style></noscript>
 <div class="sc-grain" aria-hidden="true"></div>
 
+<div class="chrome-fade" aria-hidden="true"></div>
 <a class="mark" href="#top" aria-label="BOK Labs">BOK <small><b>[</b>labs<b>]</b></small></a>
 <nav class="tools" aria-label="Language and contact">
   <div class="lang" role="group" aria-label="Language">
@@ -429,38 +452,50 @@
         </picture>
         <video data-sc-scrub data-sc-src="assets/01-chaos.mp4?v=20260902" data-sc-src-mobile="assets/01-chaos-m.mp4?v=20260902" muted playsinline preload="none"></video>
         <div class="hero-scrim" aria-hidden="true"></div>
-        <div class="copy copy--hero" data-sc-cue="0 0.92 0 0.08">
+        <div class="copy copy--hero" data-sc-cue="0 1 0 0">
           <h1 class="sc-display hero__h" data-i18n="hero.l">Your operation runs on WhatsApp, spreadsheets and memory.</h1>
         </div>
       </div>
       <div class="half half--system">
         <p class="status" data-i18n="hero.status">running · nothing waiting on you</p>
         <div class="copy copy--hero-sys">
-          <h2 class="sc-display hero__sys" data-sc-cue="0 0.92 0 0.08" data-sc-kinetic="lines" data-i18n="hero.r">It could run on a system.</h2>
-          <p class="hero__sub" data-sc-cue="0 0.92 0 0.08" data-i18n="hero.sub">BOK Labs builds the workflows, automations and AI-powered systems that run small business operations.</p>
-          <a class="cta" href="#contact" data-sc-cue="0 0.92 0 0.08" data-sc-rise="0" data-i18n="cta">Tell us what's slowing you down</a>
+          <h2 class="sc-display hero__sys" data-sc-cue="0 1 0 0" data-sc-kinetic="lines" data-i18n="hero.r">It could run on a system.</h2>
+          <p class="hero__sub" data-sc-cue="0 1 0 0" data-i18n="hero.sub">BOK Labs builds the workflows, automations and AI-powered systems that run small business operations.</p>
+          <a class="cta" href="#contact" data-sc-cue="0 1 0 0" data-sc-rise="0" data-i18n="cta">Tell us what's slowing you down</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 2 · TENSION · pin: three costs, each answered; the divider leans toward the mess -->
-  <section id="a2" data-sc-act="pin" data-sc-span="1.8">
+  <section id="a2" data-sc-act="pin" data-sc-span="2.4">
     <div data-sc-stage class="stage stage--tension two" data-sc-verify-state="split:0.50">
       <div class="g g--chaos"></div>
       <div class="g g--system"></div>
       <div class="half half--chaos">
-        <div class="centre">
-          <p class="cost" data-sc-cue="0 0.36 0" data-i18n="t1.l">The price is in someone's head.</p>
-          <p class="cost" data-sc-cue="0.30 0.68" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
-          <p class="cost" data-sc-cue="0.62 1" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
+        <div class="centre centre--stack">
+          <p class="cost" data-sc-cue="0 1 0 0" data-i18n="t1.l">The price is in someone's head.</p>
+          <p class="cost" data-sc-cue="0.30 1 0.12 0" data-i18n="t2.l">The order is in a chat from Tuesday.</p>
+          <p class="cost" data-sc-cue="0.58 1 0.12 0" data-i18n="t3.l">The report is a spreadsheet only one person can open.</p>
         </div>
       </div>
       <div class="half half--system">
-        <div class="centre">
-          <p class="answer" data-sc-cue="0 0.36 0" data-i18n="t1.r"><b>price list</b> · v12 · everyone sees the same one</p>
-          <p class="answer" data-sc-cue="0.30 0.68" data-i18n="t2.r"><b>order 1042</b> · confirmed · in the record</p>
-          <p class="answer" data-sc-cue="0.62 1" data-i18n="t3.r"><b>monthly report</b> · generated · sent to three people</p>
+        <div class="centre centre--stack centre--notifs">
+          <div class="notif" data-sc-cue="0 1 0 0" role="status">
+            <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
+            <b data-i18n="t1.t">Price list updated</b>
+            <p data-i18n="t1.b">v12 is live. Everyone sees the same one.</p>
+          </div>
+          <div class="notif" data-sc-cue="0.30 1 0.12 0" role="status">
+            <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
+            <b data-i18n="t2.t">Order 1042 confirmed</b>
+            <p data-i18n="t2.b">From WhatsApp. Saved to the record, invoice sent.</p>
+          </div>
+          <div class="notif" data-sc-cue="0.58 1 0.12 0" role="status">
+            <div class="notif__hd"><i class="notif__app" aria-hidden="true">B</i><span data-i18n="notif.app">BOK Labs</span><time data-i18n="notif.now">now</time></div>
+            <b data-i18n="t3.t">Monthly report sent</b>
+            <p data-i18n="t3.b">Generated at 07:00, delivered to three people.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -516,11 +551,11 @@
           </ol>
           <p class="offer" data-i18n="offer">Workflows, automations and AI systems that run the operation. A web or mobile app when the system needs a screen.</p>
         </div>
-        <p class="sc-display peak__line" data-sc-cue="0.80 1 0.2 0.06" data-sc-kinetic="words" data-i18n="peak.r">One pipeline. It runs on its own.</p>
+        <p class="sc-display peak__line" data-sc-cue="0.80 1 0.2 0" data-sc-kinetic="words" data-i18n="peak.r">One pipeline. It runs on its own.</p>
       </div>
       <div class="half half--chaos">
         <div class="centre">
-          <p class="peak__quiet" data-sc-cue="0.82 1 0.2 0.06" data-i18n="peak.l">Nothing left to hold together.</p>
+          <p class="peak__quiet" data-sc-cue="0.82 1 0.2 0" data-i18n="peak.l">Nothing left to hold together.</p>
         </div>
       </div>
     </div>
