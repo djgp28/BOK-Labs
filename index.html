@@ -227,24 +227,26 @@
     --e: calc(var(--k) * (2 - var(--k)));
     --tx: calc(var(--x0) * (1 - var(--e)) + (var(--final) * 100vw + var(--x1)) * var(--e));
     --ty: calc(var(--y0) * (1 - var(--e)) + var(--y1) * var(--e));
-    transform: translate(var(--tx), var(--ty)) rotate(calc(var(--r0) * (1 - var(--e)))) scale(calc(1 - 0.5 * var(--e)));
+    transform: translate(var(--tx), var(--ty)) rotate(calc(var(--r0) * (1 - var(--e)))) scale(calc(1 - var(--shrink) * var(--e)));
     background: var(--elev); border: 1px solid var(--line-strong); border-radius: var(--sc-r-md);
     box-shadow: var(--sc-edge), var(--sc-e2); padding: 12px 14px;
-    font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); line-height: 1.5; color: var(--sc-ink-soft);
+    /* the type grows as the chip shrinks, so a filed chip is still readable */
+    --fs: var(--sc-t-xs); --grow: 1.25; --shrink: 0.28;
+    font-family: var(--sc-font-mono); font-size: calc(var(--fs) * (1 + (var(--grow) - 1) * var(--e))); line-height: 1.45; color: var(--sc-ink-soft);
     will-change: transform;
   }
   /* where each artifact sits (chaos side) and where it files (beside its node) */
   .chip:nth-child(1) { --x0: 3vw;  --y0: 10vh; --r0: -6deg;  --s: 0.24; --x1: 36vw;   --y1: 10vh; }
-  .chip:nth-child(2) { --x0: 20vw; --y0: 30vh; --r0: 9deg;   --s: 0.30; --x1: 44.5vw; --y1: 10vh;   --w: 11vw; }
-  .chip:nth-child(3) { --x0: 8vw;  --y0: 56vh; --r0: -11deg; --s: 0.36; --x1: 51.5vw; --y1: 10vh; }
-  .chip:nth-child(4) { --x0: 22vw; --y0: 6vh;  --r0: 4deg;   --s: 0.42; --x1: 36vw;   --y1: 20.5vh; }
-  .chip:nth-child(5) { --x0: 4vw;  --y0: 36vh; --r0: -13deg; --s: 0.48; --x1: 44.5vw; --y1: 20.5vh; --w: 11vw; }
-  .chip:nth-child(6) { --x0: 24vw; --y0: 66vh; --r0: 6deg;   --s: 0.54; --x1: 36vw;   --y1: 31vh; }
-  .chip:nth-child(7) { --x0: 12vw; --y0: 78vh; --r0: -4deg;  --s: 0.60; --x1: 36vw;   --y1: 41.5vh; --w: 12vw; }
+  .chip:nth-child(2) { --x0: 20vw; --y0: 30vh; --r0: 9deg;   --s: 0.30; --x1: 47.5vw; --y1: 10vh;   --w: 11vw; }
+  .chip:nth-child(3) { --x0: 8vw;  --y0: 56vh; --r0: -11deg; --s: 0.36; --x1: 47.5vw; --y1: 17.5vh; --w: 8vw; }
+  .chip:nth-child(4) { --x0: 22vw; --y0: 6vh;  --r0: 4deg;   --s: 0.42; --x1: 36vw;   --y1: 26.5vh; }
+  .chip:nth-child(5) { --x0: 4vw;  --y0: 36vh; --r0: -13deg; --s: 0.48; --x1: 47.5vw; --y1: 26.5vh; --w: 11vw; }
+  .chip:nth-child(6) { --x0: 24vw; --y0: 66vh; --r0: 6deg;   --s: 0.54; --x1: 36vw;   --y1: 40vh; }
+  .chip:nth-child(7) { --x0: 12vw; --y0: 78vh; --r0: -4deg;  --s: 0.60; --x1: 36vw;   --y1: 51.5vh; --w: 12vw; }
   .chip b { display: block; font-weight: 500; color: var(--sc-ink); }
   .chip--wa { background: var(--green-dim); border-color: var(--green); border-radius: 14px 14px 14px 4px; }
-  .chip--wa b { font-family: var(--sc-font-text); font-size: var(--sc-t-sm); font-weight: 500; }
-  .chip--sticky { background: var(--paper); border-color: transparent; color: var(--paper-ink); border-radius: 2px; font-family: var(--sc-font-text); font-size: var(--sc-t-sm); font-weight: 500; }
+  .chip--wa b { font-family: var(--sc-font-text); font-size: 1.15em; font-weight: 500; }
+  .chip--sticky { --fs: var(--sc-t-sm); background: var(--paper); border-color: transparent; color: var(--paper-ink); border-radius: 2px; font-family: var(--sc-font-text); font-weight: 500; }
   .chip--sticky::before { content: ""; position: absolute; left: 30%; top: -7px; width: 40%; height: 12px; background: rgba(255,255,255,.35); transform: rotate(-2deg); }
   .chip--xlsx .cells { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 8px; }
   .chip--xlsx .cells i { height: 9px; background: rgba(244,244,245,.08); border-radius: 1px; }
@@ -257,7 +259,7 @@
   .chip--receipt i { display: block; height: 4px; margin: 6px 4px; background: repeating-linear-gradient(90deg, rgba(27,26,22,.35) 0 6px, transparent 6px 10px); }
   .chip--receipt b { color: var(--paper-ink); }
   .pipe { position: absolute; inset: 0; }
-  .spine { position: absolute; left: calc(8vw - 1px); top: 10vh; width: 2px; height: 60vh; overflow: visible; }
+  .spine { position: absolute; left: calc(8vw - 1px); top: 10vh; width: 2px; height: 65vh; overflow: visible; }
   .spine line { stroke: var(--line-strong); stroke-width: 2px; }
   .spine .draw {
     stroke: var(--sc-accent); stroke-dasharray: 1; stroke-dashoffset: calc(1 - clamp(0, calc((var(--sc-p, 0) - 0.40) / 0.36), 1));
@@ -271,10 +273,10 @@
     transition: opacity var(--sc-d-slow) var(--sc-ease-out);
   }
   .is-running .runner { opacity: 1; animation: run 2.8s linear infinite; }
-  @keyframes run { from { transform: translateY(10vh); } to { transform: translateY(70vh); } }
+  @keyframes run { from { transform: translateY(10vh); } to { transform: translateY(75vh); } }
   .nodes { list-style: none; margin: 0; padding: 0; }
   .node {
-    position: absolute; left: calc(8vw + 22px); top: calc(10vh + var(--row) * 10.5vh); width: 26vw; max-width: 26rem;
+    position: absolute; left: calc(8vw + 22px); top: calc(10vh + var(--r) * 1vh); width: 26vw; max-width: 26rem;
     /* each step appears on its own, as its first artifact lands */
     --on: clamp(0, calc((var(--sc-p, 0) - var(--n)) / 0.06), 1);
     opacity: var(--on);
@@ -289,10 +291,10 @@
   .node .fired { display: none; margin-top: 6px; font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: var(--green-soft); }
   .is-running .node .fired { display: block; }
   .offer {
-    position: absolute; left: calc(8vw + 22px); top: 66vh; max-width: 36ch; font-size: var(--sc-t-sm); color: var(--sc-ink-soft);
+    position: absolute; left: calc(8vw + 22px); top: 76vh; max-width: 36ch; font-size: var(--sc-t-sm); color: var(--sc-ink-soft);
     opacity: clamp(0, calc((var(--sc-p, 0) - 0.72) / 0.08), 1);
   }
-  .peak__line { position: absolute; left: calc(8vw + 22px); top: 78vh; max-width: 18ch; font-size: var(--sc-t-2xl); }
+  .peak__line { position: absolute; left: calc(8vw + 22px); top: 85vh; max-width: 18ch; font-size: var(--sc-t-2xl); }
   .peak__quiet { font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); color: var(--sc-ink); max-width: 26ch; }
 
   /* ============================================================ 5 · proof */
@@ -412,23 +414,22 @@
     .turn .g { display: none; }
     .turn__line { font-size: var(--sc-t-xl); }
     /* peak on a phone: five chips, no descriptions, the closing line in the cleared top half */
-    .chip { --w: 44vw; }
-    .chip:nth-child(2), .chip:nth-child(7) { display: none; }
-    .chip:nth-child(1) { --x0: 4vw;  --y0: 4svh;  --r0: -5deg;  --x1: 62vw; --y1: calc(40svh + 6svh); }
-    .chip:nth-child(3) { --x0: 58vw; --y0: 8svh;  --r0: 9deg;   --x1: 66vw; --y1: calc(40svh + 9svh); --w: 26vw; }
-    .chip:nth-child(4) { --x0: 40vw; --y0: 18svh; --r0: 4deg;   --x1: 62vw; --y1: calc(40svh + 14svh); }
-    .chip:nth-child(5) { --x0: 6vw;  --y0: 24svh; --r0: -12deg; --x1: 66vw; --y1: calc(40svh + 17svh); --w: 36vw; }
-    .chip:nth-child(6) { --x0: 30vw; --y0: 31svh; --r0: 6deg;   --x1: 62vw; --y1: calc(40svh + 22svh); }
+    .chip { --w: 44vw; --grow: 1.4; --shrink: 0.38; }
+    .chip:nth-child(2), .chip:nth-child(3), .chip:nth-child(7) { display: none; }
+    .chip:nth-child(1) { --x0: 4vw;  --y0: 4svh;  --r0: -5deg;  --x1: 60vw; --y1: calc(40svh + 3svh); }
+    .chip:nth-child(4) { --x0: 40vw; --y0: 18svh; --r0: 4deg;   --x1: 60vw; --y1: calc(40svh + 15svh); }
+    .chip:nth-child(5) { --x0: 6vw;  --y0: 26svh; --r0: -12deg; --x1: 60vw; --y1: calc(40svh + 26.5svh); --w: 36vw; }
+    .chip:nth-child(6) { --x0: 30vw; --y0: 32svh; --r0: 6deg;   --x1: 60vw; --y1: calc(40svh + 36.5svh); }
     .stage--peak .chip { --final: 0; }
     .stage--peak .half--chaos { height: 40%; }
-    .spine { left: calc(var(--sc-gutter) + 5px); top: 3svh; height: 36svh; }
+    .spine { left: calc(var(--sc-gutter) + 5px); top: 3svh; height: 44svh; }
     .runner { left: calc(var(--sc-gutter) + 1px); }
-    @keyframes run { from { transform: translateY(3svh); } to { transform: translateY(39svh); } }
-    .node { left: calc(var(--sc-gutter) + 28px); top: calc(2svh + var(--row) * 8svh); width: 46vw; max-width: none; }
+    @keyframes run { from { transform: translateY(3svh); } to { transform: translateY(47svh); } }
+    .node { left: calc(var(--sc-gutter) + 28px); top: calc(2svh + var(--rp) * 1svh); width: 46vw; max-width: none; }
     .node b { font-size: var(--sc-t-base); }
     .node span { display: none; }
     .node .fired { margin-top: 2px; }
-    .offer { left: var(--sc-gutter); right: var(--sc-gutter); top: 46svh; max-width: none; font-size: var(--sc-t-xs); }
+    .offer { left: var(--sc-gutter); right: var(--sc-gutter); top: 54svh; max-width: none; font-size: var(--sc-t-xs); }
     .peak__line { left: var(--sc-gutter); top: -30svh; font-size: var(--sc-t-xl); max-width: 14ch; }
     .peak__quiet { display: none; }
     .proof { padding: 2.5rem 0 3rem; }
@@ -572,11 +573,11 @@
           </svg>
           <i class="runner" aria-hidden="true"></i>
           <ol class="nodes">
-            <li class="node" style="--row:0; --n:0.42"><b data-i18n="n1">Intake</b><span data-i18n="n1.d">Chat, email, photo, voice: everything comes in through one door.</span></li>
-            <li class="node" style="--row:1; --n:0.60"><b data-i18n="n2">Rules</b><span data-i18n="n2.d">Prices, stock, deadlines: written once, applied every time.</span></li>
-            <li class="node" style="--row:2; --n:0.72"><b data-i18n="n3">AI where judgment is needed</b><span data-i18n="n3.d">Reads the message, drafts the reply, flags what a person should decide.</span></li>
-            <li class="node" style="--row:3; --n:0.78"><b data-i18n="n4">One record</b><span data-i18n="n4.d">Every order, invoice and customer in one place, up to date.</span></li>
-            <li class="node" style="--row:4; --n:0.86"><b data-i18n="n5">Reports and alerts</b><span data-i18n="n5.d">Sent on time, to the right people, without anyone asking.</span><em class="fired" data-i18n="n5.s">sent · monthly report · 3 people</em></li>
+            <li class="node" style="--r:0; --rp:0; --n:0.42"><b data-i18n="n1">Intake</b><span data-i18n="n1.d">Chat, email, photo, voice: everything comes in through one door.</span></li>
+            <li class="node" style="--r:16.5; --rp:11; --n:0.60"><b data-i18n="n2">Rules</b><span data-i18n="n2.d">Prices, stock, deadlines: written once, applied every time.</span></li>
+            <li class="node" style="--r:30; --rp:22; --n:0.72"><b data-i18n="n3">AI where judgment is needed</b><span data-i18n="n3.d">Reads the message, drafts the reply, flags what a person should decide.</span></li>
+            <li class="node" style="--r:41.5; --rp:33; --n:0.78"><b data-i18n="n4">One record</b><span data-i18n="n4.d">Every order, invoice and customer in one place, up to date.</span></li>
+            <li class="node" style="--r:53; --rp:44; --n:0.86"><b data-i18n="n5">Reports and alerts</b><span data-i18n="n5.d">Sent on time, to the right people, without anyone asking.</span><em class="fired" data-i18n="n5.s">sent · monthly report · 3 people</em></li>
           </ol>
           <p class="offer" data-i18n="offer">Workflows, automations and AI systems that run the operation. A web or mobile app when the system needs a screen.</p>
         </div>
